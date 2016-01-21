@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>{{title}}</title>
+  {{#each styles as |style|}}
+  <link rel="stylesheet" href="{{style}}"/>
+  {{/each}}
+</head>
+<body>
+
+  {{{body}}}
+
+  {{#each scripts as |script|}}
+    <script src="{{script}}"></script>
+  {{/each}}
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ['\\(','\\)'] ],
+          displayMath: [ ['$$', '$$'], ["\[", "\]"] ],
+          processEscapes: true
+      }
+    });
+  </script>
+
+</body>
+</html>

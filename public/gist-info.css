@@ -1,0 +1,16 @@
+#gist-info {
+  position: fixed;
+  right: 0;
+  top: 0;
+  background-color: #eee;
+  padding: 0.5em;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+#gist-info a {
+  opacity: 0.5;
+}
+
+#gist-info a:hover {
+  opacity: 1;
+}

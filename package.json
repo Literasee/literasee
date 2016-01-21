@@ -1,0 +1,41 @@
+{
+  "name": "literasee",
+  "version": "1.0.0",
+  "description": "Literasee platform viewer and editor",
+  "main": "index.js",
+  "engines": {
+    "node": "5.2.0",
+    "npm": "3.3.12"
+  },
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Literasee/literasee.git"
+  },
+  "author": "Ben Clinkinbeard <ben.clinkinbeard@gmail.com> (http://benclinkinbeard.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Literasee/literasee/issues"
+  },
+  "homepage": "https://github.com/Literasee/literasee#readme",
+  "dependencies": {
+    "async": "^1.5.2",
+    "consolidate": "^0.13.1",
+    "dotenv": "^2.0.0",
+    "express": "^4.13.3",
+    "handlebars": "^4.0.5",
+    "image-size": "^0.4.0",
+    "lodash": "^4.0.0",
+    "marked": "^0.3.5",
+    "mongoose": "^4.3.6",
+    "readdirfiles": "^1.2.0",
+    "superagent": "^1.7.1",
+    "tar": "^2.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.8.1"
+  }
+}
