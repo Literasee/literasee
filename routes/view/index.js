@@ -1,10 +1,11 @@
+const fs = require('fs');
 const path = require('path');
 const express = require('express');
 
 const router = express.Router();
 
 router.get('/', function (req, res) {
-  res.send('Add a Gist or Owner id to the URL bar!');
+  res.send('Add a Project or Owner id to the URL bar!');
 });
 
 router.get('/:owner', [
@@ -12,7 +13,19 @@ router.get('/:owner', [
   require('./redirect-to-project')
 ]);
 
-router.get('/:owner/:project', [
+router.use('/:owner/:project/presentation', express.static('public/reveal'));
+
+// pull presentation.md from project dir
+router.get('/:owner/:project/presentation/presentation.md', function (req, res) {
+  const mdPath = path.join(req.app.locals.cacheDir, req.params.owner, req.params.project, 'presentation.md');
+  fs.readFile(mdPath, {encoding: 'utf8'}, (err, data) => {
+    if (err) throw err
+
+    res.send(data);
+  });
+});
+
+router.get(['/:owner/:project', '/:owner/:project/presentation'], [
   require('./cache-project'),
   require('./render-project')
 ]);

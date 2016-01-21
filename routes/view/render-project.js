@@ -89,10 +89,10 @@ module.exports = function (req, res, next) {
     cb();
   };
 
-  const serveSlides = (cb) => {
-    if (req.url.substr(-8) !== '/slides/') return cb();
+  const servePresentation = (cb) => {
+    if (req.url.substr(-14) !== '/presentation/') return cb();
 
-    html = req.app.locals.views['slides.html'];
+    html = req.app.locals.views['presentation.html'];
     if (parallaxBackground) {
       var dim = sizeOf(getGistFilePath(parallaxBackground));
       html = html.split("parallaxBackgroundImage: '").join("parallaxBackgroundImage: '" + parallaxBackground);
@@ -113,7 +113,7 @@ module.exports = function (req, res, next) {
   };
 
   const serveIndexMarkdown = (cb) => {
-    if (req.url.substr(-8) === '/slides/') return cb();
+    if (req.url.substr(-14) === '/presentation/') return cb();
     if (req.url.substr(-7) === '/tufte/') return cb();
     if (!_.includes(gistFilenames, 'index.md')) {
       noIndexFile = true;
@@ -128,9 +128,9 @@ module.exports = function (req, res, next) {
     });
   };
 
-  const checkForSlidesRedirect = (cb) => {
-    if (noIndexFile && _.includes(gistFilenames, 'slides.md')) {
-      res.redirect(req.url + 'slides/');
+  const checkForPresentationRedirect = (cb) => {
+    if (noIndexFile && _.includes(gistFilenames, 'presentation.md')) {
+      res.redirect(req.originalUrl + 'presentation/');
       return cb(true);
     }
     cb();
@@ -138,7 +138,7 @@ module.exports = function (req, res, next) {
 
   const checkForTufteRedirect = (cb) => {
     if (noIndexFile && _.includes(gistFilenames, 'tufte.md')) {
-      res.redirect(req.url + 'tufte/');
+      res.redirect(req.originalUrl + 'tufte/');
       return cb(true);
     }
     cb();
@@ -156,10 +156,10 @@ module.exports = function (req, res, next) {
     getGistDetails,
     getGistFiles,
     populateContext,
-    serveSlides,
+    servePresentation,
     serveTufte,
     serveIndexMarkdown,
-    checkForSlidesRedirect,
+    checkForPresentationRedirect,
     checkForTufteRedirect,
     informNoValidFiles
   ], (err, results) => {

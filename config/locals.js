@@ -8,7 +8,7 @@ module.exports = function (locals) {
   locals.validFiles = [
     'index.html',
     'index.md',
-    'slides.md',
+    'presentation.md',
     'tufte.md'
   ];
   locals.views = {};
