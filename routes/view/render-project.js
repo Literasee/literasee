@@ -101,11 +101,12 @@ module.exports = function (req, res, next) {
     fs.readdir(gistDir, (err, files) => {
       gistFilenames = files;
       files.sort();
-      console.log(gist);
+      console.log(gist.files);
 
       files.forEach(function (filename) {
         if (filename.substr(-3) === '.js') scripts.push(filename);
         if (filename.substr(-4) === '.css') styles.push(filename);
+        console.log(gist.files);
         if (filename.indexOf('parallax') === 0 && gist.files[filename]) parallaxBackground = filename;
       });
       cb(err, files);
