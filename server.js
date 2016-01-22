@@ -7,6 +7,8 @@ const engines = require('consolidate');
 
 const app = express();
 
+app.use(require('cookie-parser')());
+
 // define app settings
 app.locals = require('./config/locals')(app.locals);
 
@@ -20,6 +22,23 @@ app.use('/public', express.static('public'));
 const viewRouter = require('./routes/view');
 app.use(subdomain('view', viewRouter));
 app.use('/view', viewRouter);
+
+const editRouter = require('./routes/edit');
+app.use(subdomain('edit', editRouter));
+app.use('/edit', editRouter);
+
+// local dev only
+if (!process.env.PORT) {
+  var config = require('./webpack.config.dev');
+  var compiler = require('webpack')(config);
+
+  app.use(require('webpack-dev-middleware')(compiler, {
+    noInfo: true,
+    publicPath: config.output.publicPath
+  }));
+
+  app.use(require('webpack-hot-middleware')(compiler));
+}
 
 module.exports = function (local, port) {
   port = port || process.env.PORT || 3000;

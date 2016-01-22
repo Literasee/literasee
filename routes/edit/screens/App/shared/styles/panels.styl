@@ -1,0 +1,58 @@
+/*--------------------------------------------------------------------
+*
+* PANELS
+*
+--------------------------------------------------------------------*/
+
+//- Default panel styling
+
+.panel
+  padding: $spacing
+  background-size: contain
+  background-color: white
+  border: 1px solid $gray-light
+  border-radius: $border-radius-base
+  margin-bottom: $spacing
+
+//- Gist/Project panel  
+
+.panel-project
+  display: block
+  background-repeat: no-repeat
+  background-position: top center
+  transition: all .2s ease-in-out
+  min-height: 100px
+  
+  &:hover
+   transform: scale(1.1)
+   
+   .button-actions-container
+    visibility: visible
+    
+  .button-actions-container
+    visibility: hidden
+   
+   h4, p
+    color: $gray
+   
+  p
+    color: $gray-dark
+  
+  h4, p
+    text-shadow: 0 0 5px white
+
+//- Sectioned panel with header and body area
+  
+.panel-sectioned
+  margin: 0
+  padding: 0
+  
+  .panel-header
+    border-bottom: 1px solid $gray-light
+    
+  h3, h4, h5
+    margin: 0
+    
+  .panel-body
+  .panel-header
+    padding: $spacing

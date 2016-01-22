@@ -1,0 +1,51 @@
+/*--------------------------------------------------------------------
+*
+* BASE
+*
+--------------------------------------------------------------------*/
+
+*, *:after, *:before
+  box-sizing: border-box
+
+//- Sticky footer
+
+
+main,
+main.row
+  flex: 1
+
+//- Selection highlight
+
+::-moz-selection
+  background-color: $blue-light
+  color: $blue
+
+::selection
+  background-color: $blue-light
+  color: $blue
+
+//- Links
+
+a
+  color: $blue
+  text-decoration: none
+  cursor: pointer
+
+  &:focus
+    outline: none
+
+  &:hover
+    color: darken($blue, 20%)
+
+  &.btn
+    display: inline-block
+
+//- Clearfix
+.cf
+  &:before,
+  &:after
+    content: " "
+    display: table
+
+  &:after
+    clear: both

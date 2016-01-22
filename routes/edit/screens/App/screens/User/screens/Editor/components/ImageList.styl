@@ -1,0 +1,30 @@
+@import '~styles/variables'
+@import '~styles/lists'
+
+.rootContainer
+  display: flex
+  flex-direction: column
+  flex: 1
+  padding: 30px 10px 10px
+
+.dropZone
+  width: 220px
+  height: 70px
+  padding: 10px
+  margin-bottom: 20px
+  border: 2px dashed black
+  border-radius: $border-radius-base
+
+.listContainer
+  position: relative
+  flex: 1
+  overflow-x: hidden
+  overflow-y: auto
+
+.list
+  composes: list-unstyled
+  position: absolute
+
+  img
+    cursor: pointer
+    width: 220px

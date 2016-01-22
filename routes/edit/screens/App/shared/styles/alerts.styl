@@ -1,0 +1,60 @@
+/*--------------------------------------------------------------------
+*
+* ALERTS
+*
+--------------------------------------------------------------------*/
+
+//- Default alert styles
+
+.alert
+  padding: $spacing-sm $spacing
+  border-radius: $border-radius-base
+  
+  h1, h2, h3, h4, h5, p
+    margin: 0
+
+//- Full width alert
+//- pinned to other elements, no border radius 
+  
+.alert-full-width
+  border-radius: 0
+
+//- Alerts with icons
+  
+.alert-icon
+  position: relative
+  
+  &.icon-l-aligned
+    padding-left: $spacing-lg
+    
+    .octicon
+      left: $spacing
+      
+  &.icon-r-aligned
+    padding-right: $spacing-lg
+    
+    .octicon
+      right: $spacing
+  
+  .octicon
+    position: absolute
+    top: 50%
+    margin-top: -7px
+
+//- Warning alert
+
+.alert-warning
+  background-color: $orange-light
+  color: $orange-dark
+
+//- Error alert
+
+.alert-error
+  background-color: $red-light
+  color: $red-dark
+
+//- Info alert
+
+.alert-info
+  background-color: $blue-light
+  color: $blue-dark

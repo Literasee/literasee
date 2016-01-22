@@ -1,0 +1,176 @@
+/*--------------------------------------------------------------------
+*
+* EDITOR
+*
+--------------------------------------------------------------------*/
+
+.editor-screen
+  display: flex
+  flex-direction: column
+  width: 100%
+
+.editor-title
+  display: flex
+
+  .description
+    font-size: 1.3em
+    padding: 0.1em 0.5em
+
+  input
+    width: 30%
+    margin-right: 1em
+
+//- Main container for the editor
+
+.editor-container
+  min-height: 70vh
+  display: flex
+  border-radius: $border-radius-base
+  border: 1px solid $gray-light
+  background-color: white
+  flex-grow: 1
+
+//- Grid for editor columns
+
+.editor-files,
+.editor-edit,
+.editor-preview
+  flex-grow: 1
+  flex-basis: 0
+
+.editor-edit
+  flex: 40%
+  display: flex
+  flex-direction: column
+
+  #aceEditor
+    flex-grow: 1
+    width: 100%
+    height: 100%
+
+.editor-preview
+  flex: 60%
+  position: relative
+
+//- Dim link colors
+
+.editor-nav-horizontal,
+.editor-files
+  a
+    display: block
+
+.editor-nav-horizontal  .editor-file-open,
+.editor-files a
+  color: $gray-dark
+
+  &:hover
+    color: black
+
+//- Open file navigation
+
+.editor-nav-horizontal
+  border-bottom: 1px solid $gray-light
+
+  li
+    position: relative
+    margin-bottom: -1px
+    border-right: 1px solid $gray-light
+
+    &:not(:last-child)
+      padding: 0
+
+    .editor-file-open
+      margin-top: 1px
+
+  a
+    padding: $spacing-xs $spacing-sm
+    border: 1px solid white
+    max-width: 120px
+    color: $gray
+
+  .btn-group
+    padding: $spacing-xs $spacing-sm
+
+//- Editor preview pane
+
+.editor-header,
+.editor-preview-body
+  padding: $spacing-sm
+
+.editor-preview-body
+  position: absolute
+  top: 40px
+  bottom: 0
+  right: 0
+  left: 0
+
+iframe
+  border: none
+
+//- Border for editor file list and markdown editor
+
+.editor-files,
+.editor-edit
+  border-right: 1px solid $gray-light
+
+//- Editor file pane
+
+.editor-files
+  flex: 0 0 25%
+  max-width: 250px
+  display: flex
+  flex-direction: column
+
+  .editor-files-content
+    flex: 1
+    display: flex
+    flex-direction: column
+
+  .octicon-unfold,
+  .octicon-fold
+    transform: rotate(-90deg)
+
+  li
+    position: relative
+    padding: $spacing-xs $spacing-sm $spacing-xs $spacing
+
+    &:not(:last-child)
+      border-bottom: 1px solid $gray-light
+
+    &.editor-file-active,
+    &:hover
+      background-color: lighten($gray-light, 80%)
+
+//- Truncating long file names
+
+.editor-files,
+.editor-nav-horizontal
+  a
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+    width: 100%
+
+.editor-files.collapsed
+  min-width: 48px
+  flex: 0
+
+  .collapse
+    display: none
+
+//- File states
+
+.editor-file-state
+  display: inline-block
+  position: absolute
+  top: calc(50% - 2px)
+  left: $spacing-sm
+  border-radius: 100%
+  height: 5px
+  width: 5px
+
+  &.file-edited
+    background-color: $orange
+
+  &.file-new
+    background-color: $green
