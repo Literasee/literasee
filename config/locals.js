@@ -1,8 +1,8 @@
 var path = require('path');
 
 module.exports = function (locals) {
-  locals.cacheDir = path.join(process.cwd(), 'cache');
-  locals.viewsDir = path.join(process.cwd(), 'views');
+  locals.cacheDir = path.join(__dirname, '..', 'cache');
+  locals.viewsDir = path.join(__dirname, '..', 'views');
   locals.dataFilename = '_data_.json';
   locals.lastModifiedFilename = '_last-modified_.txt';
   locals.validFiles = [
