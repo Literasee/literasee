@@ -1,2 +1,2 @@
-require('dotenv').config({silent: true}).load();
+require('dotenv').config({silent: true});
 require('./server')();
