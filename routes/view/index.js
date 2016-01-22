@@ -4,6 +4,17 @@ const express = require('express');
 
 const router = express.Router();
 
+router.use(function (req, res, next) {
+  // use redirect to ensure trailing slashes in the address bar
+  // without the slash, assets requested by the page do not have
+  // enough context to match them to their parent gist
+  if (req.url.lastIndexOf('.') < 0 && req.url.slice(-1) !== '/') {
+    res.redirect(301, req.url + '/');
+  } else {
+    next();
+  }
+});
+
 router.get('/', function (req, res) {
   res.send('Add a Project or Owner id to the URL bar!');
 });
