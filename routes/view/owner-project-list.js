@@ -22,7 +22,7 @@ module.exports = function (req, res, next) {
         }).map(function (gist) {
           return {
             label: gist.description || gist.id,
-            url: [owner, gist.id].join('/'),
+            url: gist.id + '/',
             bgImage: gist.files['thumbnail.png'] ? gist.files['thumbnail.png'].raw_url : null
           }
         })
