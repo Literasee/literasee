@@ -98,11 +98,12 @@ module.exports = function (req, res, next) {
   };
 
   const getGistFiles = (cb) => {
-    console.log(gist.files);
+    console.log('getGistFiles: ' + gist.files);
     fs.readdir(gistDir, (err, files) => {
       gistFilenames = files;
       files.sort();
-      console.log(gist.files);
+      console.log('readdir:', err, files);
+      console.log('wtf:', gist.files);
 
       files.forEach(function (filename) {
         if (filename.substr(-3) === '.js') scripts.push(filename);
