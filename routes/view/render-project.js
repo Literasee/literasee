@@ -53,12 +53,42 @@ module.exports = function (req, res, next) {
     '/public/gist-info.css'
   ];
   let context = { owner: ownerId };
+  let isReportUrl = req.url.slice(-8) === '/report/';
+  let isPresentationUrl = req.url.substr(-14) === '/presentation/';
+  let hasReport = false;
+  let hasPresentation = false;
 
   const getGistFilePath = (filename) => {
     return path.join(gistDir, filename);
   };
 
   // steps
+
+  const redirectIfNeeded = (cb) => {
+    fs.readdir(gistDir, (err, files) => {
+      hasPresentation = _.includes(files, 'presentation.md');
+      hasReport = _.includes(files, 'report.md');
+
+      if (err) return cb(err);
+
+      if (isReportUrl || isPresentationUrl) {
+        return cb();
+      }
+
+      if (hasReport) {
+        res.redirect(req.originalUrl + 'report/');
+        return cb(true);
+      }
+
+      if (hasPresentation) {
+        res.redirect(req.originalUrl + 'presentation/');
+        return cb(true);
+      }
+
+      res.send('No valid files found. Valid files are ' + req.app.locals.validFiles.join(', '));
+      return cb(true);
+    });
+  };
 
   const getGistDetails = (cb) => {
     fs.readFile(getGistFilePath(req.app.locals.dataFilename), utf8Encoding, (err, data) => {
@@ -89,8 +119,19 @@ module.exports = function (req, res, next) {
     cb();
   };
 
+  const serveReport = (cb) => {
+    if (!isReportUrl) return cb();
+
+    fs.readFile(getGistFilePath('report.md'), utf8Encoding, (err, data) => {
+      html = html[0] + '<div class="container">' + bodyToken + '</div>' + html[1];
+      context.body = marked(data);
+      context.styles.unshift('/public/nciea.css');
+      cb(err, data);
+    });
+  };
+
   const servePresentation = (cb) => {
-    if (req.url.substr(-14) !== '/presentation/') return cb();
+    if (!isPresentationUrl) return cb();
 
     html = req.app.locals.views['presentation.html'];
     if (parallaxBackground) {
@@ -101,67 +142,13 @@ module.exports = function (req, res, next) {
     cb();
   };
 
-  const serveTufte = (cb) => {
-    if (req.url.substr(-7) !== '/tufte/') return cb();
-
-    fs.readFile(getGistFilePath('tufte.md'), utf8Encoding, (err, data) => {
-      html = html[0] + '<article>' + bodyToken + '</article>' + html[1];
-      context.body = mdToSections(data);
-      context.styles.unshift('/public/tufte.css');
-      cb(err, data);
-    });
-  };
-
-  const serveIndexMarkdown = (cb) => {
-    if (req.url.substr(-14) === '/presentation/') return cb();
-    if (req.url.substr(-7) === '/tufte/') return cb();
-    if (!_.includes(gistFilenames, 'index.md')) {
-      noIndexFile = true;
-      return cb();
-    }
-
-    fs.readFile(getGistFilePath('index.md'), utf8Encoding, (err, data) => {
-      html = html[0] + '<div class="container">' + bodyToken + '</div>' + html[1];
-      context.body = marked(data);
-      context.styles.unshift('/public/nciea.css');
-      cb(err, data);
-    });
-  };
-
-  const checkForPresentationRedirect = (cb) => {
-    if (noIndexFile && _.includes(gistFilenames, 'presentation.md')) {
-      res.redirect(req.originalUrl + 'presentation/');
-      return cb(true);
-    }
-    cb();
-  };
-
-  const checkForTufteRedirect = (cb) => {
-    if (noIndexFile && _.includes(gistFilenames, 'tufte.md')) {
-      res.redirect(req.originalUrl + 'tufte/');
-      return cb(true);
-    }
-    cb();
-  };
-
-  const informNoValidFiles = (cb) => {
-    if (noIndexFile) {
-      res.send('No valid files found. Valid files are ' + req.app.locals.validFiles.join(', '));
-      return cb(true);
-    }
-    cb();
-  };
-
   async.series([
+    redirectIfNeeded,
     getGistDetails,
     getGistFiles,
     populateContext,
-    servePresentation,
-    serveTufte,
-    serveIndexMarkdown,
-    checkForPresentationRedirect,
-    checkForTufteRedirect,
-    informNoValidFiles
+    serveReport,
+    servePresentation
   ], (err, results) => {
     if (typeof err === 'boolean') return; // either redirect or error message
     if (err) throw err

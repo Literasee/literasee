@@ -6,10 +6,8 @@ module.exports = function (locals) {
   locals.dataFilename = '_data_.json';
   locals.lastModifiedFilename = '_last-modified_.txt';
   locals.validFiles = [
-    'index.html',
-    'index.md',
-    'presentation.md',
-    'tufte.md'
+    'report.md',
+    'presentation.md'
   ];
   locals.views = {};
   locals.models = {};

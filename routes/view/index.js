@@ -13,6 +13,16 @@ router.get('/:owner', [
   require('./redirect-to-project')
 ]);
 
+router.get([
+  '/:owner/:project',
+  '/:owner/:project/report',
+  '/:owner/:project/presentation'
+], [
+  require('./cache-project'),
+  require('./render-project')
+]);
+
+// reveal.js assets
 router.use('/:owner/:project/presentation', express.static('public/reveal'));
 
 // pull presentation.md from project dir
@@ -24,10 +34,5 @@ router.get('/:owner/:project/presentation/presentation.md', function (req, res) 
     res.send(data);
   });
 });
-
-router.get(['/:owner/:project', '/:owner/:project/presentation'], [
-  require('./cache-project'),
-  require('./render-project')
-]);
 
 module.exports = router;
