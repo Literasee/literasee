@@ -98,6 +98,7 @@ module.exports = function (req, res, next) {
   };
 
   const getGistFiles = (cb) => {
+    console.log(gist.files);
     fs.readdir(gistDir, (err, files) => {
       gistFilenames = files;
       files.sort();
@@ -106,7 +107,6 @@ module.exports = function (req, res, next) {
       files.forEach(function (filename) {
         if (filename.substr(-3) === '.js') scripts.push(filename);
         if (filename.substr(-4) === '.css') styles.push(filename);
-        console.log(gist.files);
         if (filename.indexOf('parallax') === 0 && gist.files[filename]) parallaxBackground = filename;
       });
       cb(err, files);
