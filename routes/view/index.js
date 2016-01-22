@@ -22,17 +22,14 @@ router.get([
   require('./render-project')
 ]);
 
+// :type is the /report or /presentation url fragment
+// since it's virtual we map the file path by omitting it
+router.get('/:owner/:project/:type/:asset', function (req, res, next) {
+  const p = req.params;
+  res.sendFile(path.join(req.app.locals.cacheDir, p.owner, p.project, p.asset));
+});
+
 // reveal.js assets
 router.use('/:owner/:project/presentation', express.static('public/reveal'));
-
-// pull presentation.md from project dir
-router.get('/:owner/:project/presentation/presentation.md', function (req, res) {
-  const mdPath = path.join(req.app.locals.cacheDir, req.params.owner, req.params.project, 'presentation.md');
-  fs.readFile(mdPath, {encoding: 'utf8'}, (err, data) => {
-    if (err) throw err
-
-    res.send(data);
-  });
-});
 
 module.exports = router;
