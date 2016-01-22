@@ -92,18 +92,15 @@ module.exports = function (req, res, next) {
 
   const getGistDetails = (cb) => {
     fs.readFile(getGistFilePath(req.app.locals.dataFilename), utf8Encoding, (err, data) => {
-      gist = data;
+      gist = JSON.parse(data);
       cb(err, data);
     });
   };
 
   const getGistFiles = (cb) => {
-    console.log('getGistFiles: ' + gist.files);
     fs.readdir(gistDir, (err, files) => {
       gistFilenames = files;
       files.sort();
-      console.log('readdir:', err, files);
-      console.log('wtf:', gist.files);
 
       files.forEach(function (filename) {
         if (filename.substr(-3) === '.js') scripts.push(filename);
