@@ -101,6 +101,7 @@ module.exports = function (req, res, next) {
     fs.readdir(gistDir, (err, files) => {
       gistFilenames = files;
       files.sort();
+      console.log(gist);
 
       files.forEach(function (filename) {
         if (filename.substr(-3) === '.js') scripts.push(filename);
