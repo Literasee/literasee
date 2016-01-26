@@ -53,7 +53,7 @@ class Editor extends Component {
 
   onEditorChange (newContent) {
     const { gist, params } = this.props
-    const file = _.findWhere(gist.files, {href: params.file})
+    const file = _.find(gist.files, {href: params.file})
     file.content = newContent
   }
 
@@ -99,7 +99,7 @@ class Editor extends Component {
     const { token, username, gist, params, previewType, setPreviewType, images } = this.props
     const { isFilePanelCollapsed } = this.state
     const openFiles = _.compact(this.props.openFiles.map((file) => {
-      return _.findWhere(gist.files, {href: file})
+      return _.find(gist.files, {href: file})
     }))
 
     let title = gist.id

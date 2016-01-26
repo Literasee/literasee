@@ -1,15 +1,11 @@
-import index from './index.md'
-import slides from './slides.md'
-import tufte from './tufte.md'
+import report from './report.md'
+import presentation from './presentation.md'
 
 export default {
-  'index.md': {
-    content: index
+  'report.md': {
+    content: report
   },
-  'slides.md': {
-    content: slides
-  },
-  'tufte.md': {
-    content: tufte
+  'presentation.md': {
+    content: presentation
   }
 }

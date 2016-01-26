@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { updatePath } from 'redux-simple-router'
+import { routeActions } from 'redux-simple-router'
 
 import {
   fetchGists,
@@ -51,7 +51,7 @@ const mapDispatchToProps = (dispatch) => {
     fetchUser,
     createGist,
     redirectToGist: (username, gistId) => {
-      dispatch(updatePath('/' + username + '/' + gistId))
+      dispatch(routeActions.push('/' + username + '/' + gistId))
     }
   }, dispatch)
 }
