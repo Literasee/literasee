@@ -6,6 +6,54 @@ const request = require('superagent');
 const router = express.Router();
 
 //
+// USER LOG OUT
+//
+router.get('/logout', function (req, res) {
+  res.clearCookie('literasee-token');
+  res.clearCookie('literasee-username');
+  res.redirect('/');
+})
+
+//
+// IMAGE UPLOAD
+//
+var cloudinary = require('cloudinary')
+var formidable = require('formidable')
+
+router.get('/images/:username', function (req, res) {
+  cloudinary
+    .api
+    .resources_by_tag(req.params.username, function (result) {
+      res.send(result)
+    }, {max_results: 100});
+})
+
+router.post('/add_image', function (req, res, next) {
+  var form = new formidable.IncomingForm();
+
+  form.parse(req, function (err, fields, files) {
+    var keys = Object.keys(files);
+    var count = 0;
+    var urls = [];
+
+    keys.forEach((key) => {
+      cloudinary
+        .uploader
+        .upload(files[key].path, function (upload) {
+          count++;
+          urls.push(upload.url)
+          if (count === keys.length) res.send(JSON.stringify(urls))
+        }, {
+          tags: [
+            fields.username
+          ]
+        })
+    })
+
+  });
+});
+
+//
 // OAUTH CALLBACK
 //
 router.use(function (req, res, next) {
@@ -14,9 +62,6 @@ router.use(function (req, res, next) {
   // if the param wasn't sent we do nothing
   // and pass to the next handler
   if (!req.query.code) return next();
-
-  console.log(req.query.code);
-  console.log(req.query.state);
 
   // send both tokens and the code to GitHub
   request
@@ -28,9 +73,7 @@ router.use(function (req, res, next) {
     })
     .end(function (err, result) {
       // now we have the actual token we'll use to make authenticated requests
-      console.log(result.body);
       var token = result.body.access_token;
-      console.log(token);
       if (!token) return res.end();
       // we store the token in a cookie for use by the app
       // and set it to expire in a month
