@@ -7,7 +7,9 @@ module.exports = function (locals) {
   locals.lastModifiedFilename = '_last-modified_.txt';
   locals.validFiles = [
     'report.md',
-    'presentation.md'
+    'presentation.md',
+    'index.md',
+    'slides.md'
   ];
   locals.views = {};
   locals.models = {};

@@ -66,8 +66,8 @@ module.exports = function (req, res, next) {
 
   const redirectIfNeeded = (cb) => {
     fs.readdir(gistDir, (err, files) => {
-      hasPresentation = _.includes(files, 'presentation.md');
-      hasReport = _.includes(files, 'report.md');
+      hasPresentation = _.includes(files, 'presentation.md') || _.includes(files, 'slides.md');
+      hasReport = _.includes(files, 'report.md') || _.includes(files, 'index.md');
 
       if (err) return cb(err);
 
@@ -123,6 +123,15 @@ module.exports = function (req, res, next) {
     if (!isReportUrl) return cb();
 
     fs.readFile(getGistFilePath('report.md'), utf8Encoding, (err, data) => {
+      if (err) return;
+      html = html[0] + '<div class="container">' + bodyToken + '</div>' + html[1];
+      context.body = marked(data);
+      context.styles.unshift('/public/nciea.css');
+      cb(err, data);
+    });
+
+    fs.readFile(getGistFilePath('index.md'), utf8Encoding, (err, data) => {
+      if (err) return;
       html = html[0] + '<div class="container">' + bodyToken + '</div>' + html[1];
       context.body = marked(data);
       context.styles.unshift('/public/nciea.css');
