@@ -17,17 +17,6 @@ app.set('views', app.locals.viewsDir);
 app.set('view engine', 'hbs');
 app.engine('hbs', engines.handlebars);
 
-app.use('/public', express.static('public'));
-
-const viewRouter = require('./routes/view');
-app.use(subdomain('view', viewRouter));
-app.use('/view', viewRouter);
-app.use('/', viewRouter);
-
-const editRouter = require('./routes/edit');
-app.use(subdomain('edit', editRouter));
-app.use('/edit', editRouter);
-
 // local dev only
 if (!process.env.PORT) {
   var config = require('./webpack.config.dev');
@@ -40,6 +29,17 @@ if (!process.env.PORT) {
 
   app.use(require('webpack-hot-middleware')(compiler));
 }
+
+app.use('/public', express.static('public'));
+
+const editRouter = require('./routes/edit');
+app.use(subdomain('edit', editRouter));
+app.use('/edit', editRouter);
+
+const viewRouter = require('./routes/view');
+app.use(subdomain('view', viewRouter));
+app.use('/view', viewRouter);
+app.use('/', viewRouter);
 
 module.exports = function (local, port) {
   port = port || process.env.PORT || 3000;
