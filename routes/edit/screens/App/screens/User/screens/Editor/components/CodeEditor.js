@@ -33,7 +33,7 @@ const onLoad = (editor, onSave) => {
 }
 
 export default ({files, activeFilename, onChange, onSave}) => {
-  const file = _.findWhere(files, {href: activeFilename})
+  const file = _.find(files, {href: activeFilename})
 
   if (!activeFilename || !file) return <span/>
 
