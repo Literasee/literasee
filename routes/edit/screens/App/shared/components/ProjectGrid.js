@@ -21,7 +21,7 @@ export default ({gists, username, createGist}) => {
           {gists.map(gist => {
             const image = gist.files['thumbnail.png'] ?
               gist.files['thumbnail.png'].raw_url :
-              '/img/thumb.png'
+              '/public/img/thumb.png';
 
             let title = gist.description ? gist.description.split(' | ').shift() : gist.id
             let description = gist.description ? gist.description.split(' | ').pop() : ''
