@@ -22,6 +22,7 @@ app.use('/public', express.static('public'));
 const viewRouter = require('./routes/view');
 app.use(subdomain('view', viewRouter));
 app.use('/view', viewRouter);
+app.use('/', viewRouter);
 
 const editRouter = require('./routes/edit');
 app.use(subdomain('edit', editRouter));
