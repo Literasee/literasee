@@ -26,7 +26,7 @@ const store = createStoreWithMiddleware(reducer, cookies)
 
 import App from '../screens/App'
 import User from '../screens/App/screens/User'
-import Editor from '../screens/App/screens/User/screens/Editor'
+import Editor from '../screens/App/screens/Editor'
 
 import { openFile } from '../actions'
 

@@ -12,7 +12,7 @@ import {
   saveFile,
   saveGistDescription,
   setPreviewType
-} from '../../../../../../actions'
+} from '../../../../actions'
 
 import EditorHeader from './components/EditorHeader'
 import FileListPanel from './components/FileListPanel'
