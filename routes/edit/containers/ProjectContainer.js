@@ -17,6 +17,7 @@ class ProjectContainer extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    routing: state.routing,
     token: state.token,
     project: state.project
   }
