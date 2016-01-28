@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ProjectHeader from './components/ProjectHeader';
+import ProjectPreview from './components/ProjectPreview';
 
 import styles from './Project.styl';
 
@@ -9,10 +10,10 @@ class Project extends Component {
 
     return (
       <div className={styles.container}>
-        <ProjectHeader project={project} owner={params.username} />
+        <ProjectHeader owner={params.username} project={project} />
         <div className={styles.contentArea}>
-          <div style={{backgroundColor: 'lightgreen', width: '50%'}}>EDIT AREA</div>
-          <div style={{backgroundColor: 'lightblue', width: '50%'}}>PREVIEW AREA</div>
+          <div style={{backgroundColor: 'lightgreen', width: '100%'}}>EDIT AREA</div>
+          <ProjectPreview owner={params.username} projectId={params.gistId} />
         </div>
       </div>
     )
