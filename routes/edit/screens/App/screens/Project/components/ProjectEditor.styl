@@ -1,0 +1,28 @@
+@import '../../../shared/styles/variables'
+
+.container {
+  width: 40%;
+  border-right: 1px solid $gray-light;
+}
+
+.nav {
+  display: flex;
+  width: 100%;
+
+  a {
+    display: block;
+    width: 50%;
+    text-align: center;
+    font-size: $font-size-lg;
+    padding: 0.3rem;
+    border-bottom: 1px solid $gray-light;
+
+    &:first-child {
+      border-right: 1px solid $gray-light;
+    }
+
+    &.active {
+      border-bottom: none;
+    }
+  }
+}
