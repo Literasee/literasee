@@ -82,36 +82,36 @@ export function fetchGists(token) {
 }
 
 /*
-* GIST
+* PROJECT
 */
 
-export const GIST_DETAILS_FETCH_START = 'GIST_DETAILS_FETCH_START'
-function requestGistDetails (id) {
+export const PROJECT_FETCH_START = 'PROJECT_FETCH_START'
+function requestProject (id) {
  return {
-   type: GIST_DETAILS_FETCH_START,
+   type: PROJECT_FETCH_START,
    id
  }
 }
 
-export const GIST_DETAILS_FETCH_SUCCESS = 'GIST_DETAILS_FETCH_SUCCESS'
-function fetchGistDetailsSuccess(result) {
+export const PROJECT_FETCH_SUCCESS = 'PROJECT_FETCH_SUCCESS'
+function fetchProjectSuccess(result) {
  return {
-   type: GIST_DETAILS_FETCH_SUCCESS,
+   type: PROJECT_FETCH_SUCCESS,
    result
  }
 }
 
-export const GIST_DETAILS_FETCH_ERROR = 'GIST_DETAILS_FETCH_ERROR'
-function fetchGistDetailsError(error) {
+export const PROJECT_FETCH_ERROR = 'PROJECT_FETCH_ERROR'
+function fetchProjectError(error) {
  return {
-   type: GIST_DETAILS_FETCH_ERROR,
+   type: PROJECT_FETCH_ERROR,
    error
  }
 }
 
-export function fetchGistDetails(token, id) {
+export function fetchProject(token, id) {
  return dispatch => {
-   dispatch(requestGistDetails(id))
+   dispatch(requestProject(id))
 
    return fetch('https://api.github.com/gists/' + id, {
        headers: {
@@ -119,7 +119,7 @@ export function fetchGistDetails(token, id) {
        }
      })
      .then(req => req.json(), err => console.error(err))
-     .then(json => dispatch(fetchGistDetailsSuccess(json)));
+     .then(json => dispatch(fetchProjectSuccess(json)));
  }
 }
 

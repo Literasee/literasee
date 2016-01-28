@@ -1,6 +1,6 @@
 import user from './user'
 import gists from './gists'
-import gist from './gist'
+import project from './project'
 import openFiles from './openFiles'
 import previewType from './previewType'
 import images from './images'
@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
   username: (state = null, action) => state,
   user,
   gists,
-  gist,
+  project,
   openFiles,
   previewType,
   images,

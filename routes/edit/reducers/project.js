@@ -1,7 +1,7 @@
 import _ from 'lodash'
 
 import {
-  GIST_DETAILS_FETCH_SUCCESS,
+  PROJECT_FETCH_SUCCESS,
   ADD_FILE
 } from '../actions'
 
@@ -13,7 +13,7 @@ const templates = {
 export default function gist(state = {}, action) {
   switch (action.type) {
 
-    case GIST_DETAILS_FETCH_SUCCESS:
+    case PROJECT_FETCH_SUCCESS:
       let result = {...action.result}
       result.files = _.values(action.result.files)
       result.files.forEach(file => file.href = file.filename.split('.').join('-'))
