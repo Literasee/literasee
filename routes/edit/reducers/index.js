@@ -3,21 +3,21 @@ import gists from './gists'
 import gist from './gist'
 import openFiles from './openFiles'
 import previewType from './previewType'
-import { RECEIVE_USER_IMAGES } from '../actions'
+import images from './images'
 
-export default {
+import { routeReducer } from 'react-router-redux';
+import { combineReducers } from 'redux';
+
+const rootReducer = combineReducers({
+  token: (state = null, action) => state,
+  username: (state = null, action) => state,
   user,
   gists,
   gist,
   openFiles,
   previewType,
-  images: (state = [], action) => {
-    switch (action.type) {
-      case RECEIVE_USER_IMAGES:
-        return action.result.resources.map(res => res.url)
+  images,
+  routing: routeReducer
+});
 
-      default:
-        return state
-    }
-  }
-}
+export default rootReducer;

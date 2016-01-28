@@ -1,45 +1,44 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { updatePath } from 'redux-simple-router'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { routeActions } from 'redux-simple-router';
 
-import ProjectGrid from 'components/ProjectGrid'
+import Header from './shared/components/header';
+import Footer from './shared/components/footer';
 
 class App extends Component {
   componentDidMount () {
-    const { username, redirectToUserHome } = this.props
-
-    // if (username) {
-    //   redirectToUserHome(username)
-    // }
+    const { username, path, redirectToUserHome } = this.props;
+    if (path.length < 2 && username) redirectToUserHome(username)
   }
 
   render () {
-    const { gists } = this.props
+    const { username } = this.props;
 
     return (
-      <div>
-        <main role='main' className='section-dimmed'>
-          <ProjectGrid gists={gists} />
+      <div className='wrapper'>
+        <Header username={username} />
+        <main role='main' className='section-dimmed container-fluid'>
+          {this.props.children}
         </main>
+        <Footer />
       </div>
     )
   }
 }
 
-
 const mapStateToProps = (state) => {
   return {
     username: state.username,
-    gists: state.gists
+    path: state.routing.location.pathname
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     redirectToUserHome: (username) => {
-      dispatch(updatePath('/' + username))
+      dispatch(routeActions.replace('/' + username))
     }
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App);
