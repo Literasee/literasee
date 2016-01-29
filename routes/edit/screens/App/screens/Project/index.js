@@ -13,7 +13,10 @@ class Project extends Component {
       <div className={styles.container}>
         <ProjectHeader owner={params.username} project={project} />
         <div className={styles.contentArea}>
-          <ProjectEditor owner={params.username} project={project} />
+          <ProjectEditor
+            owner={params.username}
+            project={project}
+            type={params.type} />
           <ProjectPreview
             owner={params.username}
             projectId={params.gistId}
