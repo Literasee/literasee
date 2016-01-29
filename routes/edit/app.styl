@@ -1,6 +1,5 @@
 @import 'screens/App/shared/styles/variables'
 
-@import '../../public/css/base.css'
 @import 'screens/App/shared/styles/base'
 @import 'screens/App/shared/styles/type'
 @import 'screens/App/shared/styles/buttons'
@@ -13,7 +12,23 @@
 @import 'screens/App/shared/styles/editor'
 @import 'screens/App/shared/styles/alerts'
 
+.wrapper {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
 header {
   padding: $spacing 0;
   width: 100%;
+}
+
+main {
+  display: flex;
+  flex: 1;
+  width: 100%;
+}
+
+footer {
+  padding: 0 2rem;
 }
