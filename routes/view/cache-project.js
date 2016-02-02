@@ -28,6 +28,8 @@ module.exports = function (req, res, next) {
   var gistDetails;
   var isRepo;
 
+  console.log(req.app.locals.cacheDir);
+
   // see if we have this Gist cached
   // if not we set a last modified time of epoch
   // to ensure we pull from GitHub API
@@ -73,6 +75,8 @@ module.exports = function (req, res, next) {
       .get('https://api.github.com/repos/' + ownerId + '/' + gistId + '/contents' + qs)
       .set('If-Modified-Since', gistLastModified)
       .end(function (err, res) {
+        console.log(JSON.stringify(res, null, 2));
+        console.log('last modified:', gistLastModified);
         if (res.status === 304) {
           console.log('Repo has not changed. Reading from disk.');
           cb(err); // pass error to skip the rest of series
