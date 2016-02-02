@@ -71,7 +71,7 @@ module.exports = function (req, res, next) {
 
     request
       .get('https://api.github.com/repos/' + ownerId + '/' + gistId + '/contents' + qs)
-      .set('If-Modified-Since', gistLastModified)
+      .set('If-None-Match', gistLastModified)
       .end(function (err, res) {
         console.log(res.status, res.headers);
         console.log('last modified:', gistLastModified);
@@ -84,7 +84,7 @@ module.exports = function (req, res, next) {
 
             return acc;
           }, {files: {}});
-          gistLastModified = res.headers['last-modified'];
+          gistLastModified = res.headers['etag'];
           cb();
         }
       });
