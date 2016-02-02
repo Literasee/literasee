@@ -75,7 +75,7 @@ module.exports = function (req, res, next) {
       .get('https://api.github.com/repos/' + ownerId + '/' + gistId + '/contents' + qs)
       .set('If-Modified-Since', gistLastModified)
       .end(function (err, res) {
-        console.log(JSON.stringify(res, null, 2));
+        console.log(res.status, res.headers['last-modified']);
         console.log('last modified:', gistLastModified);
         if (res.status === 304) {
           console.log('Repo has not changed. Reading from disk.');
