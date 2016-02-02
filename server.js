@@ -11,7 +11,6 @@ app.use(require('cookie-parser')());
 
 // define app settings
 app.locals = require('./config/locals')(app.locals);
-app.locals.cache = path.join(__dirname, 'cache');
 
 // configure views
 app.set('views', app.locals.viewsDir);

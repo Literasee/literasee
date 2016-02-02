@@ -50,7 +50,7 @@ module.exports = function (req, res, next) {
     request
       .get('https://api.github.com/gists/' + gistId + qs)
       .set('Accept', 'application/vnd.github.VERSION.base64+json')
-      .set('If-Modified-Since', gistLastModified)
+      .set('If-None-Match', gistLastModified)
       .end(function (err, res) {
         if (res.status === 304) {
           console.log('Gist has not changed. Reading from disk.');
@@ -60,7 +60,7 @@ module.exports = function (req, res, next) {
           cb();
         } else {
           gistDetails = res.body;
-          gistLastModified = res.headers['last-modified'];
+          gistLastModified = res.headers['etag'];
           cb();
         }
       });
@@ -73,8 +73,6 @@ module.exports = function (req, res, next) {
       .get('https://api.github.com/repos/' + ownerId + '/' + gistId + '/contents' + qs)
       .set('If-None-Match', gistLastModified)
       .end(function (err, res) {
-        console.log(res.status, res.headers);
-        console.log('last modified:', gistLastModified);
         if (res.status === 304) {
           console.log('Repo has not changed. Reading from disk.');
           cb(err); // pass error to skip the rest of series
