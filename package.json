@@ -59,6 +59,7 @@
     "readdirfiles": "^1.2.0",
     "redux": "^3.0.5",
     "redux-thunk": "^1.0.3",
+    "serve-favicon": "^2.3.0",
     "style-loader": "^0.13.0",
     "stylus-loader": "^1.5.0",
     "superagent": "^1.7.1",
