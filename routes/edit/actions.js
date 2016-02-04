@@ -1,4 +1,5 @@
-import fetch from 'isomorphic-fetch'
+import fetch from 'isomorphic-fetch';
+import cookies from './config/cookies';
 
 /*
  * USER
@@ -172,11 +173,11 @@ export function createGist(token, files) {
 */
 
 export const SAVE_FILE = 'SAVE_FILE'
-function saveFileStart (id, files) {
+function saveFileStart (id, file) {
   return {
     type: SAVE_FILE,
     id,
-    files
+    file
   }
 }
 
@@ -196,16 +197,20 @@ function saveFileError(error) {
   }
 }
 
-export function saveFile(token, id, files) {
+export function saveFile(id, file) {
   return dispatch => {
-    dispatch(saveFileStart(id, files))
+    dispatch(saveFileStart(id, file))
 
     return fetch('https://api.github.com/gists/' + id, {
         method: 'PATCH',
         headers: {
-          'Authorization': 'token ' + token
+          'Authorization': 'token ' + cookies.token
         },
-        body: JSON.stringify({files})
+        body: JSON.stringify({
+          files: {
+            [file.filename]: file
+          }
+        })
       })
       .then(req => req.json(), err => console.error(err))
       .then(json => dispatch(saveFileSuccess(json)))

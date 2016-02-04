@@ -10,7 +10,7 @@ const templates = {
   'md': '# Header'
 }
 
-export default function gist(state = {}, action) {
+export default function project (state = {}, action) {
   switch (action.type) {
 
     case PROJECT_FETCH_SUCCESS:

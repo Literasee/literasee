@@ -5,7 +5,7 @@ import markdownSyntax from 'brace/mode/markdown';
 
 import styles from './CodeEditor.styl';
 
-export default ({ file }) => {
+export default ({ file, onCodeChange }) => {
   if (!file) return <div />
 
   return (
@@ -17,6 +17,7 @@ export default ({ file }) => {
       className={styles.aceEditor}
       showPrintMargin={false}
       editorProps={{$blockScrolling: true}}
+      onChange={onCodeChange}
     />
   )
 }

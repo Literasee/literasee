@@ -6,6 +6,13 @@ import ProjectPreview from './components/ProjectPreview';
 import styles from './Project.styl';
 
 class Project extends Component {
+  saveFile (file) {
+    const { project, saveFile } = this.props;
+
+    saveFile(project.id, file)
+      .then(::this._preview.refresh);
+  }
+
   render () {
     const { project, params } = this.props;
 
@@ -16,8 +23,10 @@ class Project extends Component {
           <ProjectEditor
             owner={params.username}
             project={project}
-            type={params.type} />
+            type={params.type}
+            saveFile={::this.saveFile} />
           <ProjectPreview
+            ref={(c) => this._preview = c}
             owner={params.username}
             projectId={params.gistId}
             type={params.type} />

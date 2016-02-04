@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { fetchProject } from '../actions';
 import Project from '../screens/App/screens/Project';
 
 class ProjectContainer extends Component {
@@ -15,6 +12,13 @@ class ProjectContainer extends Component {
   }
 }
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import {
+  fetchProject,
+  saveFile
+} from '../actions';
+
 const mapStateToProps = (state) => {
   return {
     routing: state.routing,
@@ -25,7 +29,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    fetchProject
+    fetchProject,
+    saveFile
   }, dispatch);
 }
 

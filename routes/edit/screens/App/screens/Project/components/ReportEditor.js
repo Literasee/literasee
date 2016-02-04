@@ -4,11 +4,11 @@ import CodeEditor from './CodeEditor';
 
 import styles from './ReportEditor.styl';
 
-const ReportEditor = ({ file }) => {
+const ReportEditor = ({ file, onCodeChange, onClickSave }) => {
   return (
     <div className={styles.container}>
       <ReportOptionsPanel />
-      <CodeEditor file={file} />
+      <CodeEditor file={file} onCodeChange={onCodeChange} />
       <div className={styles.buttonContainer}>
         <button
           type='button'
@@ -17,6 +17,7 @@ const ReportEditor = ({ file }) => {
           Cancel
         </button>
         <button
+          onClick={onClickSave}
           type='button'
           name='button'
           className='btn btn-primary'>
