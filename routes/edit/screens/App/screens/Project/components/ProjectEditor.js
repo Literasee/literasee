@@ -18,7 +18,7 @@ class ProjectEditor extends Component {
       file.content = newCode;
     }
 
-    const onClickSave = () => {
+    const onSave = () => {
       saveFile(file)
     }
 
@@ -34,7 +34,7 @@ class ProjectEditor extends Component {
         </nav>
         <ReportEditor
           onCodeChange={onCodeChange}
-          onClickSave={onClickSave}
+          onSave={onSave}
           file={file} />
       </div>
     )
