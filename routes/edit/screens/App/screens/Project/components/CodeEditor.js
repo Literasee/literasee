@@ -11,7 +11,10 @@ export default ({ file, onCodeChange, onSave }) => {
   const onLoad = (editor) => {
     editor.commands.addCommand({
       name: 'saveChanges',
-      bindKey: {win: 'Ctrl-Enter',  mac: 'Ctrl-Enter|Command-Enter'},
+      bindKey: {
+        win: 'Ctrl-Enter|Ctrl-S',
+        mac: 'Ctrl-Enter|Command-Enter|Command-S'
+      },
       exec: onSave
     });
   }
