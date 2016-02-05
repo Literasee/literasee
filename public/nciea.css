@@ -1560,7 +1560,7 @@ tr.table-cell-alert a:hover {
   }
 }
 body {
-  margin-top: 40px;
+  padding-top: 40px;
 }
 iframe {
   border: none;
