@@ -71,22 +71,27 @@ module.exports = function (req, res, next) {
 
       if (err) return cb(err);
 
-      if (isReportUrl || isPresentationUrl) {
-        return cb();
-      }
-
-      if (hasReport) {
-        res.redirect(req.originalUrl + 'report/');
+      if (!hasReport && !hasPresentation) {
+        // if no valid files found, bail out and warn
+        res.send('No valid files found. Valid files are ' + req.app.locals.validFiles.join(', '));
         return cb(true);
-      }
+      } else {
+        // if requesting a specific resource continue on
+        if (isReportUrl && hasReport) return cb();
+        if (isPresentationUrl && hasPresentation) return cb();
 
-      if (hasPresentation) {
-        res.redirect(req.originalUrl + 'presentation/');
-        return cb(true);
-      }
+        // default redirect is report, if valid
+        if (hasReport) {
+          res.redirect(req.originalUrl + 'report/');
+          return cb(true);
+        }
 
-      res.send('No valid files found. Valid files are ' + req.app.locals.validFiles.join(', '));
-      return cb(true);
+        // fallback redirect is presentation
+        if (hasPresentation) {
+          res.redirect(req.originalUrl + 'presentation/');
+          return cb(true);
+        }
+      }
     });
   };
 
