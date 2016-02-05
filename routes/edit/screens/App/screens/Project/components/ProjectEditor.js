@@ -20,6 +20,11 @@ class ProjectEditor extends Component {
       file.content = newCode;
     }
 
+    const onCancel = () => {
+      onCodeChange(originalCode);
+      this.setState({});
+    }
+
     const onSave = () => {
       this.props.saveFileType(this.props.type);
     }
@@ -36,6 +41,7 @@ class ProjectEditor extends Component {
         </nav>
         <FileEditor
           onCodeChange={onCodeChange}
+          onCancel={onCancel}
           onSave={onSave}
           file={file}>
           {optionsPanel}

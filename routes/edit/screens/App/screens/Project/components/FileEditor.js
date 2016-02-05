@@ -3,7 +3,7 @@ import CodeEditor from './CodeEditor';
 
 import styles from './FileEditor.styl';
 
-const FileEditor = ({ file, onCodeChange, onSave, children }) => {
+const FileEditor = ({ file, onCodeChange, onCancel, onSave, children }) => {
   return (
     <div className={styles.container}>
       {children}
@@ -13,6 +13,7 @@ const FileEditor = ({ file, onCodeChange, onSave, children }) => {
         onSave={onSave} />
       <div className={styles.buttonContainer}>
         <button
+          onClick={onCancel}
           type='button'
           name='button'
           className='btn btn-outlined'>
