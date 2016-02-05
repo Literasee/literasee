@@ -9,7 +9,7 @@ import styles from './ProjectEditor.styl';
 class ProjectEditor extends Component {
 
   render () {
-    const { owner, project, type, saveFile } = this.props;
+    const { owner, project, type } = this.props;
 
     const path = '/' + owner + '/' + project.id + '/';
     const file = _.find(project.files, {filename: type + '.md'});
@@ -21,7 +21,7 @@ class ProjectEditor extends Component {
     }
 
     const onSave = () => {
-      saveFile(file)
+      this.props.saveFileType(this.props.type);
     }
 
     return (

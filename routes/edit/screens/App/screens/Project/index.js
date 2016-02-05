@@ -6,8 +6,9 @@ import ProjectPreview from './components/ProjectPreview';
 import styles from './Project.styl';
 
 class Project extends Component {
-  saveFile (file) {
+  saveFileType (type) {
     const { project, saveFile } = this.props;
+    const file = _.find(project.files, {filename: type + '.md'});
 
     saveFile(project.id, file)
       .then(::this._preview.refresh);
@@ -24,7 +25,7 @@ class Project extends Component {
             owner={params.username}
             project={project}
             type={params.type}
-            saveFile={::this.saveFile} />
+            saveFileType={::this.saveFileType} />
           <ProjectPreview
             ref={(c) => this._preview = c}
             owner={params.username}

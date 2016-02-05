@@ -106,5 +106,14 @@
 	    });
 	  </script>
 
+		<script>
+			window.addEventListener('hashchange', function () {
+				window.top.postMessage(this.location.href, '*');
+			});
+			window.addEventListener('message', function () {
+				window.location.reload();
+			});
+		</script>
+
 	</body>
 </html>
