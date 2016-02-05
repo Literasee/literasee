@@ -8,7 +8,10 @@ const ReportEditor = ({ file, onCodeChange, onClickSave }) => {
   return (
     <div className={styles.container}>
       <ReportOptionsPanel />
-      <CodeEditor file={file} onCodeChange={onCodeChange} />
+      <CodeEditor
+        file={file}
+        onCodeChange={onCodeChange}
+        onSave={onClickSave} />
       <div className={styles.buttonContainer}>
         <button
           type='button'

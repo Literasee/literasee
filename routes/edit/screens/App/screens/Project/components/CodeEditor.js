@@ -5,8 +5,16 @@ import markdownSyntax from 'brace/mode/markdown';
 
 import styles from './CodeEditor.styl';
 
-export default ({ file, onCodeChange }) => {
+export default ({ file, onCodeChange, onSave }) => {
   if (!file) return <div />
+
+  const onLoad = (editor) => {
+    editor.commands.addCommand({
+      name: 'saveChanges',
+      bindKey: {win: 'Ctrl-Enter',  mac: 'Ctrl-Enter|Command-Enter'},
+      exec: onSave
+    });
+  }
 
   return (
     <AceEditor
@@ -17,6 +25,7 @@ export default ({ file, onCodeChange }) => {
       className={styles.aceEditor}
       showPrintMargin={false}
       editorProps={{$blockScrolling: true}}
+      onLoad={onLoad}
       onChange={onCodeChange}
     />
   )
