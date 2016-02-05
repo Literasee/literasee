@@ -1,13 +1,12 @@
 import React from 'react';
-import ReportOptionsPanel from './ReportOptionsPanel';
 import CodeEditor from './CodeEditor';
 
-import styles from './ReportEditor.styl';
+import styles from './FileEditor.styl';
 
-const ReportEditor = ({ file, onCodeChange, onSave }) => {
+const FileEditor = ({ file, onCodeChange, onSave, children }) => {
   return (
     <div className={styles.container}>
-      <ReportOptionsPanel />
+      {children}
       <CodeEditor
         file={file}
         onCodeChange={onCodeChange}
@@ -31,4 +30,4 @@ const ReportEditor = ({ file, onCodeChange, onSave }) => {
   )
 }
 
-export default ReportEditor;
+export default FileEditor;

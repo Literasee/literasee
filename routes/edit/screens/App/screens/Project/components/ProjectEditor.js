@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import _ from 'lodash';
-import ReportEditor from './ReportEditor';
+import FileEditor from './FileEditor';
+import ReportOptionsPanel from './ReportOptionsPanel';
 
 import styles from './ProjectEditor.styl';
 
@@ -13,6 +14,7 @@ class ProjectEditor extends Component {
     const path = '/' + owner + '/' + project.id + '/';
     const file = _.find(project.files, {filename: type + '.md'});
     const originalCode = file && file.content;
+    const optionsPanel = type === 'report' ? <ReportOptionsPanel /> : null;
 
     const onCodeChange = (newCode) => {
       file.content = newCode;
@@ -32,10 +34,12 @@ class ProjectEditor extends Component {
             Presentation
           </Link>
         </nav>
-        <ReportEditor
+        <FileEditor
           onCodeChange={onCodeChange}
           onSave={onSave}
-          file={file} />
+          file={file}>
+          {optionsPanel}
+        </FileEditor>
       </div>
     )
   }
