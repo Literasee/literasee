@@ -37,11 +37,12 @@ app.use('/public', express.static('public'));
 const editRouter = require('./routes/edit');
 app.use(subdomain('edit', editRouter));
 app.use('/edit', editRouter);
-app.use('/', editRouter);
 
 const viewRouter = require('./routes/view');
 app.use(subdomain('view', viewRouter));
 app.use('/view', viewRouter);
+
+app.use('/', editRouter);
 
 module.exports = function (local, port) {
   port = port || process.env.PORT || 3000;
