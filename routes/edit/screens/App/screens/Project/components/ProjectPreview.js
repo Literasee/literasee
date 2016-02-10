@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { getProjectViewUrl } from 'utils/urlUtil';
 
 import styles from './ProjectPreview.styl';
 
@@ -21,9 +22,7 @@ class ProjectPreview extends Component {
   render () {
     this.currentHash = null;
 
-    const { owner, projectId, type } = this.props;
-    const { protocol, hostname, port } = document.location;
-    const host = hostname.replace('edit', 'view');
+    const viewUrl = getProjectViewUrl(this.props);
 
     return (
       <div className={styles.container}>
@@ -31,7 +30,7 @@ class ProjectPreview extends Component {
           <iframe
             id='viewerFrame'
             ref={(c) => this._iframe = c}
-            src={`${protocol}//${host}:${port}/${owner}/${projectId}/${type}/`}>
+            src={viewUrl}>
           </iframe>
         </div>
       </div>
