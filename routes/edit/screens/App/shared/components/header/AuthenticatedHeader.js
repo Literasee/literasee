@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router';
 import Logo from './Logo';
 
 export default function ({ username }) {
@@ -16,7 +17,7 @@ export default function ({ username }) {
           justifyContent: 'flex-end'
         }}>
         <ul className="list-inline list-unstyled cf fl-right">
-          <li>Welcome <a href="#">{username}</a></li>
+          <li>Welcome <Link to={`/${username}/admin`}>{username}</Link></li>
           <li>
             <a role="button"
               className="btn btn-outlined btn-small"

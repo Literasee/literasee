@@ -28,7 +28,7 @@ export default ({gists, username, createGist}) => {
 
             return (
               <div key={gist.id} className='col-xs-12 col-md-4 col-lg-4'>
-                <Link className='panel txt-left panel-project'
+                <Link className='panel txt-left panel-project scales'
                   style={{backgroundImage: `url("${image}")`}}
                   to={'/' + username + '/' + gist.id}>
                   <h4 className='mb0'>{title}</h4>

@@ -1,5 +1,8 @@
 import fetch from 'isomorphic-fetch';
 import cookies from './config/cookies';
+import { getApiUrl } from './screens/App/shared/utils/urlUtil';
+
+const GET_PROJECTS_URL = getApiUrl('projects');
 
 /*
  * USER
@@ -80,6 +83,46 @@ export function fetchGists(token) {
      .then(req => req.json(), err => console.error(err))
      .then(json => dispatch(fetchGistsSuccess(json)));
  }
+}
+
+/*
+ * PROJECTS
+ */
+
+export const PROJECTS_FETCH_START = 'PROJECTS_FETCH_START'
+function requestProjects () {
+ return {
+   type: PROJECTS_FETCH_START
+ }
+}
+
+export const PROJECTS_FETCH_SUCCESS = 'PROJECTS_FETCH_SUCCESS'
+function fetchProjectsSuccess(result) {
+ return {
+   type: PROJECTS_FETCH_SUCCESS,
+   result
+ }
+}
+
+export const PROJECTS_FETCH_ERROR = 'PROJECTS_FETCH_ERROR'
+function fetchProjectsError(error) {
+ return {
+   type: PROJECTS_FETCH_ERROR,
+   error
+ }
+}
+
+export function fetchProjects() {
+  return dispatch => {
+    dispatch(requestProjects());
+    return fetch(GET_PROJECTS_URL, {
+      headers: {
+        'Authorization': 'token ' + cookies.token
+      }
+    })
+    .then(req => req.json(), err => console.error(err))
+    .then(json => dispatch(fetchProjectsSuccess(json)));
+  }
 }
 
 /*

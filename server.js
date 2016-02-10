@@ -34,6 +34,9 @@ if (!process.env.PORT) {
 
 app.use('/public', express.static('public'));
 
+const apiRouter = require('./routes/api');
+app.use(subdomain('api', apiRouter));
+
 const editRouter = require('./routes/edit');
 app.use(subdomain('edit', editRouter));
 app.use('/edit', editRouter);
