@@ -4,8 +4,8 @@
   "description": "Literasee platform viewer and editor",
   "main": "index.js",
   "engines": {
-    "node": "5.2.0",
-    "npm": "3.3.12"
+    "node": "5.6.0",
+    "npm": "3.6.0"
   },
   "scripts": {
     "build": "webpack --config webpack.config.prod.js",
