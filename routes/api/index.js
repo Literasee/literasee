@@ -44,4 +44,27 @@ router.get('/projects', function (req, res) {
   })
 });
 
+router.get('/project/:owner/:project', [
+  require('../view/cache-project'),
+  function (req, res) {
+    const cacheDir = req.app.locals.cacheDir;
+    const validFiles = req.app.locals.validFiles;
+    const dataFilename = req.app.locals.dataFilename;
+    const username = req.params.owner;
+    const id = req.params.project;
+    const dir = path.join(cacheDir, username, id);
+
+    async.parallel({
+      data: cb => fs.readFile(path.join(dir, dataFilename), {encoding: 'utf8'}, cb),
+      report: cb => fs.readFile(path.join(dir, 'report.md'), {encoding: 'utf8'}, cb),
+      presentation: cb => fs.readFile(path.join(dir, 'presentation.md'), {encoding: 'utf8'}, cb)
+    }, (err, results) => {
+      results.data = JSON.parse(results.data);
+      results.data.files['report.md'].content = results.report;
+      results.data.files['presentation.md'].content = results.presentation;
+      res.json(results.data);
+    })
+  }
+]);
+
 module.exports = router;

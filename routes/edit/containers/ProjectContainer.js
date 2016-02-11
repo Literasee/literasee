@@ -3,8 +3,8 @@ import Project from '../screens/App/screens/Project';
 
 class ProjectContainer extends Component {
   componentDidMount () {
-    const { token, params, fetchProject } = this.props;
-    fetchProject(token, params.gistId);
+    const { params, fetchProject } = this.props;
+    fetchProject(params);
   }
 
   render () {

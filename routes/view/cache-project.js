@@ -66,25 +66,40 @@ module.exports = function (req, res, next) {
       });
   };
 
-  const fetchRepoDetails = (cb) => {
+  const fetchRepoInfo = (cb) => {
     if (!isRepo) return cb();
 
     request
-      .get('https://api.github.com/repos/' + ownerId + '/' + gistId + '/contents' + qs)
+      .get('https://api.github.com/repos/' + ownerId + '/' + gistId + qs)
       .set('If-None-Match', gistLastModified)
       .end(function (err, res) {
         if (res.status === 304) {
           console.log('Repo has not changed. Reading from disk.');
           cb(err); // pass error to skip the rest of series
         } else {
-          gistDetails = _.reduce(res.body, function (acc, item) {
-            if (item.type === 'file') acc.files[item.name] = item;
-
-            return acc;
-          }, {files: {}});
+          gistDetails = res.body;
+          gistDetails.id = gistDetails.name;
           gistLastModified = res.headers['etag'];
           cb();
         }
+      });
+  };
+
+  const fetchRepoContents = (cb) => {
+    if (!isRepo) return cb();
+
+    request
+      .get('https://api.github.com/repos/' + ownerId + '/' + gistId + '/contents' + qs)
+      .end(function (err, res) {
+        gistDetails.files = _.reduce(res.body, function (acc, item) {
+          if (item.type === 'file') {
+            item.filename = item.name;
+            acc[item.name] = item;
+          }
+
+          return acc;
+        }, {});
+        cb();
       });
   };
 
@@ -112,7 +127,13 @@ module.exports = function (req, res, next) {
         fs.createReadStream(tarballPath)
           .pipe(zlib.createGunzip())
           .pipe(tar.Extract({path: gistDir, strip: 1}))
-          .on('close', () => fs.unlink(tarballPath, cb));
+          .on('close', () => {
+            fs.stat(tarballPath, (err, stat) => {
+              // tarball may have already been deleted
+              if (err) return cb();
+              fs.unlink(tarballPath, cb);
+            })
+          });
       });
   };
 
@@ -151,7 +172,8 @@ module.exports = function (req, res, next) {
   async.series([
     checkLastModified,
     fetchGistDetails,
-    fetchRepoDetails,
+    fetchRepoInfo,
+    fetchRepoContents,
     mkdirIfMissing(ownerDir),
     mkdirIfMissing(gistDir),
     fetchRepoArchive,

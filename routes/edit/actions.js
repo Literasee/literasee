@@ -3,6 +3,7 @@ import cookies from './config/cookies';
 import { getApiUrl } from './screens/App/shared/utils/urlUtil';
 
 const GET_PROJECTS_URL = getApiUrl('projects');
+const GET_PROJECT_URL = getApiUrl('project');
 
 /*
  * USER
@@ -153,16 +154,16 @@ function fetchProjectError(error) {
  }
 }
 
-export function fetchProject(token, id) {
+export function fetchProject({ gistId, username }) {
  return dispatch => {
-   dispatch(requestProject(id))
+   dispatch(requestProject(gistId))
 
-   return fetch('https://api.github.com/gists/' + id, {
+   return fetch(GET_PROJECT_URL + username + '/' + gistId, {
        headers: {
-         'Authorization': 'token ' + token
+         'Authorization': 'token ' + cookies.token
        }
      })
-     .then(req => req.json(), err => console.error(err))
+     .then(res => res.json(), err => console.error(err))
      .then(json => dispatch(fetchProjectSuccess(json)));
  }
 }
