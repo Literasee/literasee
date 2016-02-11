@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "webpack --config webpack.config.prod.js",
-    "dev": "nodemon index.js",
+    "dev": "nodemon -w routes index.js",
     "start": "node index.js",
     "postinstall": "npm run build"
   },
