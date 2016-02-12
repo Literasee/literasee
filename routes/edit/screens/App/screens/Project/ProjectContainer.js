@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Project from '../screens/App/screens/Project';
+import Project from './index';
 
 class ProjectContainer extends Component {
   componentDidMount () {
@@ -17,7 +17,7 @@ import { bindActionCreators } from 'redux';
 import {
   fetchProject,
   saveFile
-} from '../actions';
+} from '../../../../actions';
 
 const mapStateToProps = (state) => {
   return {
