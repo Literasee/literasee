@@ -241,19 +241,19 @@ function saveFileError(error) {
   }
 }
 
-export function saveFile(id, file) {
+export function saveFile(username, project, file) {
   return dispatch => {
-    dispatch(saveFileStart(id, file))
+    dispatch(saveFileStart(project.id, file))
 
-    return fetch('https://api.github.com/gists/' + id, {
-        method: 'PATCH',
+    return fetch(GET_PROJECT_URL + username + '/' + project.id, {
+        method: 'POST',
         headers: {
-          'Authorization': 'token ' + cookies.token
+          'Authorization': 'token ' + cookies.token,
+          'Content-Type': 'application/json; charset=utf-8'
         },
         body: JSON.stringify({
-          files: {
-            [file.filename]: file
-          }
+          isRepo: project.isRepo,
+          file
         })
       })
       .then(req => req.json(), err => console.error(err))

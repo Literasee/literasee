@@ -7,10 +7,10 @@ import styles from './Project.styl';
 
 class Project extends Component {
   saveFileType (type) {
-    const { project, saveFile } = this.props;
+    const { params, project, saveFile } = this.props;
     const file = _.find(project.files, {filename: type + '.md'});
 
-    saveFile(project.id, file)
+    saveFile(params.username, project, file)
       .then(::this._preview.refresh);
   }
 

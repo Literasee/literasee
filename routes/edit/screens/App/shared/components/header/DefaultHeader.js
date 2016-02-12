@@ -10,7 +10,7 @@ export default function () {
        Create • Collaborate • Communicate
       </p>
       <a
-        href={`https://github.com/login/oauth/authorize?client_id=${GH_CLIENT_ID}&scope=gist`}
+        href={`https://github.com/login/oauth/authorize?client_id=${GH_CLIENT_ID}&scope=gist,repo`}
         className='btn btn-primary btn-large btn-full-width'>
         Log in with Github
       </a>

@@ -1,4 +1,5 @@
 var path = require('path');
+const querystring = require('querystring');
 
 module.exports = function (locals) {
   locals.cacheDir = path.join(__dirname, '..', 'cache');
@@ -9,6 +10,10 @@ module.exports = function (locals) {
     'report.md',
     'presentation.md'
   ];
+  locals.authQueryString = '?' + querystring.stringify({
+    client_id: process.env.GH_CLIENT_ID,
+    client_secret: process.env.GH_CLIENT_SECRET
+  });
   locals.views = {};
   locals.models = {};
   return locals;
