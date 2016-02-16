@@ -38,7 +38,8 @@ export function fetchUser(token) {
 
     return fetch('https://api.github.com/user', {
         headers: {
-          'Authorization': 'token ' + token
+          'Authorization': 'token ' + token,
+          'Accept': 'application/vnd.github.v3'
         }
       })
       .then(req => req.json(), err => console.error(err))
@@ -78,7 +79,8 @@ export function fetchGists(token) {
    dispatch(requestGists());
    return fetch('https://api.github.com/gists', {
        headers: {
-         'Authorization': 'token ' + token
+         'Authorization': 'token ' + token,
+         'Accept': 'application/vnd.github.v3'
        }
      })
      .then(req => req.json(), err => console.error(err))
@@ -203,7 +205,8 @@ export function createGist(token, files) {
     return fetch('https://api.github.com/gists', {
         method: 'POST',
         headers: {
-          'Authorization': 'token ' + token
+          'Authorization': 'token ' + token,
+          'Accept': 'application/vnd.github.v3'
         },
         body: JSON.stringify({files})
       })
@@ -266,7 +269,8 @@ export function saveGistDescription(token, id, description) {
     return fetch('https://api.github.com/gists/' + id, {
         method: 'PATCH',
         headers: {
-          'Authorization': 'token ' + token
+          'Authorization': 'token ' + token,
+          'Accept': 'application/vnd.github.v3'
         },
         body: JSON.stringify({description})
       })

@@ -20,6 +20,7 @@ router.get('/projects', function (req, res) {
     request
       .get('https://api.github.com/gists' + req.app.locals.authQueryString)
       .set('Authorization', req.headers.authorization)
+      .set('Accept', 'application/vnd.github.v3')
       .end(cb);
   }
 
@@ -27,6 +28,7 @@ router.get('/projects', function (req, res) {
     request
       .get('https://api.github.com/user/repos' + req.app.locals.authQueryString)
       .set('Authorization', req.headers.authorization)
+      .set('Accept', 'application/vnd.github.v3')
       .end(cb);
   }
 

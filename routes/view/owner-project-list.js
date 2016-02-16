@@ -5,6 +5,7 @@ module.exports = function (req, res, next) {
 
   request
     .get('https://api.github.com/users/' + owner + '/gists')
+    .set('Accept', 'application/vnd.github.v3')
     .end(function (err, result) {
       if (err) {
         next();

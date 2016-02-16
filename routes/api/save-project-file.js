@@ -20,10 +20,12 @@ module.exports = function (req, res) {
     request
       .get(url + req.app.locals.authQueryString)
       .set('Authorization', authHeader)
+      .set('Accept', 'application/vnd.github.v3')
       .end((err, fileInfo) => {
         request
           .put(url + req.app.locals.authQueryString)
           .set('Authorization', authHeader)
+          .set('Accept', 'application/vnd.github.v3')
           .send({
             path: file.filename,
             message: 'Updating ' + file.filename,
@@ -40,6 +42,7 @@ module.exports = function (req, res) {
     request
       .patch('https://api.github.com/gists/' + projectId + req.app.locals.authQueryString)
       .set('Authorization', authHeader)
+      .set('Accept', 'application/vnd.github.v3')
       .send({
         files: {
           [file.filename]: file

@@ -49,7 +49,7 @@ module.exports = function (req, res, next) {
   const fetchGistDetails = (cb) => {
     request
       .get('https://api.github.com/gists/' + gistId + qs)
-      .set('Accept', 'application/vnd.github.VERSION.base64+json')
+      .set('Accept', 'application/vnd.github.v3.base64+json')
       .set('If-None-Match', gistLastModified)
       .end(function (err, res) {
         if (res.status === 304) {
@@ -72,6 +72,7 @@ module.exports = function (req, res, next) {
     request
       .get('https://api.github.com/repos/' + ownerId + '/' + gistId + qs)
       .set('If-None-Match', gistLastModified)
+      .set('Accept', 'application/vnd.github.v3')
       .end(function (err, res) {
         if (res.status === 304) {
           console.log('Repo has not changed. Reading from disk.');
@@ -90,6 +91,7 @@ module.exports = function (req, res, next) {
 
     request
       .get('https://api.github.com/repos/' + ownerId + '/' + gistId + '/contents' + qs)
+      .set('Accept', 'application/vnd.github.v3')
       .end(function (err, res) {
         gistDetails.files = _.reduce(res.body, function (acc, item) {
           if (item.type === 'file') {
@@ -122,6 +124,7 @@ module.exports = function (req, res, next) {
     var stream = fs.createWriteStream(tarballPath);
     request
       .get('https://api.github.com/repos/' + ownerId + '/' + gistId + '/tarball' + qs)
+      .set('Accept', 'application/vnd.github.v3')
       .pipe(stream)
       .on('close', () => {
         fs.createReadStream(tarballPath)

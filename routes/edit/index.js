@@ -85,6 +85,7 @@ router.use(function (req, res, next) {
       request
         .get('https://api.github.com/user')
         .set('Authorization', 'token ' + token)
+        .set('Accept', 'application/vnd.github.v3')
         .end(function (err2, result) {
           // store the user's GitHub id in a cookie too
           res.cookie('literasee-username', result.body.login, {

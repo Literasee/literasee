@@ -5,6 +5,7 @@ module.exports = function (req, res, next) {
 
   request
     .get('https://api.github.com/gists/' + gistId)
+    .set('Accept', 'application/vnd.github.v3')
     .end(function (err, result) {
       if (err) {
         res.send('<h1 style="color: red;">' + err + '</h1>');
