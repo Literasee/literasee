@@ -58,10 +58,10 @@ class Editor extends Component {
   }
 
   saveTitleEdits (title, description) {
-    const { token, gist, saveGistDescription, fetchGistDetails, params } = this.props
-    saveGistDescription(token, gist.id, title + ' | ' + description)
+    const { gist, saveGistDescription, fetchGistDetails, params } = this.props
+    saveGistDescription(gist.id, title + ' | ' + description)
       .then(() => {
-        fetchGistDetails(token, params.gistId)
+        fetchGistDetails(params.gistId)
       })
   }
 

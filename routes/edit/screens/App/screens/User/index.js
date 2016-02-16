@@ -13,16 +13,16 @@ import templates from './templates'
 
 class User extends Component {
   componentDidMount () {
-    const { token, fetchGists, fetchUser } = this.props
+    const { fetchGists, fetchUser } = this.props
 
-    fetchGists(token)
-      .then(() => fetchUser(token))
+    fetchGists()
+      .then(fetchUser)
   }
 
   onCreateProject () {
-    const { token, username, createGist, redirectToGist } = this.props
+    const { username, createGist, redirectToGist } = this.props
 
-    createGist(token, templates)
+    createGist(templates)
     .then(({result}) => {
       redirectToGist(username, result.id)
     })

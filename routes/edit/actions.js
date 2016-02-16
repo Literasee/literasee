@@ -32,13 +32,13 @@ function fetchUserError(error) {
   }
 }
 
-export function fetchUser(token) {
+export function fetchUser() {
   return dispatch => {
     dispatch(requestUser())
 
     return fetch('https://api.github.com/user', {
         headers: {
-          'Authorization': 'token ' + token,
+          'Authorization': 'token ' + cookies.token,
           'Accept': 'application/vnd.github.v3'
         }
       })
@@ -74,12 +74,12 @@ function fetchGistsError(error) {
  }
 }
 
-export function fetchGists(token) {
+export function fetchGists() {
  return dispatch => {
    dispatch(requestGists());
    return fetch('https://api.github.com/gists', {
        headers: {
-         'Authorization': 'token ' + token,
+         'Authorization': 'token ' + cookies.token,
          'Accept': 'application/vnd.github.v3'
        }
      })
@@ -198,14 +198,14 @@ function errorCreateGist (error) {
  }
 }
 
-export function createGist(token, files) {
+export function createGist(files) {
   return dispatch => {
     dispatch(requestCreateGist())
 
     return fetch('https://api.github.com/gists', {
         method: 'POST',
         headers: {
-          'Authorization': 'token ' + token,
+          'Authorization': 'token ' + cookies.token,
           'Accept': 'application/vnd.github.v3'
         },
         body: JSON.stringify({files})
@@ -264,12 +264,12 @@ export function saveFile(username, project, file) {
   }
 }
 
-export function saveGistDescription(token, id, description) {
+export function saveGistDescription(id, description) {
   return dispatch => {
     return fetch('https://api.github.com/gists/' + id, {
         method: 'PATCH',
         headers: {
-          'Authorization': 'token ' + token,
+          'Authorization': 'token ' + cookies.token,
           'Accept': 'application/vnd.github.v3'
         },
         body: JSON.stringify({description})
@@ -320,7 +320,7 @@ function errorUploadFiles (error) {
  }
 }
 
-export function uploadFiles(token, username, files) {
+export function uploadFiles(username, files) {
   return dispatch => {
     dispatch(requestUploadFiles())
 
