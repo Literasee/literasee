@@ -18,25 +18,29 @@ export default ({gists, username, createGist}) => {
 
         <div className='row around-xs'>
 
-          {gists.map(gist => {
-            const image = gist.files['thumbnail.png'] ?
-              gist.files['thumbnail.png'].raw_url :
-              '/public/img/thumb.png';
+          {
+            gists
+              .filter(p => p.name || (p.files['report.md'] || p.files['presentation.md']))
+              .map(gist => {
+                const image = gist.files && gist.files['thumbnail.png'] ?
+                  gist.files['thumbnail.png'].raw_url :
+                  '/public/img/thumb.png';
 
-            let title = gist.description ? gist.description.split(' | ').shift() : gist.id
-            let description = gist.description ? gist.description.split(' | ').pop() : ''
+                let title = gist.description ? gist.description.split(' | ').shift() : gist.id
+                let description = gist.description ? gist.description.split(' | ').pop() : ''
 
-            return (
-              <div key={gist.id} className='col-xs-12 col-md-4 col-lg-4'>
-                <Link className='panel txt-left panel-project scales'
-                  style={{backgroundImage: `url("${image}")`}}
-                  to={'/' + username + '/' + gist.id}>
-                  <h4 className='mb0'>{title}</h4>
-                  <p>{description}</p>
-                </Link>
-              </div>
-            )
-          })}
+                return (
+                  <div key={gist.id} className='col-xs-12 col-md-4 col-lg-4'>
+                    <Link className='panel txt-left panel-project scales'
+                      style={{backgroundImage: `url("${image}")`}}
+                      to={'/' + username + '/' + gist.id}>
+                      <h4 className='mb0'>{title}</h4>
+                      <p>{description}</p>
+                    </Link>
+                  </div>
+                )
+              })
+          }
 
         </div>
 
