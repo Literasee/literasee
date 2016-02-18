@@ -3,16 +3,24 @@ const path = require('path');
 const express = require('express');
 const request = require('superagent');
 const async = require('async');
+const cors = require('cors');
 
 const router = express.Router();
 
-router.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Authorization, Content-Type');
-  res.header('Access-Control-Allow-Methods', 'POST');
-  next();
-});
+const corsOptions = {
+  origin: [
+    /\.dev\.com:3000$/,
+    /\.literasee\.io$/,
+    /\.literasee\.org$/
+  ],
+  methods: ['POST'],
+  allowedHeaders: ['Authorization', 'Content-Type'],
+  credentials: true
+};
+router.use(cors(corsOptions));
+router.options('*', cors(corsOptions));
 
+router.use(require('cookie-parser')());
 router.use(require('body-parser').json());
 
 router.get('/projects', function (req, res) {
@@ -37,9 +45,21 @@ router.get('/projects', function (req, res) {
     repos: fetchRepos
   }, (err, results) => {
     const projects = results.gists.body.concat(results.repos.body);
+
     res.json(projects.sort(function (a, b) {
       return Date.parse(b.updated_at) - Date.parse(a.updated_at);
     }));
+
+    const Project = req.app.locals.models.Project;
+    projects.forEach(project => {
+      Project.findOne({id: project.full_name || project.id}, (dbErr, p) => {
+        if (!p) p = new Project({id: project.full_name || project.id});
+        p.username = req.cookies['literasee-username'];
+        p.isRepo = !!project.full_name;
+        p.summary_json = JSON.stringify(project);
+        p.save();
+      })
+    })
   })
 });
 
@@ -47,7 +67,6 @@ router.get('/project/:owner/:project', [
   require('../view/cache-project'),
   function (req, res) {
     const cacheDir = req.app.locals.cacheDir;
-    const validFiles = req.app.locals.validFiles;
     const dataFilename = req.app.locals.dataFilename;
     const username = req.params.owner;
     const id = req.params.project;

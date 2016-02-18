@@ -1,4 +1,4 @@
-var path = require('path');
+const path = require('path');
 const querystring = require('querystring');
 
 module.exports = function (locals) {

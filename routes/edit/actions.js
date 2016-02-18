@@ -121,7 +121,8 @@ export function fetchProjects() {
     return fetch(GET_PROJECTS_URL, {
       headers: {
         'Authorization': 'token ' + cookies.token
-      }
+      },
+      credentials: 'include'
     })
     .then(req => req.json(), err => console.error(err))
     .then(json => dispatch(fetchProjectsSuccess(json)));
