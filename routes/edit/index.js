@@ -63,6 +63,11 @@ router.use(function (req, res, next) {
   // and pass to the next handler
   if (!req.query.code) return next();
 
+  // trim subdomain so cookies are shared
+  const domain = req.hostname.substr(req.hostname.indexOf('.'));
+  // 30 day expiration
+  const expires = new Date(Date.now() + (1000 * 60 * 60 * 24 * 30));
+
   // send both tokens and the code to GitHub
   request
     .post('https://github.com/login/oauth/access_token')
@@ -78,7 +83,8 @@ router.use(function (req, res, next) {
       // we store the token in a cookie for use by the app
       // and set it to expire in a month
       res.cookie('literasee-token', token, {
-        expires: new Date(Date.now() + (1000 * 60 * 60 * 24 * 30))
+        domain,
+        expires
       });
 
       // use the token to get info about the current user
@@ -89,7 +95,8 @@ router.use(function (req, res, next) {
         .end(function (err2, result) {
           // store the user's GitHub id in a cookie too
           res.cookie('literasee-username', result.body.login, {
-            expires: new Date(Date.now() + (1000 * 60 * 60 * 24 * 30))
+            domain,
+            expires
           });
           // finally, send the user to their own URL
           res.redirect(result.body.login);
