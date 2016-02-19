@@ -156,7 +156,10 @@ module.exports = function (req, res, next) {
     servePresentation
   ], (err, results) => {
     if (typeof err === 'boolean') return; // either redirect or error message
-    if (err) throw err
+    if (err) {
+      console.log(err);
+      res.send('Something went wrong.')
+    }
 
     if (gist.public) {
       html = insertProjectInfo(html, req.app.locals.views['gist-info.html']);
