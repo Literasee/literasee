@@ -158,7 +158,7 @@ module.exports = function (req, res, next) {
     if (typeof err === 'boolean') return; // either redirect or error message
     if (err) {
       console.log(err);
-      res.send('Something went wrong.')
+      return res.send('Something went wrong.');
     }
 
     if (gist.public) {
