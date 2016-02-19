@@ -5,12 +5,23 @@ import styles from './ProjectPreview.styl';
 
 class ProjectPreview extends Component {
 
+  constructor () {
+    super();
+    this.state = {type: 'report'};
+  }
+
   // when presentations change slides we get a message from the iframe
   // and save the exact URL being displayed
   componentDidMount () {
     window.addEventListener('message', (e) => {
       this.currentHash = e.data;
     })
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.type !== 'keywords') {
+      this.setState({type: nextProps.type})
+    }
   }
 
   refresh () {
@@ -22,7 +33,7 @@ class ProjectPreview extends Component {
   render () {
     this.currentHash = null;
 
-    const viewUrl = getProjectViewUrl(this.props);
+    const viewUrl = getProjectViewUrl(this.props, this.state.type);
 
     return (
       <div className={styles.container}>

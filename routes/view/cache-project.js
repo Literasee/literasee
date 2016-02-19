@@ -156,19 +156,6 @@ module.exports = function (req, res, next) {
     }, cb);
   };
 
-  const storeKeywords = (cb) => {
-    if (!gistDetails.files['keywords.txt']) return cb();
-
-    fs.readFile(path.join(gistDir, 'keywords.txt'), utf8Encoding, function (err, results) {
-      const g = new req.app.locals.models.Gist({
-        id: gistDetails.id,
-        details: JSON.stringify(gistDetails),
-        keywords: _.trim(results).split('\n')
-      });
-      g.save(cb);
-    });
-  };
-
   // step through everything needed to load and cache a Gist
   // if we have the latest version cached
   // we will bail out after fetchGistDetails
@@ -182,8 +169,7 @@ module.exports = function (req, res, next) {
     fetchRepoArchive,
     writeLastModifiedFile,
     writeGistContentsFile,
-    writeGistFiles,
-    storeKeywords
+    writeGistFiles
   ], (err, results) => {
     next();
   });

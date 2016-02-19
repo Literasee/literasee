@@ -75,12 +75,14 @@ router.get('/project/:owner/:project', [
     async.parallel({
       data: cb => fs.readFile(path.join(dir, dataFilename), {encoding: 'utf8'}, cb),
       report: cb => fs.readFile(path.join(dir, 'report.md'), {encoding: 'utf8'}, cb),
-      presentation: cb => fs.readFile(path.join(dir, 'presentation.md'), {encoding: 'utf8'}, cb)
+      presentation: cb => fs.readFile(path.join(dir, 'presentation.md'), {encoding: 'utf8'}, cb),
+      keywords: cb => fs.readFile(path.join(dir, 'keywords.txt'), {encoding: 'utf8'}, cb)
     }, (err, results) => {
       results.data = JSON.parse(results.data);
       results.data.isRepo = results.data.issues_url !== undefined;
       results.data.files['report.md'].content = results.report;
       results.data.files['presentation.md'].content = results.presentation;
+      results.data.files['keywords.txt'].content = results.keywords;
       res.json(results.data);
     })
   }

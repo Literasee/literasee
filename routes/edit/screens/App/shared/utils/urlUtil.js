@@ -6,10 +6,11 @@ export function getApiUrl (endpoint) {
   return `${protocol}//${host}:${port}/${endpoint}/`;
 }
 
-export function getProjectViewUrl (props) {
-  const { owner, projectId, type } = props;
+export function getProjectViewUrl (props, stateType) {
+  const { owner, projectId } = props;
   const { protocol, hostname, port } = document.location;
   const host = hostname.replace(hostname.split('.')[0], 'view');
+  const type = stateType || props.type;
 
   return `${protocol}//${host}:${port}/${owner}/${projectId}/${type}/`;
 }

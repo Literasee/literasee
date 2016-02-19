@@ -12,7 +12,8 @@ class ProjectEditor extends Component {
     const { owner, project, type } = this.props;
 
     const path = '/' + owner + '/' + project.id + '/';
-    const file = _.find(project.files, {filename: type + '.md'});
+    const ext = type === 'keywords' ? '.txt' : '.md';
+    const file = _.find(project.files, {filename: type + ext});
     const originalCode = file && file.content;
     const optionsPanel = type === 'report' ? <ReportOptionsPanel /> : null;
 
@@ -37,6 +38,9 @@ class ProjectEditor extends Component {
           </Link>
           <Link to={path + 'presentation'} activeClassName={styles.active}>
             Presentation
+          </Link>
+          <Link to={path + 'keywords'} activeClassName={styles.active}>
+            Keywords
           </Link>
         </nav>
         <FileEditor

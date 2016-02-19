@@ -8,7 +8,8 @@ import styles from './Project.styl';
 class Project extends Component {
   saveFileType (type) {
     const { params, project, saveFile } = this.props;
-    const file = _.find(project.files, {filename: type + '.md'});
+    const ext = type === 'keywords' ? '.txt' : '.md';
+    const file = _.find(project.files, {filename: type + ext});
 
     saveFile(params.username, project, file)
       .then(::this._preview.refresh);
