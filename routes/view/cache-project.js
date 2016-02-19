@@ -69,21 +69,30 @@ module.exports = function (req, res, next) {
   const fetchRepoInfo = (cb) => {
     if (!isRepo) return cb();
 
-    request
+    const xhr = request
       .get('https://api.github.com/repos/' + ownerId + '/' + gistId + qs)
       .set('If-None-Match', gistLastModified)
-      .set('Accept', 'application/vnd.github.v3')
-      .end(function (err, res) {
-        if (res.status === 304) {
-          console.log('Repo has not changed. Reading from disk.');
-          cb(err); // pass error to skip the rest of series
-        } else {
-          gistDetails = res.body;
-          gistDetails.id = gistDetails.name;
-          gistLastModified = res.headers['etag'];
-          cb();
-        }
-      });
+      .set('Accept', 'application/vnd.github.v3');
+
+    // requests from the viewer don't have an auth header
+    if (req.headers.authorization) {
+      xhr.set('Authorization', req.headers.authorization);
+    }
+
+    xhr.end(function (err, res) {
+      if (res.status === 304) {
+        console.log('Repo has not changed. Reading from disk.');
+        cb(err); // pass error to skip the rest of series
+      } else if (res.status === 404) {
+        console.log('Repo not found. Will try to render in hopes it\'s just private.');
+        cb(err); // pass error to skip the rest of series
+      } else {
+        gistDetails = res.body;
+        gistDetails.id = gistDetails.name;
+        gistLastModified = res.headers['etag'];
+        cb();
+      }
+    });
   };
 
   const fetchRepoContents = (cb) => {
@@ -92,6 +101,7 @@ module.exports = function (req, res, next) {
     request
       .get('https://api.github.com/repos/' + ownerId + '/' + gistId + '/contents' + qs)
       .set('Accept', 'application/vnd.github.v3')
+      .set('Authorization', req.headers.authorization)
       .end(function (err, res) {
         gistDetails.files = _.reduce(res.body, function (acc, item) {
           if (item.type === 'file') {
@@ -125,6 +135,7 @@ module.exports = function (req, res, next) {
     request
       .get('https://api.github.com/repos/' + ownerId + '/' + gistId + '/tarball' + qs)
       .set('Accept', 'application/vnd.github.v3')
+      .set('Authorization', req.headers.authorization)
       .pipe(stream)
       .on('close', () => {
         fs.createReadStream(tarballPath)
