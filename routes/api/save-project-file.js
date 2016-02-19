@@ -6,8 +6,6 @@ module.exports = function (req, res) {
   const projectId = req.params.project;
   const file = req.body.file;
 
-  // saving a repo file requires two calls because the PUT call
-  // must pass the existing sha of the file
   const saveRepoFile = () => {
     const url = [
       'https://api.github.com/repos',
@@ -18,23 +16,17 @@ module.exports = function (req, res) {
     ].join('/');
 
     request
-      .get(url + req.app.locals.authQueryString)
+      .put(url + req.app.locals.authQueryString)
       .set('Authorization', authHeader)
       .set('Accept', 'application/vnd.github.v3')
-      .end((err, fileInfo) => {
-        request
-          .put(url + req.app.locals.authQueryString)
-          .set('Authorization', authHeader)
-          .set('Accept', 'application/vnd.github.v3')
-          .send({
-            path: file.filename,
-            message: 'Updating ' + file.filename,
-            content: new Buffer(file.content).toString('base64'),
-            sha: fileInfo.body.sha
-          })
-          .end((err, results) => {
-            res.send(results);
-          });
+      .send({
+        path: file.filename,
+        message: 'Updating ' + file.filename,
+        content: new Buffer(file.content).toString('base64'),
+        sha: file.sha
+      })
+      .end((err, results) => {
+        res.send(results.body.content);
       });
   }
 

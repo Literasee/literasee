@@ -2,7 +2,8 @@ import _ from 'lodash'
 
 import {
   PROJECT_FETCH_SUCCESS,
-  ADD_FILE
+  ADD_FILE,
+  SAVE_FILE_SUCCESS
 } from '../actions'
 
 const templates = {
@@ -24,6 +25,16 @@ export default function project (state = {}, action) {
         filename: action.filename,
         content: templates[action.filename.split('.').pop()]
       }]
+
+    case SAVE_FILE_SUCCESS:
+      // update the sha of the saved file
+      const file = _.find(state.files, {filename: action.result.name});
+      const newFiles = [
+        ...state.files.slice(0, state.files.indexOf(file)),
+        {...file, sha: action.result.sha},
+        ...state.files.slice(state.files.indexOf(file) + 1)
+      ]
+      return {...state, files: newFiles};
 
     default:
       return state
