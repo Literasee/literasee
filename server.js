@@ -19,6 +19,8 @@ app.set('views', app.locals.viewsDir);
 app.set('view engine', 'hbs');
 app.engine('hbs', engines.handlebars);
 
+app.set('x-powered-by', false);
+
 // local dev only
 if (!process.env.PORT) {
   var config = require('./webpack.config.dev');
