@@ -4,6 +4,8 @@ const express = require('express');
 
 const router = express.Router();
 
+router.use(require('cookie-parser')());
+
 router.use(function (req, res, next) {
   // use redirect to ensure trailing slashes in the address bar
   // without the slash, assets requested by the page do not have

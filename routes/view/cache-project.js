@@ -28,6 +28,11 @@ module.exports = function (req, res, next) {
   var gistDetails;
   var isRepo;
 
+  var auth = req.headers.authorization;
+  if (!auth && req.cookies['literasee-token']) {
+    auth = 'token ' + req.cookies['literasee-token'];
+  }
+
   // see if we have this Gist cached
   // if not we set a last modified time of epoch
   // to ensure we pull from GitHub API
@@ -47,10 +52,16 @@ module.exports = function (req, res, next) {
   // and counting against the rate limit if the Gist hasn't changed
   // since we last put it in the cache
   const fetchGistDetails = (cb) => {
-    request
+    const xhr = request
       .get('https://api.github.com/gists/' + gistId + qs)
       .set('Accept', 'application/vnd.github.v3.base64+json')
-      .set('If-None-Match', gistLastModified)
+      .set('If-None-Match', gistLastModified);
+
+    if (auth) {
+      xhr.set('Authorization', auth);
+    }
+
+    xhr
       .end(function (err, res) {
         if (res.status === 304) {
           console.log('Gist has not changed. Reading from disk.');
@@ -74,9 +85,8 @@ module.exports = function (req, res, next) {
       .set('If-None-Match', gistLastModified)
       .set('Accept', 'application/vnd.github.v3');
 
-    // requests from the viewer don't have an auth header
-    if (req.headers.authorization) {
-      xhr.set('Authorization', req.headers.authorization);
+    if (auth) {
+      xhr.set('Authorization', auth);
     }
 
     xhr.end(function (err, res) {
@@ -98,10 +108,15 @@ module.exports = function (req, res, next) {
   const fetchRepoContents = (cb) => {
     if (!isRepo) return cb();
 
-    request
+    const xhr = request
       .get('https://api.github.com/repos/' + ownerId + '/' + gistId + '/contents' + qs)
-      .set('Accept', 'application/vnd.github.v3')
-      .set('Authorization', req.headers.authorization)
+      .set('Accept', 'application/vnd.github.v3');
+
+    if (auth) {
+      xhr.set('Authorization', auth);
+    }
+
+    xhr
       .end(function (err, res) {
         gistDetails.files = _.reduce(res.body, function (acc, item) {
           if (item.type === 'file') {
@@ -132,10 +147,16 @@ module.exports = function (req, res, next) {
 
     var tarballPath = path.join(ownerDir, gistId + '.tar.gz');
     var stream = fs.createWriteStream(tarballPath);
-    request
+
+    const xhr = request
       .get('https://api.github.com/repos/' + ownerId + '/' + gistId + '/tarball' + qs)
-      .set('Accept', 'application/vnd.github.v3')
-      .set('Authorization', req.headers.authorization)
+      .set('Accept', 'application/vnd.github.v3');
+
+    if (auth) {
+      xhr.set('Authorization', auth);
+    }
+
+    xhr
       .pipe(stream)
       .on('close', () => {
         fs.createReadStream(tarballPath)
