@@ -53,8 +53,8 @@ module.exports = function (req, res, next) {
     '/public/gist-info.css'
   ];
   let context = { owner: ownerId };
-  let isReportUrl = req.url.slice(-8) === '/report/';
-  let isPresentationUrl = req.url.substr(-14) === '/presentation/';
+  let isReportUrl = req.params.type === 'report';
+  let isPresentationUrl = req.params.type === 'presentation';
   let hasReport = false;
   let hasPresentation = false;
 
@@ -82,13 +82,13 @@ module.exports = function (req, res, next) {
 
         // default redirect is report, if valid
         if (hasReport) {
-          res.redirect(req.originalUrl + 'report/');
+          res.redirect(path.join(req.originalUrl, 'report'));
           return cb(true);
         }
 
         // fallback redirect is presentation
         if (hasPresentation) {
-          res.redirect(req.originalUrl + 'presentation/');
+          res.redirect(path.join(req.originalUrl, 'presentation'));
           return cb(true);
         }
       }
