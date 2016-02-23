@@ -175,7 +175,6 @@ export function fetchProject({ gistId, username }) {
 }
 
 export function publishProject (project) {
-  console.log(project);
   return (dispatch) => {
     dispatch({type: 'PUBLISH_PROJECT_REQUEST'});
 
