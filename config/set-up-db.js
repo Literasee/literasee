@@ -1,14 +1,13 @@
 const mongoose = require('mongoose');
 
 const ProjectSchema = mongoose.Schema({
-    username: String,
-    id: String,
+    owner: String,
+    project: String,
+    isPublished: Boolean,
     isRepo: Boolean,
-    hasReport: { type: Boolean, default: true },
-    hasPresentation: { type: Boolean, default: true },
-    hasThumbnail: { type: Boolean, default: false },
-    summary_json: String,
-    contents_json: String,
+    report: String,
+    presentation: String,
+    thumbnail: String,
     keywords: [String]
 });
 

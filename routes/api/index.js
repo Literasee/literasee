@@ -45,23 +45,12 @@ router.get('/projects', function (req, res) {
     repos: fetchRepos
   }, (err, results) => {
     if (err) return res.json(err);
-    
+
     const projects = results.gists.body.concat(results.repos.body);
 
     res.json(projects.sort(function (a, b) {
       return Date.parse(b.updated_at) - Date.parse(a.updated_at);
     }));
-
-    const Project = req.app.locals.models.Project;
-    projects.forEach(project => {
-      Project.findOne({id: project.full_name || project.id}, (dbErr, p) => {
-        if (!p) p = new Project({id: project.full_name || project.id});
-        p.username = req.cookies['literasee-username'];
-        p.isRepo = !!project.full_name;
-        p.summary_json = JSON.stringify(project);
-        p.save();
-      })
-    })
   })
 });
 

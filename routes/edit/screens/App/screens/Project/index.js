@@ -16,7 +16,9 @@ class Project extends Component {
   }
 
   render () {
-    const { project, params } = this.props;
+    const { project, params, publishProject } = this.props;
+
+    const onClickPublish = () => publishProject(project);
 
     return (
       <div className={styles.container}>
@@ -24,7 +26,8 @@ class Project extends Component {
           owner={params.username}
           projectId={params.gistId}
           description={project.description}
-          type={params.type} />
+          type={params.type}
+          onClickPublish={onClickPublish} />
         <div className={styles.contentArea}>
           <ProjectEditor
             owner={params.username}

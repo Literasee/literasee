@@ -3,16 +3,29 @@
 
 .container {
   display: flex;
-  align-items: flex-start;
+  justify-content: space-between;
   padding: 0.8rem 0;
 }
 
-.subTitle {
-  font-size: $font-size-med;
+.labelsContainer {
+  display: flex;
+
+  .subTitle {
+    font-size: $font-size-med;
+  }
 }
 
-.viewerBtn {
+
+.btnContainer {
+  display: flex;
+
+}
+
+.headerBtn {
   composes: btn;
   composes: btn-primary;
-  margin-left: auto;
+
+  &:last-child {
+    margin-left: 0.5rem;
+  }
 }

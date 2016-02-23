@@ -1,6 +1,9 @@
 import fetch from 'isomorphic-fetch';
 import cookies from './config/cookies';
-import { getApiUrl } from './screens/App/shared/utils/urlUtil';
+import {
+  getApiUrl,
+  getPublishProjectUrl
+} from './screens/App/shared/utils/urlUtil';
 
 const GET_PROJECTS_URL = getApiUrl('projects');
 const GET_PROJECT_URL = getApiUrl('project');
@@ -169,6 +172,25 @@ export function fetchProject({ gistId, username }) {
      .then(res => res.json(), err => console.error(err))
      .then(json => dispatch(fetchProjectSuccess(json)));
  }
+}
+
+export function publishProject (project) {
+  console.log(project);
+  return (dispatch) => {
+    dispatch({type: 'PUBLISH_PROJECT_REQUEST'});
+
+    return fetch(getPublishProjectUrl(), {
+      method: 'POST',
+      headers: {
+        'Authorization': 'token ' + cookies.token,
+        'Content-Type': 'application/json; charset=utf-8'
+      },
+      credentials: 'include',
+      body: JSON.stringify(project)
+    })
+    .then(res => res.json(), err => dispatch({type: 'PUBLISH_PROJECT_ERROR', error: err}))
+    .then(json => dispatch({type: 'PUBLISH_PROJECT_SUCCESS', result: json}));
+  }
 }
 
 /*
