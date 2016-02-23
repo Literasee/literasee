@@ -77,6 +77,10 @@ router.get('/project/:owner/:project', [
         })
       }
     }, (err, results) => {
+      if (err) {
+        return res.send(err);
+      }
+
       results.data = JSON.parse(results.data);
       results.data.isRepo = results.data.issues_url !== undefined;
       results.data.files['report.md'].content = results.report;
