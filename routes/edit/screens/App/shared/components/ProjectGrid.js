@@ -33,7 +33,7 @@ export default ({gists, username, createGist}) => {
                   <div key={gist.id} className='col-xs-12 col-md-4 col-lg-4'>
                     <Link className='panel txt-left panel-project scales'
                       style={{backgroundImage: `url("${image}")`}}
-                      to={'/' + username + '/' + gist.id}>
+                      to={'/' + username + '/' + (gist.name || gist.id)}>
                       <h4 className='mb0'>{title}</h4>
                       <p>{description}</p>
                     </Link>
