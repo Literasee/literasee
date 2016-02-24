@@ -10,6 +10,10 @@ module.exports = function (locals) {
     'report.md',
     'presentation.md'
   ];
+  locals.authQuery = {
+    client_id: process.env.GH_CLIENT_ID,
+    client_secret: process.env.GH_CLIENT_SECRET
+  };
   locals.authQueryString = '?' + querystring.stringify({
     client_id: process.env.GH_CLIENT_ID,
     client_secret: process.env.GH_CLIENT_SECRET

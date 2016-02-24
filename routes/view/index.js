@@ -15,9 +15,15 @@ router.get('/:owner', [
   require('./redirect-to-project')
 ]);
 
+router.get('/:owner/:project', [
+  require('./detect-project-type-published'),
+  require('./verify-embedded-viewer-authentication'),
+  require('./detect-project-type-embedded-gist'),
+  require('./detect-project-type-embedded-repo')
+]);
+
 router.get('/:owner/:project/presentation.md', function (req, res, next) {
-  const p = req.params;
-  res.sendFile(path.join(req.app.locals.cacheDir, p.owner, p.project, 'presentation.md'));
+  res.sendFile(path.join(req.app.locals.cacheDir, req.originalUrl));
 });
 
 router.get([
