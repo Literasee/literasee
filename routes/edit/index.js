@@ -9,8 +9,9 @@ const router = express.Router();
 // USER LOG OUT
 //
 router.get('/logout', function (req, res) {
-  res.clearCookie('literasee-token');
-  res.clearCookie('literasee-username');
+  const domain = req.hostname.substr(req.hostname.indexOf('.'));
+  res.clearCookie('literasee-token', {domain});
+  res.clearCookie('literasee-username', {domain});
   res.redirect('/');
 })
 
