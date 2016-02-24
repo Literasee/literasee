@@ -44,7 +44,7 @@ router.get('/projects', function (req, res) {
     gists: fetchGists,
     repos: fetchRepos
   }, (err, results) => {
-    if (err) return res.json(err);
+    if (err) return res.status(500).json(err);
 
     const projects = results.gists.body.concat(results.repos.body);
 
