@@ -23,6 +23,8 @@ router.options('*', cors(corsOptions));
 router.use(require('cookie-parser')());
 router.use(require('body-parser').json());
 
+router.post('/publish', require('./publish-project'));
+
 router.get('/projects', function (req, res) {
   const fetchGists = (cb) => {
     request
