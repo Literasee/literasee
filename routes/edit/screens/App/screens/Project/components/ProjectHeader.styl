@@ -3,22 +3,39 @@
 
 .container {
   display: flex;
-  justify-content: space-between;
   padding: 0.8rem 0;
+  align-items: center;
 }
 
 .labelsContainer {
   display: flex;
+  flex: 1;
+  align-items: baseline;
+  overflow: hidden;
 
-  .subTitle {
-    font-size: $font-size-med;
+  .titles {
+    display: inherit;
+    flex: 1;
+    overflow: hidden;
+    align-items: baseline;
+
+    h3 {
+      white-space: nowrap;
+    }
+
+    .subTitle {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: $font-size-med;
+    }
   }
 }
 
 
 .btnContainer {
   display: flex;
-
+  padding-left: 2rem;
 }
 
 .headerBtn {

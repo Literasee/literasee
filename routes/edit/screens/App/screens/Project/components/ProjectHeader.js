@@ -17,8 +17,10 @@ export default (props) => {
           title='Back to your projects'
           to={'/' + username}>
         </Link>
-        <h3 className='mb0 mr1'>{title}</h3>
-        <div className={styles.subTitle}>{subTitle}</div>
+        <div className={styles.titles}>
+          <h3 className='mb0 mr1'>{title}</h3>
+          <div className={styles.subTitle}>{subTitle}</div>
+        </div>
       </div>
 
       <div className={styles.btnContainer}>
