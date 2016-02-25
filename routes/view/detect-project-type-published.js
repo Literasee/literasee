@@ -16,12 +16,14 @@ module.exports = function (req, res, next) {
       return res.status(500).send(err);
     }
 
+    if (!result || (!result.report && !result.presentation)) {
+      return res.status(404).send('No valid content found.');
+    }
+
     if (result.report) {
       res.redirect(path.join(req.url, 'report'));
     } else if (result.presentation) {
       res.redirect(path.join(req.url, 'presentation'));
-    } else {
-      res.status(404).send('No valid content found.');
     }
   });
 }
