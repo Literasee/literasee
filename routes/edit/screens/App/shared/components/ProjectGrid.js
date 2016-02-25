@@ -26,14 +26,15 @@ export default ({gists, username, createGist}) => {
                   gist.files['thumbnail.png'].raw_url :
                   '/public/img/thumb.png';
 
-                let title = gist.description ? gist.description.split(' | ').shift() : gist.id
-                let description = gist.description ? gist.description.split(' | ').pop() : ''
+                let title = gist.description ? gist.description.split(' | ').shift() : gist.id;
+                let description = gist.description ? gist.description.split(' | ').pop() : '';
+                let linkDest = username === gist.owner.login ? '' : gist.owner.login + '/';
 
                 return (
                   <div key={gist.id} className='col-xs-12 col-md-4 col-lg-4'>
                     <Link className='panel txt-left panel-project scales'
                       style={{backgroundImage: `url("${image}")`}}
-                      to={'/' + username + '/' + (gist.name || gist.id)}>
+                      to={'/' + username + '/' + linkDest + (gist.name || gist.id)}>
                       <h4 className='mb0'>{title}</h4>
                       <p>{description}</p>
                     </Link>

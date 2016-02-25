@@ -33,6 +33,8 @@ class ProjectPreview extends Component {
   render () {
     this.currentHash = null;
 
+    if (!this.props.project.full_name && !this.props.project.id) return <div />;
+
     const viewUrl = getProjectViewUrl(this.props, this.state.type, '?embedded=true');
 
     return (

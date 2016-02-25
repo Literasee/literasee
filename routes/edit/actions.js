@@ -160,11 +160,11 @@ function fetchProjectError(error) {
  }
 }
 
-export function fetchProject({ gistId, username }) {
+export function fetchProject({ owner, project }) {
  return dispatch => {
-   dispatch(requestProject(gistId))
+   dispatch(requestProject(project))
 
-   return fetch(GET_PROJECT_URL + username + '/' + gistId, {
+   return fetch(GET_PROJECT_URL + owner + '/' + project, {
        headers: {
          'Authorization': 'token ' + cookies.token
        }

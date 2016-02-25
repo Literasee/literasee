@@ -23,21 +23,21 @@ class Project extends Component {
     return (
       <div className={styles.container}>
         <ProjectHeader
-          owner={params.username}
-          projectId={params.gistId}
+          username={params.username}
+          project={project}
           description={project.description}
           type={params.type}
           onClickPublish={onClickPublish} />
         <div className={styles.contentArea}>
           <ProjectEditor
-            owner={params.username}
+            username={params.username}
             project={project}
             type={params.type}
             saveFileType={::this.saveFileType} />
           <ProjectPreview
+            username={params.username}
             ref={(c) => this._preview = c}
-            owner={params.username}
-            projectId={params.gistId}
+            project={project}
             type={params.type} />
         </div>
       </div>

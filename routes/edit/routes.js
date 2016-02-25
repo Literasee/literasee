@@ -11,11 +11,22 @@ const verifyToken = (nextState, replace) => {
   if (!cookies.token) replace({pathname: '/'});
 }
 
+const verifyProjectType = (nextState, replace) => {
+  if (!cookies.token) return replace({pathname: '/'});
+
+  let { params: { type }, location: { pathname } } = nextState;
+  if (pathname.substr(-1) !== '/') pathname += '/';
+
+  if (type !== 'report' && type !== 'presentation') {
+    replace({pathname: pathname + 'report'});
+  }
+}
+
 export default (
   <Route path='/' component={App}>
     <Route path=':username'>
       <IndexRoute
-        onEnter={verifyToken} 
+        onEnter={verifyToken}
         component={UserContainer} />
 
       <Route
@@ -23,10 +34,14 @@ export default (
         onEnter={verifyToken}
         component={AdminContainer} />
 
-      <Redirect from=':gistId' to=':gistId/report' />
       <Route
-        path=':gistId/:type'
-        onEnter={verifyToken}
+        path=':project(/:type)'
+        onEnter={verifyProjectType}
+        component={ProjectContainer} />
+
+      <Route
+        path=':owner/:project(/:type)'
+        onEnter={verifyProjectType}
         component={ProjectContainer} />
     </Route>
   </Route>

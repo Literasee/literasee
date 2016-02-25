@@ -35,6 +35,7 @@ router.get('/projects', function (req, res) {
   const fetchRepos = (cb) => {
     request
       .get('https://api.github.com/user/repos' + req.app.locals.authQueryString)
+      .query({sort: 'updated'})
       .set('Authorization', req.headers.authorization)
       .set('Accept', 'application/vnd.github.v3')
       .end(cb);

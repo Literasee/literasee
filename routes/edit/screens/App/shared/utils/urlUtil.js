@@ -13,12 +13,13 @@ export function getApiUrl (endpoint) {
 }
 
 export function getProjectViewUrl (props, stateType, query = '') {
-  const { owner, projectId } = props;
+  const { username, project } = props;
   const { protocol, hostname, port } = document.location;
   const host = hostname.replace(hostname.split('.')[0], 'view');
   const type = stateType || props.type;
+  const projectPath = project.full_name || username + '/' + project.id;
 
-  return `${protocol}//${host}:${port}/${owner}/${projectId}/${type}${query}`;
+  return `${protocol}//${host}:${port}/${projectPath}/${type}${query}`;
 }
 
 export function getPublishProjectUrl () {
