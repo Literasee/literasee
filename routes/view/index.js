@@ -6,10 +6,6 @@ const router = express.Router();
 
 router.use(require('cookie-parser')());
 
-router.get('/', function (req, res) {
-  res.send('Add a Project or Owner id to the URL bar!');
-});
-
 router.get('/:owner', [
   require('./owner-project-list'),
   require('./redirect-to-project')

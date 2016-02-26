@@ -9,6 +9,7 @@ const router = express.Router();
 
 const corsOptions = {
   origin: [
+    /dev\.com:3000$/,
     /\.dev\.com:3000$/,
     /\.literasee\.io$/,
     /\.literasee\.org$/
@@ -24,6 +25,8 @@ router.use(require('cookie-parser')());
 router.use(require('body-parser').json());
 
 router.post('/publish', require('./publish-project'));
+
+router.get('/featured_projects', require('./get-featured-projects'));
 
 router.get('/projects', function (req, res) {
   const fetchGists = (cb) => {

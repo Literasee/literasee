@@ -3,8 +3,10 @@ const mongoose = require('mongoose');
 const ProjectSchema = mongoose.Schema({
     owner: String,
     project: String,
+    description: String,
     isPublished: Boolean,
     isRepo: Boolean,
+    isFeatured: Boolean,
     report: String,
     presentation: String,
     thumbnail: String,

@@ -17,13 +17,16 @@ const verifyProjectType = (nextState, replace) => {
   let { params: { type }, location: { pathname } } = nextState;
   if (pathname.substr(-1) !== '/') pathname += '/';
 
-  if (type !== 'report' && type !== 'presentation') {
+  if (['report', 'presentation', 'keywords', 'assets'].indexOf(type) < 0) {
     replace({pathname: pathname + 'report'});
   }
 }
 
 export default (
   <Route path='/' component={App}>
+    <IndexRoute
+      component={UserContainer} />
+
     <Route path=':username'>
       <IndexRoute
         onEnter={verifyToken}

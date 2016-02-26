@@ -2,6 +2,8 @@ import fetch from 'isomorphic-fetch';
 import cookies from './config/cookies';
 import {
   getApiUrl,
+  getFeaturedProjectsUrl,
+  getProjectsUrl,
   getPublishProjectUrl
 } from './screens/App/shared/utils/urlUtil';
 
@@ -121,14 +123,23 @@ function fetchProjectsError(error) {
 export function fetchProjects() {
   return dispatch => {
     dispatch(requestProjects());
-    return fetch(GET_PROJECTS_URL, {
-      headers: {
-        'Authorization': 'token ' + cookies.token
-      },
-      credentials: 'include'
-    })
-    .then(req => req.json(), err => console.error(err))
-    .then(json => dispatch(fetchProjectsSuccess(json)));
+
+    let url = getFeaturedProjectsUrl();
+    let config = {};
+
+    if (cookies.token) {
+      url = getProjectsUrl();
+      config = {
+        headers: {
+          'Authorization': 'token ' + cookies.token
+        },
+        credentials: 'include'
+      };
+    }
+
+    return fetch(url, config)
+      .then(req => req.json(), err => console.error(err))
+      .then(json => dispatch(fetchProjectsSuccess(json)));
   }
 }
 

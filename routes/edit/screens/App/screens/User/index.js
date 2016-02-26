@@ -7,7 +7,7 @@ class User extends Component {
 
     return (
       <ProjectGrid
-        gists={projects}
+        projects={projects}
         username={params.username}
         createGist={onCreateProject} />
     )

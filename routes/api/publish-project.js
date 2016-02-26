@@ -17,6 +17,7 @@ module.exports = function (req, res) {
   const update = {
     owner: p.owner.login,
     project: p.id,
+    description: p.description,
     isPublished: true,
     isRepo: p.issues_url !== undefined,
     report: report.content,

@@ -1,6 +1,12 @@
 function getBaseUrl () {
   const { protocol, hostname, port } = document.location;
-  const host = hostname.replace(hostname.split('.')[0], 'api');
+  let host;
+
+  if (hostname.split('.').length === 3) {
+    host = hostname.replace(hostname.split('.')[0], 'api');
+  } else {
+    host = 'api.' + hostname;
+  }
 
   return `${protocol}//${host}:${port}/`;
 }
@@ -20,6 +26,14 @@ export function getProjectViewUrl (props, stateType, query = '') {
   const projectPath = project.full_name || username + '/' + project.id;
 
   return `${protocol}//${host}:${port}/${projectPath}/${type}${query}`;
+}
+
+export function getFeaturedProjectsUrl () {
+  return getBaseUrl() + 'featured_projects';
+}
+
+export function getProjectsUrl () {
+  return getBaseUrl() + 'projects';
 }
 
 export function getPublishProjectUrl () {
