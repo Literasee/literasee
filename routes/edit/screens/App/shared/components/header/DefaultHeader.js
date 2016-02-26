@@ -1,20 +1,22 @@
 import React from 'react';
+import { Link } from 'react-router';
 import Logo from './Logo';
 
-export default function () {
+import styles from './header.styl';
+
+export default function ({ user, username, onCreateProject }) {
+  const src = user ? user.avatar_url + '&s=40' : '';
+  const oauthUrl = `https://github.com/login/oauth/authorize?client_id=${GH_CLIENT_ID}&scope=gist,repo`;
+
   return (
-  <div className='row center-xs'>
-    <div className='col-xs-12 col-md-8 mt2 mb2'>
-      <h1><Logo /></h1>
-      <p className='lead'>
-       Create • Collaborate • Communicate
-      </p>
+    <div className={styles.container}>
+      <a href='/'><Logo scale='0.6' /></a>
+      <p>Create • Collaborate • Communicate</p>
       <a
-        href={`https://github.com/login/oauth/authorize?client_id=${GH_CLIENT_ID}&scope=gist,repo`}
-        className='btn btn-primary btn-large btn-full-width'>
+        href={oauthUrl}
+        className='btn btn-primary'>
         Log in with Github
       </a>
     </div>
-  </div>
-  );
+  )
 }

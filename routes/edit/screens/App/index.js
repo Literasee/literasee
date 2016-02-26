@@ -8,8 +8,10 @@ import templates from './shared/templates';
 class App extends Component {
   componentDidMount () {
     const { username, path, fetchUser, redirectToUserHome } = this.props;
-    fetchUser();
-    if (path.length < 2 && username) redirectToUserHome(username);
+    if (username) {
+      if (path.length < 2) redirectToUserHome(username);
+      fetchUser();
+    }
   }
 
   onCreateProject () {

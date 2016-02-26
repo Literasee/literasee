@@ -47,7 +47,10 @@ const viewRouter = require('./routes/view');
 app.use(subdomain('view', viewRouter));
 app.use('/view', viewRouter);
 
-app.use('/', editRouter);
+// the React app is the fallback for all routes
+app.use(function (req, res) {
+  res.sendFile(path.join(__dirname, 'routes', 'edit', 'index.html'));
+});
 
 module.exports = function (local, port) {
   port = port || process.env.PORT || 3000;
