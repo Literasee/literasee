@@ -3,10 +3,23 @@ import React, { Component } from 'react';
 import DefaultHeader from './DefaultHeader';
 import AuthenticatedHeader from './AuthenticatedHeader';
 
-export default function ({username}) {
-  const activeHeader = username ? <AuthenticatedHeader username={username} /> : <DefaultHeader />;
+export default function ({user, username, onCreateProject}) {
+
+  if (username) {
+    return (
+      <header className='container-fluid'>
+        <AuthenticatedHeader
+          user={user}
+          username={username}
+          onCreateProject={onCreateProject} />
+      </header>
+    )
+  }
 
   return (
-    <header className='container-fluid'>{activeHeader}</header>
+    <header className='container-fluid'>
+      <DefaultHeader />
+    </header>
   )
+
 }

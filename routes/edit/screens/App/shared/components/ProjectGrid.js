@@ -5,18 +5,7 @@ export default ({gists, username, createGist}) => {
   return (
     <div className='row center-lg'>
       <div className='col-xs-12'>
-        <div className='cf'>
-          <h2 className='mt2 txt-left fl-left'>Your Projects</h2>
-          <button
-            type='button'
-            name='button'
-            className='btn btn-primary fl-right mt2'
-            onClick={createGist}>
-            Create a Project
-          </button>
-        </div>
-
-        <div className='row around-xs'>
+        <div className='row around-xs mt2'>
 
           {
             gists
