@@ -4,7 +4,8 @@ import {
   getApiUrl,
   getFeaturedProjectsUrl,
   getProjectsUrl,
-  getPublishProjectUrl
+  getPublishProjectUrl,
+  UPDATE_PROJECT_DESCRIPTION_URL
 } from './screens/App/shared/utils/urlUtil';
 
 const GET_PROJECTS_URL = getApiUrl('projects');
@@ -297,16 +298,25 @@ export function saveFile(username, project, file) {
   }
 }
 
-export function saveGistDescription(id, description) {
+export const UPDATE_PROJECT_DESCRIPTION = 'UPDATE_PROJECT_DESCRIPTION';
+export const UPDATE_PROJECT_DESCRIPTION_SUCCESS = 'UPDATE_PROJECT_DESCRIPTION_SUCCESS';
+export const UPDATE_PROJECT_DESCRIPTION_ERROR = 'UPDATE_PROJECT_DESCRIPTION_ERROR';
+
+export function updateProjectDescription(project) {
   return dispatch => {
-    return fetch('https://api.github.com/gists/' + id, {
-        method: 'PATCH',
+    dispatch({type: UPDATE_PROJECT_DESCRIPTION});
+
+    return fetch(UPDATE_PROJECT_DESCRIPTION_URL, {
+        method: 'POST',
         headers: {
           'Authorization': 'token ' + cookies.token,
-          'Accept': 'application/vnd.github.v3'
+          'Accept': 'application/vnd.github.v3',
+          'Content-Type': 'application/json; charset=utf-8'
         },
-        body: JSON.stringify({description})
+        body: JSON.stringify(project)
       })
+      .then(res => res.json(), err => dispatch({type: 'UPDATE_PROJECT_DESCRIPTION_ERROR', error: err}))
+      .then(json => dispatch({type: UPDATE_PROJECT_DESCRIPTION_SUCCESS, result: json}));
   }
 }
 

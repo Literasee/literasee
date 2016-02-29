@@ -22,9 +22,10 @@ router.use(cors(corsOptions));
 router.options('*', cors(corsOptions));
 
 router.use(require('cookie-parser')());
-router.use(require('body-parser').json());
+router.use(require('body-parser').json({limit: '10mb'}));
 
 router.post('/publish', require('./publish-project'));
+router.post('/update_project_description', require('./update-project-description'));
 
 router.get('/featured_projects', require('./get-featured-projects'));
 

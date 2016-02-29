@@ -32,6 +32,10 @@ export function getFeaturedProjectsUrl () {
   return getBaseUrl() + 'featured_projects';
 }
 
+export const UPDATE_PROJECT_DESCRIPTION_URL = (function () {
+  return getBaseUrl() + 'update_project_description';
+})();
+
 export function getProjectsUrl () {
   return getBaseUrl() + 'projects';
 }
