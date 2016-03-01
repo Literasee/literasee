@@ -25,7 +25,7 @@ export default function ({ user, username, onCreateProject }) {
           </li>
           <li className='pure-menu-item pure-menu-has-children pure-menu-allow-hover'>
             <a href='#' className={styles.avatarLink + ' pure-menu-link'}>
-              <img src={src} />
+              <img src={src} width='40' height='40' />
             </a>
             <ul className='pure-menu-children'>
               <li className='pure-menu-item'>
