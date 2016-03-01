@@ -15,6 +15,11 @@ class Project extends Component {
       .then(::this._preview.refresh);
   }
 
+  onSaveTitles (title, subTitle) {
+    const { project, updateProjectDescription } = this.props;
+    updateProjectDescription({...project, description: title + '|' + subTitle});
+  }
+
   render () {
     const { project, params, publishProject } = this.props;
 
@@ -25,8 +30,8 @@ class Project extends Component {
         <ProjectHeader
           username={params.username}
           project={project}
-          description={project.description}
           type={params.type}
+          onSaveTitles={::this.onSaveTitles}
           onClickPublish={onClickPublish} />
         <div className={styles.contentArea}>
           <ProjectEditor

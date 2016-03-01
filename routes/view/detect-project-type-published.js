@@ -7,8 +7,8 @@ module.exports = function (req, res, next) {
   const Project = req.app.locals.models.Project;
 
   const conditions = {
-    owner: req.params.owner,
-    project: req.params.project
+    owner: {$regex: new RegExp('^' + req.params.owner.toLowerCase(), 'i')},
+    project: {$regex: new RegExp('^' + req.params.project.toLowerCase(), 'i')}
   };
 
   Project.findOne(conditions, (err, result) => {

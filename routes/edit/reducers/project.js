@@ -3,7 +3,8 @@ import _ from 'lodash'
 import {
   PROJECT_FETCH_SUCCESS,
   ADD_FILE,
-  SAVE_FILE_SUCCESS
+  SAVE_FILE_SUCCESS,
+  UPDATE_PROJECT_DESCRIPTION_SUCCESS
 } from '../actions'
 
 const templates = {
@@ -35,6 +36,9 @@ export default function project (state = {}, action) {
         ...state.files.slice(state.files.indexOf(file) + 1)
       ]
       return {...state, files: newFiles};
+
+    case UPDATE_PROJECT_DESCRIPTION_SUCCESS:
+      return action.result;
 
     default:
       return state

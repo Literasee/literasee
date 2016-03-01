@@ -1,6 +1,9 @@
 <div id="gist-info">
   <a href="http://twitter.com?status=Check out what I saw on Literasee! " id="tweetLink"><img src="/public/TwitterLogo.png" alt="Twitter Logo"/></a>
-  <a href="{{gist_url}}"><img src="/public/GitHub-Mark-32px.png" alt="GitHub Logo"/></a>
+  {{#if editUrl}}
+    <a href="{{gist_url}}"><img src="/public/GitHub-Mark-32px.png" alt="GitHub Logo"/></a>
+    <a href="{{editUrl}}">Edit</a>
+  {{/if}}
 </div>
 <script>
   var tl = document.getElementById('tweetLink');

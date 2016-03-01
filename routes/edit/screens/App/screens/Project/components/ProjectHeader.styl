@@ -18,20 +18,51 @@
     flex: 1;
     overflow: hidden;
     align-items: baseline;
+    padding-right: 1rem;
+
+    &.noSubTitle {
+      align-items: flex-end;
+
+      button {
+        margin-left: -1.3rem;
+      }
+    }
 
     h3 {
       white-space: nowrap;
     }
 
-    .subTitle {
+    .description {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
       font-size: $font-size-med;
+      padding-right: 1rem;
     }
   }
 }
 
+.formContainer {
+  display: flex;
+  flex: 1;
+  align-items: baseline;
+  justify-content: space-between;
+
+  .inputsContainer {
+    flex: 1;
+    display: flex;
+
+    input {
+      line-height: 2rem;
+      margin-right: 1rem;
+      flex: 1;
+
+      .title {
+        font-size: 1.3rem;
+      }
+    }
+  }
+}
 
 .btnContainer {
   display: flex;
@@ -45,4 +76,8 @@
   &:last-child {
     margin-left: 0.5rem;
   }
+}
+
+.hidden {
+  display: none;
 }

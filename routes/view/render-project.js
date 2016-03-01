@@ -161,7 +161,17 @@ module.exports = function (req, res, next) {
       return res.send('Something went wrong.');
     }
 
-    if (gist.public) {
+    if (req.cookies['literasee-token']) {
+      let host = req.hostname;
+      if (host.indexOf('view') === 0) {
+        host = host.replace('view', 'edit');
+      } else {
+        host = 'edit.' + host;
+      }
+      context.editUrl = req.protocol + '://' + host + req.originalUrl;
+    }
+
+    if (true || gist.public) {
       html = insertProjectInfo(html, req.app.locals.views['gist-info.html']);
     }
 
