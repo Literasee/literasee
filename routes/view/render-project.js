@@ -171,7 +171,7 @@ module.exports = function (req, res, next) {
       context.editUrl = req.protocol + '://' + host + req.originalUrl;
     }
 
-    if (true || gist.public) {
+    if (!req.query.embedded) {
       html = insertProjectInfo(html, req.app.locals.views['gist-info.html']);
     }
 
