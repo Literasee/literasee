@@ -76,9 +76,13 @@ module.exports = function (req, res, next) {
         res.send('No valid files found. Valid files are ' + req.app.locals.validFiles.join(', '));
         return cb(true);
       } else {
-        // if requesting a specific resource continue on
-        if (isReportUrl && hasReport) return cb();
-        if (isPresentationUrl && hasPresentation) return cb();
+        // if requesting a specific project type, ensure a trailing slash
+        if ((isReportUrl && hasReport) || (isPresentationUrl && hasPresentation)) {
+          if (req.originalUrl.substr(-1) === '/') return cb();
+
+          res.redirect(req.originalUrl + '/');
+          return cb(true);
+        }
 
         // default redirect is report, if valid
         if (hasReport) {
