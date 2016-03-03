@@ -39,7 +39,12 @@ class ProjectPreview extends Component {
 
   getMarkup () {
     if (!this.state.code) return { __html: '' };
-    return { __html: '<div class="container">' + katex.render(marked(' ' +this.state.code)) + '</div>' };
+    let src = this.state.code;
+    src = marked(src);
+    src = katex.render(src);
+    if (src.substr(0, 1) !== '<') src = '<' + src;
+    src = '<div class="container">' + src + '</div>';
+    return { __html: src };
   }
 
   refresh () {
