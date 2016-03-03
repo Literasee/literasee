@@ -20,6 +20,7 @@ class ProjectEditor extends Component {
 
     const onCodeChange = (newCode) => {
       file.content = newCode;
+      this.props.onCodeChanged(newCode);
     }
 
     const onCancel = () => {

@@ -20,6 +20,10 @@ class Project extends Component {
     updateProjectDescription({...project, description: title + '|' + subTitle});
   }
 
+  onCodeChanged (newCode) {
+    this._preview.updatePreview(newCode);
+  }
+
   render () {
     const { project, params, publishProject } = this.props;
 
@@ -38,9 +42,10 @@ class Project extends Component {
             username={params.username}
             project={project}
             type={params.type}
+            onCodeChanged={::this.onCodeChanged}
             saveFileType={::this.saveFileType} />
           <ProjectPreview
-            username={params.username}
+            params={params}
             ref={(c) => this._preview = c}
             project={project}
             type={params.type} />

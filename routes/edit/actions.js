@@ -172,11 +172,11 @@ function fetchProjectError(error) {
  }
 }
 
-export function fetchProject({ owner, project }) {
+export function fetchProject({ username, owner, project }) {
  return dispatch => {
    dispatch(requestProject(project))
 
-   return fetch(GET_PROJECT_URL + owner + '/' + project, {
+   return fetch(GET_PROJECT_URL + (owner || username) + '/' + project, {
        headers: {
          'Authorization': 'token ' + cookies.token
        }

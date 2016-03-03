@@ -8,6 +8,7 @@
     "npm": "3.6.0"
   },
   "scripts": {
+    "build-live-preview-css": "stylus -c -u yeticss live-preview.styl -o public/live-preview.css",
     "build": "webpack --config webpack.config.prod.js",
     "dev": "nodemon -w routes/api -w routes/view index.js",
     "start": "node index.js",
@@ -63,10 +64,12 @@
     "redux-thunk": "^1.0.3",
     "serve-favicon": "^2.3.0",
     "style-loader": "^0.13.0",
+    "stylus": "^0.53.0",
     "stylus-loader": "^1.5.0",
     "superagent": "^1.7.1",
     "tar": "^2.2.1",
-    "webpack": "^1.12.11"
+    "webpack": "^1.12.11",
+    "yeticss": "^7.2.1"
   },
   "devDependencies": {
     "nodemon": "^1.8.1",

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { getProjectViewUrl } from 'utils/urlUtil';
+import marked from 'marked';
+import html from 'views/gist.html';
 
 import styles from './ProjectPreview.styl';
 
@@ -15,13 +17,22 @@ class ProjectPreview extends Component {
   componentDidMount () {
     window.addEventListener('message', (e) => {
       this.currentHash = e.data;
-    })
+    });
   }
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.type !== 'keywords') {
       this.setState({type: nextProps.type})
     }
+  }
+
+  updatePreview (newCode) {
+    this.setState({code: newCode});
+  }
+
+  getMarkup () {
+    if (!this.state.code) return { __html: html };
+    return { __html: '<div class="container">' + marked(this.state.code) + '</div>' };
   }
 
   refresh () {
@@ -37,14 +48,33 @@ class ProjectPreview extends Component {
 
     const viewUrl = getProjectViewUrl(this.props, this.state.type, '?embedded=true');
 
+    const iframe = (
+      <iframe
+        id='viewerFrame'
+        ref={(c) => this._iframe = c}
+        src={viewUrl}>
+      </iframe>
+    )
+
+    const livePreview = (
+      <div id='live-preview'
+        className='live-preview'
+        dangerouslySetInnerHTML={::this.getMarkup()} />
+    )
+
+    const activePreview = this.state.code ? livePreview : iframe;
+
+    if (this.state.code) {
+      clearTimeout(this.renderTimeout);
+      this.renderTimeout = setTimeout(function () {
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub, document.getElementById("live-preview")]);
+      }, 1000);
+    }
+
     return (
       <div className={styles.container}>
-        <div className={styles.iframeWrapper}>
-          <iframe
-            id='viewerFrame'
-            ref={(c) => this._iframe = c}
-            src={viewUrl}>
-          </iframe>
+        <div className={styles.livePreviewWrapper}>
+          {activePreview}
         </div>
       </div>
     )
