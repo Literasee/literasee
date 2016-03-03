@@ -51,6 +51,7 @@
     "lodash": "^4.0.0",
     "marked": "^0.3.5",
     "mongoose": "^4.3.6",
+    "parse-katex": "^0.3.0",
     "raw-loader": "^0.5.1",
     "react": "^0.14.6",
     "react-ace": "^3.1.0",

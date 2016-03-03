@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { getProjectViewUrl } from 'utils/urlUtil';
 import marked from 'marked';
-import html from 'views/gist.html';
+import katex from 'parse-katex';
 
 import styles from './ProjectPreview.styl';
 
@@ -24,6 +24,13 @@ class ProjectPreview extends Component {
     if (nextProps.type !== 'keywords') {
       this.setState({type: nextProps.type})
     }
+
+    if (nextProps.project.files) {
+      const type = this.props.params.type;
+      const ext = type === 'keywords' ? '.txt' : '.md';
+      const file = _.find(nextProps.project.files, {filename: type + ext});
+      this.setState({code: file.content});
+    }
   }
 
   updatePreview (newCode) {
@@ -31,8 +38,8 @@ class ProjectPreview extends Component {
   }
 
   getMarkup () {
-    if (!this.state.code) return { __html: html };
-    return { __html: '<div class="container">' + marked(this.state.code) + '</div>' };
+    if (!this.state.code) return { __html: '' };
+    return { __html: '<div class="container">' + katex.render(marked(' ' +this.state.code)) + '</div>' };
   }
 
   refresh () {
@@ -62,14 +69,7 @@ class ProjectPreview extends Component {
         dangerouslySetInnerHTML={::this.getMarkup()} />
     )
 
-    const activePreview = this.state.code ? livePreview : iframe;
-
-    if (this.state.code) {
-      clearTimeout(this.renderTimeout);
-      this.renderTimeout = setTimeout(function () {
-        MathJax.Hub.Queue(["Typeset", MathJax.Hub, document.getElementById("live-preview")]);
-      }, 1000);
-    }
+    const activePreview = this.props.params.type === 'report' ? livePreview : iframe;
 
     return (
       <div className={styles.container}>

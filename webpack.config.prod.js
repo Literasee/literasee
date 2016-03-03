@@ -28,6 +28,7 @@ module.exports = {
       GH_CLIENT_ID: JSON.stringify(process.env.GH_CLIENT_ID)
     })
   ],
+  node: {fs:'empty'},
   module: {
     loaders: [
       {
