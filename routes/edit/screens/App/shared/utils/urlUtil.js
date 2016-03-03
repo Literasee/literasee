@@ -25,7 +25,7 @@ export function getProjectViewUrl (props, stateType, query = '') {
   const type = stateType || props.type;
   const projectPath = project.full_name || username + '/' + project.id;
 
-  return `${protocol}//${host}:${port}/${projectPath}/${type}${query}`;
+  return `${protocol}//${host}:${port}/${projectPath}/${type}/${query}`;
 }
 
 export function getFeaturedProjectsUrl () {
