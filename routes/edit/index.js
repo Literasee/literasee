@@ -16,45 +16,6 @@ router.get('/logout', function (req, res) {
 })
 
 //
-// IMAGE UPLOAD
-//
-var cloudinary = require('cloudinary')
-var formidable = require('formidable')
-
-router.get('/images/:username', function (req, res) {
-  cloudinary
-    .api
-    .resources_by_tag(req.params.username, function (result) {
-      res.send(result)
-    }, {max_results: 100});
-})
-
-router.post('/add_image', function (req, res, next) {
-  var form = new formidable.IncomingForm();
-
-  form.parse(req, function (err, fields, files) {
-    var keys = Object.keys(files);
-    var count = 0;
-    var urls = [];
-
-    keys.forEach((key) => {
-      cloudinary
-        .uploader
-        .upload(files[key].path, function (upload) {
-          count++;
-          urls.push(upload.url)
-          if (count === keys.length) res.send(JSON.stringify(urls))
-        }, {
-          tags: [
-            fields.username
-          ]
-        })
-    })
-
-  });
-});
-
-//
 // OAUTH CALLBACK
 //
 router.use(function (req, res, next) {
