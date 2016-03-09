@@ -10,8 +10,8 @@ const router = express.Router();
 //
 router.get('/logout', function (req, res) {
   const domain = req.hostname.substr(req.hostname.indexOf('.'));
-  res.clearCookie('literasee-token', {domain});
-  res.clearCookie('literasee-username', {domain});
+  res.clearCookie('token', {domain});
+  res.clearCookie('username', {domain});
   res.redirect('/');
 })
 
@@ -44,7 +44,7 @@ router.use(function (req, res, next) {
       if (!token) return res.end();
       // we store the token in a cookie for use by the app
       // and set it to expire in a month
-      res.cookie('literasee-token', token, {
+      res.cookie('token', token, {
         domain,
         expires
       });
@@ -56,7 +56,7 @@ router.use(function (req, res, next) {
         .set('Accept', 'application/vnd.github.v3')
         .end(function (err2, result) {
           // store the user's GitHub id in a cookie too
-          res.cookie('literasee-username', result.body.login, {
+          res.cookie('username', result.body.login, {
             domain,
             expires
           });

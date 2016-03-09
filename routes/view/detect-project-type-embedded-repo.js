@@ -6,7 +6,7 @@ const getRepoContents = require('../common/get-repo-contents');
 module.exports = function (req, res, next) {
   const owner = req.params.owner;
   const project = req.params.project;
-  const token = req.cookies['literasee-token'];
+  const token = req.cookies.token;
 
   getRepoContents(owner, project)
     .query(req.app.locals.authQuery)

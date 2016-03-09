@@ -5,6 +5,7 @@ const express = require('express');
 const subdomain = require('express-subdomain');
 const engines = require('consolidate');
 const favicon = require('serve-favicon');
+const db = require('./persistence/db');
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.set('view engine', 'hbs');
 app.engine('hbs', engines.handlebars);
 
 app.set('x-powered-by', false);
+app.set('json spaces', 2);
 
 // local dev only
 if (!process.env.PORT) {
@@ -57,16 +59,18 @@ module.exports = function (local, port) {
 
   async.parallel([
     require('./config/create-dir-if-missing')(app.locals.cacheDir),
-    require('./config/read-views')(app.locals.viewsDir, app.locals.views),
-    require('./config/set-up-db')(app.locals.models)
+    require('./config/read-views')(app.locals.viewsDir, app.locals.views)
   ], function (err) {
     if (err) {
       console.error(err);
       process.exit(1);
     }
 
-    app.listen(port, function () {
-      console.log('Server listening at http://localhost:' + port);
-    });
+    db.open()
+      .then(function () {
+        app.listen(port, function () {
+          console.log('Server listening at http://localhost:' + port);
+        });
+      });
   });
 };

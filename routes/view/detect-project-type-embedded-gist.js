@@ -5,7 +5,7 @@ const getGistContents = require('../common/get-gist-contents');
 
 module.exports = function (req, res, next) {
   const project = req.params.project;
-  const token = req.cookies['literasee-token'];
+  const token = req.cookies.token;
 
   // gist ids are 20 characters long
   if (project.length !== 20) {

@@ -165,7 +165,7 @@ module.exports = function (req, res, next) {
       return res.send('Something went wrong.');
     }
 
-    if (req.cookies['literasee-token']) {
+    if (req.cookies.token) {
       let host = req.hostname;
       if (host.indexOf('view') === 0) {
         host = host.replace('view', 'edit');

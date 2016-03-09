@@ -29,8 +29,8 @@ module.exports = function (req, res, next) {
   var isRepo;
 
   var auth = req.headers.authorization;
-  if (!auth && req.cookies['literasee-token']) {
-    auth = 'token ' + req.cookies['literasee-token'];
+  if (!auth && req.cookies.token) {
+    auth = 'token ' + req.cookies.token;
   }
 
   // see if we have this Gist cached
