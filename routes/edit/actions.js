@@ -186,24 +186,6 @@ export function fetchProject({ username, owner, project }) {
  }
 }
 
-export function publishProject (project) {
-  return (dispatch) => {
-    dispatch({type: 'PUBLISH_PROJECT_REQUEST'});
-
-    return fetch(getPublishProjectUrl(), {
-      method: 'POST',
-      headers: {
-        'Authorization': 'token ' + cookies.token,
-        'Content-Type': 'application/json; charset=utf-8'
-      },
-      credentials: 'include',
-      body: JSON.stringify(project)
-    })
-    .then(res => res.json(), err => dispatch({type: 'PUBLISH_PROJECT_ERROR', error: err}))
-    .then(json => dispatch({type: 'PUBLISH_PROJECT_SUCCESS', result: json}));
-  }
-}
-
 /*
 * CREATE GIST
 */
