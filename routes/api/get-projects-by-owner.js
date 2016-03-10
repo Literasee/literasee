@@ -2,9 +2,6 @@ const async = require('async');
 import * as requests from './requestFactory';
 
 module.exports = function (req, res) {
-  const { owner } = req.params;
-  const { username, token } = req.cookies;
-
   const fetchGists = (cb) => {
     requests.getUserGistsRequest(req).end(cb);
   }
