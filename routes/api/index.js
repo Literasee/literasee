@@ -26,7 +26,7 @@ router.use(require('body-parser').json({limit: '10mb'}));
 // actual routes
 //
 
-router.get('/featured_projects', require('./get-featured-projects'));
+router.get('/projects/featured', require('./get-featured-projects'));
 router.get('/projects/:owner', require('./get-projects-by-owner'));
 router.get('/projects/:owner/:project', [
   require('./get-project-from-db'),

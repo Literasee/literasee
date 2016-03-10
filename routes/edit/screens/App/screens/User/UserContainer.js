@@ -3,7 +3,8 @@ import User from './index';
 
 class UserContainer extends Component {
   componentDidMount () {
-    this.props.fetchProjects();
+    const { params, fetchProjects } = this.props;
+    fetchProjects(params);
   }
 
   render () {

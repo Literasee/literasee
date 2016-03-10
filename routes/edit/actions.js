@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch';
+import request from 'superagent';
 import cookies from './config/cookies';
 import {
   getApiUrl,
@@ -121,26 +122,18 @@ function fetchProjectsError(error) {
  }
 }
 
-export function fetchProjects() {
-  return dispatch => {
+export function fetchProjects ({ username }) {
+  return (dispatch) => {
     dispatch(requestProjects());
 
-    let url = getFeaturedProjectsUrl();
-    let config = {};
+    request
+      .get(`/api/projects/${username || 'featured'}`)
+      .withCredentials()
+      .end((err, result) => {
+        if (err) return dispatch(fetchProjectsError(err));
 
-    if (cookies.token) {
-      url = getProjectsUrl();
-      config = {
-        headers: {
-          'Authorization': 'token ' + cookies.token
-        },
-        credentials: 'include'
-      };
-    }
-
-    return fetch(url, config)
-      .then(req => req.json(), err => console.error(err))
-      .then(json => dispatch(fetchProjectsSuccess(json)));
+        dispatch(fetchProjectsSuccess(result.body));
+      });
   }
 }
 

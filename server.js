@@ -40,6 +40,7 @@ app.use('/public', express.static('public'));
 
 const apiRouter = require('./routes/api');
 app.use(subdomain('api', apiRouter));
+app.use('/api', apiRouter);
 
 const editRouter = require('./routes/edit');
 app.use(subdomain('edit', editRouter));
