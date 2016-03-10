@@ -17,10 +17,13 @@ function standardizeRequest (req, token) {
 
 export function getUserGistsRequest (req) {
   const { owner } = req.params;
-  const { token } = req.cookies;
-  const url = `https://api.github.com/users/${owner}/gists`;
+  const { username, token } = req.cookies;
+  let url = `https://api.github.com/users/${owner}/gists`;
 
-  return standardizeRequest(request.get(url, token));
+  // if getting the authorized user's projects we have to use a different url
+  if (owner === username) url = 'https://api.github.com/gists';
+
+  return standardizeRequest(request.get(url), token);
 }
 
 export function getUserReposRequest (req) {
