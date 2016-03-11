@@ -68,7 +68,7 @@ export default class ProjectHeader extends Component {
   }
 
   getDisplayUI () {
-    const { username, project } = this.props;
+    const { params: { username }, project } = this.props;
     const { isEditing, newTitle, newSubTitle } = this.state;
 
     const { title, subTitle } = this.getTitles(project);
@@ -115,9 +115,9 @@ export default class ProjectHeader extends Component {
   }
 
   render () {
-    const { username, project, onClickPublish } = this.props;
+    const { params: { username }, project, onClickPublish } = this.props;
     const { isEditing } = this.state;
-    const viewUrl = getProjectViewUrl(this.props);
+    const viewUrl = getProjectViewUrl(this.props.params);
     const btnClasses = classnames({
       [styles.btnContainer]: true,
       [styles.hidden]: isEditing

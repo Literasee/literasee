@@ -18,14 +18,13 @@ export function getApiUrl (endpoint) {
   return `${protocol}//${host}:${port}/${endpoint}/`;
 }
 
-export function getProjectViewUrl (props, stateType, query = '') {
-  const { username, project } = props;
+export function getProjectViewUrl (params, stateType, query = '') {
   const { protocol, hostname, port } = document.location;
   const host = hostname.replace(hostname.split('.')[0], 'view');
-  const type = stateType || props.type;
-  const projectPath = project.full_name || username + '/' + project.id;
+  const { username, owner, project } = params;
+  const type = stateType || params.type;
 
-  return `${protocol}//${host}:${port}/${projectPath}/${type}/${query}`;
+  return `${protocol}//${host}:${port}/${owner || username}/${project}/${type}/${query}`;
 }
 
 export function getFeaturedProjectsUrl () {

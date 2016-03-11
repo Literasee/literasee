@@ -30,9 +30,8 @@ class Project extends Component {
     return (
       <div className={styles.container}>
         <ProjectHeader
-          username={params.username}
+          params={params}
           project={project}
-          type={params.type}
           onSaveTitles={::this.onSaveTitles}
           onClickPublish={onClickPublish} />
         <div className={styles.contentArea}>
@@ -43,9 +42,8 @@ class Project extends Component {
             saveFile={::this.saveFile} />
           <ProjectPreview
             params={params}
-            ref={(c) => this._preview = c}
             project={project}
-            type={params.type} />
+            ref={(c) => this._preview = c} />
         </div>
       </div>
     )
