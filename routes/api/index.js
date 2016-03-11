@@ -33,9 +33,9 @@ router.get('/projects/:owner/:project', [
   require('./get-gist-from-github'),
   require('./get-repo-from-github')
 ]);
+router.put('/projects/:owner/:project', require('./save-project-file'));
 
 
 router.post('/update_project_description', require('./update-project-description'));
-router.post('/project/:owner/:project', require('./save-project-file'));
 
 module.exports = router;

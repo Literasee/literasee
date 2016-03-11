@@ -8,16 +8,22 @@ function repoToProject (p, report, preso, keywords) {
     owner: p.owner.login,
     project: p.name,
     description: p.description,
-    report: report,
-    presentation: preso,
-    keywords: keywords ? keywords.split('\n') : [],
+    report: report.content,
+    report_sha: report.sha,
+    presentation: preso.content,
+    presentation_sha: preso.sha,
+    keywords: keywords ? keywords.content.split('\n') : [],
+    keywords_sha: keywords ? keywords.sha : null,
     thumbnail: null
   }
 }
 
 function getContents (obj) {
   if (!obj) return null;
-  return new Buffer(obj.body.content, 'base64').toString();
+  return {
+    content: new Buffer(obj.body.content, 'base64').toString(),
+    sha: obj.body.sha
+  };
 }
 
 module.exports = function (req, res, next) {
@@ -58,8 +64,8 @@ module.exports = function (req, res, next) {
 
     const p = repoToProject(info, report, presentation, keywords);
     p.etag = result.info.headers.etag;
-    data.saveProject(p).then(() => {
-      res.json(p);
-    })
+    data.saveProject(p).then((doc) => {
+      res.json(doc);
+    });
   })
 };

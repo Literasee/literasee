@@ -1,51 +1,33 @@
 const request = require('superagent');
+import * as requests from './requestFactory';
+import * as data from '../../persistence';
 
 module.exports = function (req, res) {
-  const authHeader = req.headers.authorization;
-  const username = req.params.owner;
-  const projectId = req.params.project;
-  const file = req.body.file;
+  const { type, project } = req.body;
+  const filename = type === 'keywords' ? type + '.txt' : type + '.md';
 
   const saveRepoFile = () => {
-    const url = [
-      'https://api.github.com/repos',
-      username,
-      projectId,
-      'contents',
-      file.filename
-    ].join('/');
-
-    request
-      .put(url + req.app.locals.authQueryString)
-      .set('Authorization', authHeader)
-      .set('Accept', 'application/vnd.github.v3')
-      .send({
-        path: file.filename,
-        message: 'Updating ' + file.filename,
-        content: new Buffer(file.content).toString('base64'),
-        sha: file.sha
-      })
-      .end((err, results) => {
-        res.send(results.body.content);
+    requests
+      .saveRepoFile(req, filename)
+      .end((err, result) => {
+        project[type + '_sha'] = result.body.content.sha;
+        data.saveProject(project).then((doc) => {
+          res.json(doc);
+        });
       });
   }
 
   const saveGistFile = () => {
-    request
-      .patch('https://api.github.com/gists/' + projectId + req.app.locals.authQueryString)
-      .set('Authorization', authHeader)
-      .set('Accept', 'application/vnd.github.v3')
-      .send({
-        files: {
-          [file.filename]: file
-        }
-      })
+    requests
+      .saveGistFile(req, filename)
       .end((err, results) => {
-        res.send(results);
+        data.saveProject(project).then((doc) => {
+          res.json(doc);
+        });
       });
   }
 
-  if (req.body.isRepo) {
+  if (project.isRepo) {
     saveRepoFile();
   } else {
     saveGistFile();

@@ -59,11 +59,40 @@ export function getRepoInfo (req, etag = '') {
     .set('If-None-Match', etag);
 }
 
-export function getRepoFile (req, file, etag = '') {
+export function getRepoFile (req, filename, etag = '') {
   const { owner, project } = req.params;
   const { token } = req.cookies;
-  const url = `https://api.github.com/repos/${owner}/${project}/contents/${file}`;
+  const url = `https://api.github.com/repos/${owner}/${project}/contents/${filename}`;
 
   return standardizeRequest(request.get(url), token)
     .set('If-None-Match', etag);
+}
+
+export function saveRepoFile (req, filename) {
+  const { owner, project } = req.params;
+  const { token } = req.cookies;
+  const url = `https://api.github.com/repos/${owner}/${project}/contents/${filename}`;
+
+  return standardizeRequest(request.put(url), token)
+    .send({
+      path: filename,
+      message: 'Updating ' + filename,
+      content: new Buffer(req.body.project[req.body.type]).toString('base64'),
+      sha: req.body.project[req.body.type + '_sha']
+    });
+}
+
+export function saveGistFile (req, filename) {
+  const { owner, project } = req.params;
+  const { token } = req.cookies;
+  const url = `https://api.github.com/gists/${project}`;
+
+  return standardizeRequest(request.patch(url), token)
+    .send({
+      files: {
+        [filename]: {
+          content: req.body.project[req.body.type]
+        }
+      }
+    });
 }

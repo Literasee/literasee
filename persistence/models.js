@@ -7,8 +7,11 @@ const ProjectSchema = new Schema({
     isRepo: Boolean,
     isFeatured: Boolean,
     report: String,
+    report_sha: String,
     presentation: String,
+    presentation_sha: String,
     keywords: [String],
+    keywords_sha: String,
     thumbnail: String,
     etag: String
 });

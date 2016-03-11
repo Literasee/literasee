@@ -3,12 +3,12 @@ import CodeEditor from './CodeEditor';
 
 import styles from './FileEditor.styl';
 
-const FileEditor = ({ file, onCodeChange, onCancel, onSave, children }) => {
+const FileEditor = ({ code, onCodeChange, onCancel, onSave, children }) => {
   return (
     <div className={styles.container}>
       {children}
       <CodeEditor
-        file={file}
+        code={code}
         onCodeChange={onCodeChange}
         onSave={onSave} />
       <div className={styles.buttonContainer}>

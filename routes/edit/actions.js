@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch';
-import request from 'superagent';
+import request from 'superagent-bluebird-promise';
 import cookies from './config/cookies';
 import {
   getApiUrl,
@@ -166,17 +166,18 @@ function fetchProjectError(error) {
 }
 
 export function fetchProject({ username, owner, project }) {
- return dispatch => {
-   dispatch(requestProject(project))
+  return (dispatch) => {
+    dispatch(requestProject(project));
 
-   return fetch(GET_PROJECT_URL + (owner || username) + '/' + project, {
-       headers: {
-         'Authorization': 'token ' + cookies.token
-       }
-     })
-     .then(res => res.json(), err => console.error(err))
-     .then(json => dispatch(fetchProjectSuccess(json)));
- }
+    request
+      .get(`/api/projects/${owner || username}/${project}`)
+      .withCredentials()
+      .end((err, result) => {
+        if (err) return dispatch(fetchProjectError(err));
+
+        dispatch(fetchProjectSuccess(result.body));
+      });
+  }
 }
 
 /*
@@ -253,23 +254,27 @@ function saveFileError(error) {
   }
 }
 
-export function saveFile(username, project, file) {
-  return dispatch => {
-    dispatch(saveFileStart(project.id, file))
+export function saveFile(params, project) {
+  const { username, owner, project: pId, type } = params;
 
-    return fetch(GET_PROJECT_URL + username + '/' + project.id, {
-        method: 'POST',
-        headers: {
-          'Authorization': 'token ' + cookies.token,
-          'Content-Type': 'application/json; charset=utf-8'
-        },
-        body: JSON.stringify({
-          isRepo: project.isRepo,
-          file
-        })
+  return dispatch => {
+    dispatch(saveFileStart(pId, type));
+
+    const resolve = (result) => {
+      return dispatch(saveFileSuccess(result.body));
+    }
+    const reject = (err) => {
+      return dispatch(saveFileError(err));
+    }
+
+    return request
+      .put(`/api/projects/${owner || username}/${pId}`)
+      .withCredentials()
+      .send({
+        project,
+        type
       })
-      .then(req => req.json(), err => console.error(err))
-      .then(json => dispatch(saveFileSuccess(json)))
+      .then(resolve, reject);
   }
 }
 

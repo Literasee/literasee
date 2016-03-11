@@ -6,13 +6,11 @@ import ProjectPreview from './components/ProjectPreview';
 import styles from './Project.styl';
 
 class Project extends Component {
-  saveFileType (type) {
+  saveFile () {
     const { params, project, saveFile } = this.props;
-    const ext = type === 'keywords' ? '.txt' : '.md';
-    const file = _.find(project.files, {filename: type + ext});
 
-    saveFile(params.username, project, file)
-      .then(::this._preview.refresh);
+    saveFile(params, project);
+      // .then(::this._preview.refresh);
   }
 
   onSaveTitles (title, subTitle) {
@@ -39,11 +37,10 @@ class Project extends Component {
           onClickPublish={onClickPublish} />
         <div className={styles.contentArea}>
           <ProjectEditor
-            username={params.username}
+            params={params}
             project={project}
-            type={params.type}
             onCodeChanged={::this.onCodeChanged}
-            saveFileType={::this.saveFileType} />
+            saveFile={::this.saveFile} />
           <ProjectPreview
             params={params}
             ref={(c) => this._preview = c}

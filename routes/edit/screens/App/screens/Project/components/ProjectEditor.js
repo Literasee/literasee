@@ -9,17 +9,15 @@ import styles from './ProjectEditor.styl';
 class ProjectEditor extends Component {
 
   render () {
-    const { username, project, type } = this.props;
+    const { params, project, saveFile } = this.props;
+    const { username, owner, project: pId, type } = params;
 
-    const projectFragment = project.owner && username === project.owner.login ? project.id : project.full_name;
-    const linkBase = '/' + [username, projectFragment].join('/') + '/';
-    const ext = type === 'keywords' ? '.txt' : '.md';
-    const file = _.find(project.files, {filename: type + ext});
-    const originalCode = file && file.content;
+    const linkBase = ['', username, owner, pId].join('/').replace('//', '/');
+    const originalCode = project[type];
     const optionsPanel = type === 'report' ? <ReportOptionsPanel /> : null;
 
     const onCodeChange = (newCode) => {
-      file.content = newCode;
+      project[type] = newCode;
       this.props.onCodeChanged(newCode);
     }
 
@@ -28,28 +26,24 @@ class ProjectEditor extends Component {
       this.setState({});
     }
 
-    const onSave = () => {
-      this.props.saveFileType(this.props.type);
-    }
-
     return (
       <div className={styles.container}>
         <nav role='navigation' className={styles.nav}>
-          <Link to={linkBase + 'report'} activeClassName={styles.active}>
+          <Link to={linkBase + '/report'} activeClassName={styles.active}>
             Report
           </Link>
-          <Link to={linkBase + 'presentation'} activeClassName={styles.active}>
+          <Link to={linkBase + '/presentation'} activeClassName={styles.active}>
             Presentation
           </Link>
-          <Link to={linkBase + 'keywords'} activeClassName={styles.active}>
+          <Link to={linkBase + '/keywords'} activeClassName={styles.active}>
             Keywords
           </Link>
         </nav>
         <FileEditor
           onCodeChange={onCodeChange}
           onCancel={onCancel}
-          onSave={onSave}
-          file={file}>
+          onSave={saveFile}
+          code={project[type]}>
           {optionsPanel}
         </FileEditor>
       </div>

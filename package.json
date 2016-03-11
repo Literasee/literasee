@@ -69,6 +69,7 @@
     "stylus": "^0.53.0",
     "stylus-loader": "^1.5.0",
     "superagent": "^1.7.1",
+    "superagent-bluebird-promise": "^3.0.0",
     "superagent-proxy": "^1.0.0",
     "tar": "^2.2.1",
     "webpack": "^1.12.11",
