@@ -136,11 +136,6 @@ export default class ProjectHeader extends Component {
             className={styles.headerBtn}>
             Open in Viewer
           </a>
-          <button
-            className={styles.headerBtn}
-            onClick={onClickPublish}>
-            Publish
-          </button>
         </div>
       </div>
     )

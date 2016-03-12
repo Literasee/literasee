@@ -17,7 +17,6 @@ import { bindActionCreators } from 'redux';
 import {
   fetchProject,
   saveFile,
-  publishProject,
   updateProjectDescription
 } from '../../../../actions';
 
@@ -33,7 +32,6 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     fetchProject,
     saveFile,
-    publishProject,
     updateProjectDescription
   }, dispatch);
 }

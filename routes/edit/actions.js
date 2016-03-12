@@ -5,7 +5,6 @@ import {
   getApiUrl,
   getFeaturedProjectsUrl,
   getProjectsUrl,
-  getPublishProjectUrl,
   UPDATE_PROJECT_DESCRIPTION_URL
 } from './screens/App/shared/utils/urlUtil';
 

@@ -6,11 +6,6 @@ import {
   UPDATE_PROJECT_DESCRIPTION_SUCCESS
 } from '../actions'
 
-const templates = {
-  'js': '// your code here',
-  'md': '# Header'
-}
-
 export default function project (state = {}, action) {
   switch (action.type) {
     case PROJECT_FETCH_SUCCESS:

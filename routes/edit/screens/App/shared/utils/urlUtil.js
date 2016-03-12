@@ -38,7 +38,3 @@ export const UPDATE_PROJECT_DESCRIPTION_URL = (function () {
 export function getProjectsUrl () {
   return getBaseUrl() + 'projects';
 }
-
-export function getPublishProjectUrl () {
-  return getBaseUrl() + 'publish';
-}

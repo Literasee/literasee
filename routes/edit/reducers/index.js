@@ -2,7 +2,6 @@ import user from './user'
 import gists from './gists'
 import projects from './projects'
 import project from './project'
-import openFiles from './openFiles'
 import previewType from './previewType'
 import images from './images'
 
@@ -16,7 +15,6 @@ const rootReducer = combineReducers({
   gists,
   projects,
   project,
-  openFiles,
   previewType,
   images,
   routing: routeReducer

@@ -25,15 +25,12 @@ class Project extends Component {
   render () {
     const { project, params, publishProject } = this.props;
 
-    const onClickPublish = () => publishProject(project);
-
     return (
       <div className={styles.container}>
         <ProjectHeader
           params={params}
           project={project}
-          onSaveTitles={::this.onSaveTitles}
-          onClickPublish={onClickPublish} />
+          onSaveTitles={::this.onSaveTitles} />
         <div className={styles.contentArea}>
           <ProjectEditor
             params={params}
