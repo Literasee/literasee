@@ -54,47 +54,6 @@ export function fetchUser() {
 }
 
 /*
- * GISTS
- */
-
-export const GISTS_FETCH_START = 'GISTS_FETCH_START'
-function requestGists () {
- return {
-   type: GISTS_FETCH_START
- }
-}
-
-export const GISTS_FETCH_SUCCESS = 'GISTS_FETCH_SUCCESS'
-function fetchGistsSuccess(result) {
- return {
-   type: GISTS_FETCH_SUCCESS,
-   result
- }
-}
-
-export const GISTS_FETCH_ERROR = 'GISTS_FETCH_ERROR'
-function fetchGistsError(error) {
- return {
-   type: GISTS_FETCH_ERROR,
-   error
- }
-}
-
-export function fetchGists() {
- return dispatch => {
-   dispatch(requestGists());
-   return fetch('https://api.github.com/gists', {
-       headers: {
-         'Authorization': 'token ' + cookies.token,
-         'Accept': 'application/vnd.github.v3'
-       }
-     })
-     .then(req => req.json(), err => console.error(err))
-     .then(json => dispatch(fetchGistsSuccess(json)));
- }
-}
-
-/*
  * PROJECTS
  */
 
