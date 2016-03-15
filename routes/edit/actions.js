@@ -183,6 +183,15 @@ export function createGist(files) {
   }
 }
 
+export const CODE_CHANGED = 'CODE_CHANGED';
+export function codeChanged (projectType, code) {
+  return {
+    type: CODE_CHANGED,
+    projectType,
+    code
+  }
+}
+
 /*
 * FILES
 */

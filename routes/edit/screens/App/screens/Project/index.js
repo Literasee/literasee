@@ -19,11 +19,12 @@ class Project extends Component {
   }
 
   onCodeChanged (newCode) {
-    this._preview.updatePreview(newCode);
+    const { params, codeChanged } = this.props;
+    codeChanged(params.type, newCode);
   }
 
   render () {
-    const { project, params, publishProject } = this.props;
+    const { project, params } = this.props;
 
     return (
       <div className={styles.container}>

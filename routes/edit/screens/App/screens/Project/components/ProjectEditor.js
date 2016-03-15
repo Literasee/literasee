@@ -9,20 +9,15 @@ import styles from './ProjectEditor.styl';
 class ProjectEditor extends Component {
 
   render () {
-    const { params, project, saveFile } = this.props;
+    const { params, project, onCodeChanged, saveFile } = this.props;
     const { username, owner, project: pId, type } = params;
 
     const linkBase = ['', username, owner, pId].join('/').replace('//', '/');
     const originalCode = project[type];
     const optionsPanel = type === 'report' ? <ReportOptionsPanel /> : null;
 
-    const onCodeChange = (newCode) => {
-      project[type] = newCode;
-      this.props.onCodeChanged(newCode);
-    }
-
     const onCancel = () => {
-      onCodeChange(originalCode);
+      onCodeChanged(originalCode);
       this.setState({});
     }
 
@@ -40,7 +35,7 @@ class ProjectEditor extends Component {
           </Link>
         </nav>
         <FileEditor
-          onCodeChange={onCodeChange}
+          onCodeChanged={onCodeChanged}
           onCancel={onCancel}
           onSave={saveFile}
           code={project[type]}>

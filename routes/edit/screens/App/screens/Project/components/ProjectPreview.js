@@ -21,27 +21,17 @@ class ProjectPreview extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    if (nextProps.type !== 'keywords') {
-      this.setState({type: nextProps.type})
-    }
-
-    if (nextProps.project.files) {
-      const type = this.props.params.type;
-      const ext = type === 'keywords' ? '.txt' : '.md';
-      const file = _.find(nextProps.project.files, {filename: type + ext});
-      this.setState({code: file.content});
+    if (nextProps.params.type !== 'keywords') {
+      this.setState({type: nextProps.params.type})
     }
   }
 
-  updatePreview (newCode) {
-    this.setState({code: newCode});
-  }
+  getMarkup (code) {
+    if (!code) return { __html: '' };
 
-  getMarkup () {
-    if (!this.state.code) return { __html: '' };
-    let src = this.state.code;
-    src = katex.render(src);
+    let src = code;
     src = marked(src);
+    src = katex.render(src);
     if (src.substr(0, 1) !== '<') src = '<' + src;
     src = '<div class="container">' + src + '</div>';
     return { __html: src };
@@ -56,7 +46,10 @@ class ProjectPreview extends Component {
   render () {
     this.currentHash = null;
 
-    if (!this.props.project.full_name && !this.props.project.id) return <div />;
+    const { project, params } = this.props;
+    const { type } = this.state;
+
+    if (!project) return <div />;
 
     const viewUrl = getProjectViewUrl(this.props, this.state.type, '?embedded=true');
 
@@ -71,10 +64,10 @@ class ProjectPreview extends Component {
     const livePreview = (
       <div id='live-preview'
         className='live-preview'
-        dangerouslySetInnerHTML={::this.getMarkup()} />
+        dangerouslySetInnerHTML={::this.getMarkup(project[type])} />
     )
 
-    const activePreview = this.props.params.type === 'report' ? livePreview : iframe;
+    const activePreview = type === 'report' ? livePreview : iframe;
 
     return (
       <div className={styles.container}>

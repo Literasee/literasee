@@ -16,6 +16,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
   fetchProject,
+  codeChanged,
   saveFile,
   updateProjectDescription
 } from '../../../../actions';
@@ -31,6 +32,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     fetchProject,
+    codeChanged,
     saveFile,
     updateProjectDescription
   }, dispatch);
