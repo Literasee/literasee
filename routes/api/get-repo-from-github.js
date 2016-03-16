@@ -1,4 +1,5 @@
 const async = require('async');
+const _ = require('lodash');
 import * as requests from './requestFactory';
 import * as data from '../../persistence';
 
@@ -47,6 +48,7 @@ module.exports = function (req, res, next) {
 
   async.parallel({
     info: fetchRepoInfo,
+    contents: fetchRepoFile(),
     report: fetchRepoFile('report.md'),
     presentation: fetchRepoFile('presentation.md'),
     keywords: fetchRepoFile('keywords.txt')
@@ -61,9 +63,11 @@ module.exports = function (req, res, next) {
     const report = getContents(result.report);
     const presentation = getContents(result.presentation);
     const keywords = getContents(result.keywords);
+    const thumbnail = _.find(result.contents.body, {name: 'thumbnail.png'});
 
     const p = repoToProject(info, report, presentation, keywords);
     p.etag = result.info.headers.etag;
+    p.thumbnail = thumbnail ? thumbnail.download_url : null;
     data.saveProject(p).then((doc) => {
       res.json(doc);
     });

@@ -5,8 +5,8 @@ export function getFeaturedProjects () {
   return Project.find();
 }
 
-export function getProjects (id) {
-  return Project.find();
+export function getProjectsByOwner ({owner}) {
+  return Project.find({owner});
 }
 
 export function getProject ({owner, project}) {

@@ -59,7 +59,7 @@ export function getRepoInfo (req, etag = '') {
     .set('If-None-Match', etag);
 }
 
-export function getRepoFile (req, filename, etag = '') {
+export function getRepoFile (req, filename = '', etag = '') {
   const { owner, project } = req.params;
   const { token } = req.cookies;
   const url = `https://api.github.com/repos/${owner}/${project}/contents/${filename}`;
