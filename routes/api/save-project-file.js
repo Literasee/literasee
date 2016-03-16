@@ -10,6 +10,7 @@ module.exports = function (req, res) {
     requests
       .saveRepoFile(req, filename)
       .end((err, result) => {
+        project.etag = result.headers.etag;
         project[type + '_sha'] = result.body.content.sha;
         data.saveProject(project).then((doc) => {
           res.json(doc);
@@ -20,7 +21,8 @@ module.exports = function (req, res) {
   const saveGistFile = () => {
     requests
       .saveGistFile(req, filename)
-      .end((err, results) => {
+      .end((err, result) => {
+        project.etag = result.headers.etag;
         data.saveProject(project).then((doc) => {
           res.json(doc);
         });
