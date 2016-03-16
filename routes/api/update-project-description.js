@@ -1,46 +1,38 @@
 const request = require('superagent');
+import * as requests from './requestFactory';
+import * as data from '../../persistence';
 
 module.exports = function (req, res) {
-  const authHeader = req.headers.authorization;
-  const project = req.body;
-  const description = project.description;
+  const { project, title, subTitle } = req.body;
+  const description = [title, subTitle].join('|');
 
-  const saveRepoFile = () => {
-    const url = [
-      'https://api.github.com/repos',
-      project.owner.login,
-      project.id
-    ].join('/');
-
-    request
-      .patch(url)
-      .query(req.app.locals.authQuery)
-      .set('Authorization', authHeader)
-      .set('Accept', 'application/vnd.github.v3')
-      .send({
-        name: project.id,
-        description
-      })
-      .end((err, results) => {
-        res.send(results.body);
+  const updateRepoDescription = () => {
+    requests
+      .updateRepoDescription(req, description)
+      .end((err, result) => {
+        project.etag = result.headers.etag;
+        project.description = description;
+        data.saveProject(project).then((doc) => {
+          res.json(doc);
+        });
       });
   }
 
-  const saveGistFile = () => {
-    request
-      .patch('https://api.github.com/gists/' + project.id)
-      .query(req.app.locals.authQuery)
-      .set('Authorization', authHeader)
-      .set('Accept', 'application/vnd.github.v3')
-      .send({ description })
-      .end((err, results) => {
-        res.send(results.body);
+  const updateGistDescription = () => {
+    requests
+      .updateGistDescription(req, description)
+      .end((err, result) => {
+        project.etag = result.headers.etag;
+        project.description = description;
+        data.saveProject(project).then((doc) => {
+          res.json(doc);
+        });
       });
   }
 
   if (project.isRepo) {
-    saveRepoFile();
+    updateRepoDescription();
   } else {
-    saveGistFile();
+    updateGistDescription();
   }
 }

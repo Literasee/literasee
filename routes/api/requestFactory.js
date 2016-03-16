@@ -82,6 +82,18 @@ export function saveRepoFile (req, filename) {
     });
 }
 
+export function updateRepoDescription (req, description) {
+  const { owner, project } = req.params;
+  const { token } = req.cookies;
+  const url = `https://api.github.com/repos/${owner}/${project}`;
+
+  return standardizeRequest(request.patch(url), token)
+    .send({
+      name: project,
+      description
+    });
+}
+
 export function saveGistFile (req, filename) {
   const { owner, project } = req.params;
   const { token } = req.cookies;
@@ -94,5 +106,16 @@ export function saveGistFile (req, filename) {
           content: req.body.project[req.body.type]
         }
       }
+    });
+}
+
+export function updateGistDescription (req, description) {
+  const { owner, project } = req.params;
+  const { token } = req.cookies;
+  const url = `https://api.github.com/gists/${project}`;
+
+  return standardizeRequest(request.patch(url), token)
+    .send({
+      description
     });
 }

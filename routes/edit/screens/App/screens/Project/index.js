@@ -14,8 +14,8 @@ class Project extends Component {
   }
 
   onSaveTitles (title, subTitle) {
-    const { project, updateProjectDescription } = this.props;
-    updateProjectDescription({...project, description: title + '|' + subTitle});
+    const { params, project, updateProjectDescription } = this.props;
+    updateProjectDescription(params, project, title, subTitle);
   }
 
   onCodeChanged (newCode) {

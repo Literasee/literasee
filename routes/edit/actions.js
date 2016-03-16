@@ -4,8 +4,7 @@ import cookies from './config/cookies';
 import {
   getApiUrl,
   getFeaturedProjectsUrl,
-  getProjectsUrl,
-  UPDATE_PROJECT_DESCRIPTION_URL
+  getProjectsUrl
 } from './screens/App/shared/utils/urlUtil';
 
 const GET_PROJECTS_URL = getApiUrl('projects');
@@ -246,24 +245,50 @@ export function saveFile(params, project) {
 }
 
 export const UPDATE_PROJECT_DESCRIPTION = 'UPDATE_PROJECT_DESCRIPTION';
+function updateProjectDescriptionStart () {
+  return {
+    type: UPDATE_PROJECT_DESCRIPTION
+  }
+}
+
 export const UPDATE_PROJECT_DESCRIPTION_SUCCESS = 'UPDATE_PROJECT_DESCRIPTION_SUCCESS';
+function updateProjectDescriptionSuccess(result) {
+  return {
+    type: UPDATE_PROJECT_DESCRIPTION_SUCCESS,
+    result
+  }
+}
+
 export const UPDATE_PROJECT_DESCRIPTION_ERROR = 'UPDATE_PROJECT_DESCRIPTION_ERROR';
+function updateProjectDescriptionError(error) {
+  return {
+    type: UPDATE_PROJECT_DESCRIPTION_ERROR,
+    error
+  }
+}
 
-export function updateProjectDescription(project) {
+export function updateProjectDescription(params, project, title = '', subTitle = '') {
+  const { username, owner, project: pId } = params;
+
   return dispatch => {
-    dispatch({type: UPDATE_PROJECT_DESCRIPTION});
+    dispatch(updateProjectDescriptionStart());
 
-    return fetch(UPDATE_PROJECT_DESCRIPTION_URL, {
-        method: 'POST',
-        headers: {
-          'Authorization': 'token ' + cookies.token,
-          'Accept': 'application/vnd.github.v3',
-          'Content-Type': 'application/json; charset=utf-8'
-        },
-        body: JSON.stringify(project)
+    const resolve = (result) => {
+      return dispatch(updateProjectDescriptionSuccess(result.body));
+    }
+    const reject = (err) => {
+      return dispatch(updateProjectDescriptionError(err));
+    }
+
+    return request
+      .patch(`/api/projects/${owner || username}/${pId}`)
+      .withCredentials()
+      .send({
+        project,
+        title: title.trim(),
+        subTitle: subTitle.trim()
       })
-      .then(res => res.json(), err => dispatch({type: 'UPDATE_PROJECT_DESCRIPTION_ERROR', error: err}))
-      .then(json => dispatch({type: UPDATE_PROJECT_DESCRIPTION_SUCCESS, result: json}));
+      .then(resolve, reject);
   }
 }
 
