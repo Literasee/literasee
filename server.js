@@ -1,6 +1,4 @@
-const fs = require('fs');
 const path = require('path');
-const async = require('async');
 const express = require('express');
 const subdomain = require('express-subdomain');
 const engines = require('consolidate');
@@ -12,11 +10,8 @@ const app = express();
 app.use(favicon(path.join(__dirname, 'public/favicon.ico')));
 app.use(require('cookie-parser')());
 
-// define app settings
-app.locals = require('./config/locals')(app.locals);
-
 // configure views
-app.set('views', app.locals.viewsDir);
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.engine('hbs', engines.handlebars);
 
@@ -58,20 +53,10 @@ app.use(function (req, res) {
 module.exports = function (local, port) {
   port = port || process.env.PORT || 3000;
 
-  async.parallel([
-    require('./config/create-dir-if-missing')(app.locals.cacheDir),
-    require('./config/read-views')(app.locals.viewsDir, app.locals.views)
-  ], function (err) {
-    if (err) {
-      console.error(err);
-      process.exit(1);
-    }
-
-    db.open()
-      .then(function () {
-        app.listen(port, function () {
-          console.log('Server listening at http://localhost:' + port);
-        });
+  db.open()
+    .then(function () {
+      app.listen(port, function () {
+        console.log('Server listening at http://localhost:' + port);
       });
-  });
+    });
 };
