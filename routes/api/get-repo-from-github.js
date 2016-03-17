@@ -30,6 +30,10 @@ function getContents (obj) {
 module.exports = function (req, res, next) {
   const { project } = req.params;
 
+  if (!res.locals.isRepo) {
+    return next();
+  }
+
   const fetchRepoInfo = (cb) => {
     requests.getRepoInfo(req, res.locals.etag).end(cb);
   }
@@ -54,7 +58,7 @@ module.exports = function (req, res, next) {
     keywords: fetchRepoFile('keywords.txt')
   }, (err, result) => {
     if (err) {
-      if (err && err.status === 304) return res.send(res.locals.project);
+      if (err && err.status === 304) return next();
 
       return res.status(err.status).json(err);
     }
@@ -69,7 +73,8 @@ module.exports = function (req, res, next) {
     p.etag = result.info.headers.etag;
     p.thumbnail = thumbnail ? thumbnail.download_url : null;
     data.saveProject(p).then((doc) => {
-      res.json(doc);
+      res.locals.project = doc;
+      next();
     });
   })
 };

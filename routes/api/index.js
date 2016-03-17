@@ -1,8 +1,4 @@
-const fs = require('fs');
-const path = require('path');
 const express = require('express');
-const request = require('superagent');
-const async = require('async');
 const cors = require('cors');
 
 const router = express.Router();
@@ -12,7 +8,7 @@ const corsOptions = {
     /\.?dev\.com:3000$/,
     /\.?literasee\.(io|org)$/
   ],
-  methods: ['POST'],
+  methods: ['GET', 'PUT', 'PATCH'],
   allowedHeaders: ['Authorization', 'Content-Type'],
   credentials: true
 };
@@ -31,7 +27,10 @@ router.get('/projects/:owner', require('./get-projects-by-owner'));
 router.get('/projects/:owner/:project', [
   require('./get-project-from-db'),
   require('./get-gist-from-github'),
-  require('./get-repo-from-github')
+  require('./get-repo-from-github'),
+  function (req, res) {
+    res.json(res.locals.project);
+  }
 ]);
 router.put('/projects/:owner/:project', require('./save-project-file'));
 router.patch('/projects/:owner/:project', require('./update-project-description'));
