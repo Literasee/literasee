@@ -65,6 +65,7 @@ exports.getRepoInfo = function (req, etag) {
 exports.getRepoFile = function (req, filename, etag) {
   const owner = req.params.owner;
   const project = req.params.project;
+  const token = req.cookies.token;
   const url = `https://api.github.com/repos/${owner}/${project}/contents/${filename || ''}`;
 
   return standardizeRequest(request.get(url), token)
@@ -74,6 +75,7 @@ exports.getRepoFile = function (req, filename, etag) {
 exports.saveRepoFile = function (req, filename) {
   const owner = req.params.owner;
   const project = req.params.project;
+  const token = req.cookies.token;
   const url = `https://api.github.com/repos/${owner}/${project}/contents/${filename}`;
 
   return standardizeRequest(request.put(url), token)
@@ -88,6 +90,7 @@ exports.saveRepoFile = function (req, filename) {
 exports.updateRepoDescription = function (req, description) {
   const owner = req.params.owner;
   const project = req.params.project;
+  const token = req.cookies.token;
   const url = `https://api.github.com/repos/${owner}/${project}`;
 
   return standardizeRequest(request.patch(url), token)
@@ -100,6 +103,7 @@ exports.updateRepoDescription = function (req, description) {
 exports.saveGistFile = function (req, filename) {
   const owner = req.params.owner;
   const project = req.params.project;
+  const token = req.cookies.token;
   const url = `https://api.github.com/gists/${project}`;
 
   return standardizeRequest(request.patch(url), token)
@@ -115,6 +119,7 @@ exports.saveGistFile = function (req, filename) {
 exports.updateGistDescription = function (req, description) {
   const owner = req.params.owner;
   const project = req.params.project;
+  const token = req.cookies.token;
   const url = `https://api.github.com/gists/${project}`;
 
   return standardizeRequest(request.patch(url), token)
