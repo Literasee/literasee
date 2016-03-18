@@ -2,6 +2,7 @@ const async = require('async');
 const _ = require('lodash');
 import * as requests from './requestFactory';
 import * as data from '../../persistence';
+import getImageSize from './get-image-size';
 
 function repoToProject (p, report, preso, keywords) {
   return {
@@ -68,13 +69,30 @@ module.exports = function (req, res, next) {
     const presentation = getContents(result.presentation);
     const keywords = getContents(result.keywords);
     const thumbnail = _.find(result.contents.body, {name: 'thumbnail.png'});
+    const parallax = _.find(result.contents.body, function (file) {
+      return file.name.indexOf('parallax') === 0;
+    });
 
     const p = repoToProject(info, report, presentation, keywords);
     p.etag = result.info.headers.etag;
     p.thumbnail = thumbnail ? thumbnail.download_url : null;
-    data.saveProject(p).then((doc) => {
-      res.locals.project = doc;
-      next();
-    });
+
+    const saveAndContinue = () => {
+      data.saveProject(p).then((doc) => {
+        res.locals.project = doc;
+        next();
+      });
+    }
+
+    if (parallax) {
+      p.parallax_url = parallax.download_url;
+      getImageSize(p.parallax_url, (err, {width, height}) => {
+        p.parallax_size = `${width}px ${height}px`;
+        saveAndContinue();
+      })
+    } else {
+      saveAndContinue();
+    }
+
   })
 };

@@ -1,5 +1,7 @@
+const _ = require('lodash');
 import * as requests from './requestFactory';
 import * as data from '../../persistence';
+import getImageSize from './get-image-size';
 
 function gistToProject (p) {
   return {
@@ -40,9 +42,25 @@ module.exports = function (req, res, next) {
 
       const p = gistToProject(result.body);
       p.etag = result.headers.etag;
-      data.saveProject(p).then((doc) => {
-        res.locals.project = doc;
-        next();
-      })
+      const parallax = _.find(result.body.files, function (val, key) {
+        return key.indexOf('parallax') === 0;
+      });
+
+      const saveAndContinue = () => {
+        data.saveProject(p).then((doc) => {
+          res.locals.project = doc;
+          next();
+        });
+      }
+
+      if (parallax) {
+        p.parallax_url = parallax.raw_url;
+        getImageSize(p.parallax_url, (err, {width, height}) => {
+          p.parallax_size = `${width}px ${height}px`;
+          saveAndContinue();
+        })
+      } else {
+        saveAndContinue();
+      }
     })
 };

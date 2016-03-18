@@ -13,6 +13,8 @@ const ProjectSchema = new Schema({
     keywords: [String],
     keywords_sha: String,
     thumbnail: String,
+    parallax_url: String,
+    parallax_size: String,
     etag: String
 });
 
