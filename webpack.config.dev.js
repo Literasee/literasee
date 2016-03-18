@@ -5,7 +5,7 @@ module.exports = {
   devtool: 'eval',
   entry: [
     'webpack-hot-middleware/client',
-    './routes/edit/app'
+    './src/routes/edit/app'
   ],
   output: {
     path: path.join(__dirname, 'public'),
@@ -31,7 +31,7 @@ module.exports = {
           'react-hot',
           'babel?presets[]=react,presets[]=es2015,presets[]=stage-0'
         ],
-        include: path.join(__dirname, 'routes', 'edit')
+        include: path.join(__dirname, 'src', 'routes', 'edit')
       },
       {
         test: /\.styl$/,

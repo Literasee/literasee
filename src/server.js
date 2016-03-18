@@ -7,7 +7,7 @@ const db = require('./persistence/db');
 
 const app = express();
 
-app.use(favicon(path.join(__dirname, 'public/favicon.ico')));
+app.use(favicon(path.join(__dirname, '../public/favicon.ico')));
 app.use(require('cookie-parser')());
 
 // configure views
@@ -20,7 +20,7 @@ app.set('json spaces', 2);
 
 // local dev only
 if (!process.env.PORT) {
-  var config = require('./webpack.config.dev');
+  var config = require('../webpack.config.dev');
   var compiler = require('webpack')(config);
 
   app.use(require('webpack-dev-middleware')(compiler, {
@@ -30,8 +30,7 @@ if (!process.env.PORT) {
 
   app.use(require('webpack-hot-middleware')(compiler));
 }
-
-app.use('/public', express.static('public'));
+app.use('/public', express.static(path.join(__dirname, '../public')));
 
 const apiRouter = require('./routes/api');
 app.use(subdomain('api', apiRouter));
