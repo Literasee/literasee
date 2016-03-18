@@ -51,7 +51,7 @@ class ProjectPreview extends Component {
 
     if (!project) return <div />;
 
-    const viewUrl = getProjectViewUrl(this.props, this.state.type, '?embedded=true');
+    const viewUrl = getProjectViewUrl(params, type);
 
     const iframe = (
       <iframe
