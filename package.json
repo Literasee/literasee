@@ -61,7 +61,6 @@
     "react-redux": "^4.0.6",
     "react-router": "^2.0.0-rc5",
     "react-router-redux": "^2.1.0",
-    "readdirfiles": "^1.2.0",
     "redux": "^3.0.5",
     "redux-thunk": "^1.0.3",
     "serve-favicon": "^2.3.0",
@@ -71,7 +70,6 @@
     "superagent": "^1.7.1",
     "superagent-bluebird-promise": "^3.0.0",
     "superagent-proxy": "^1.0.0",
-    "tar": "^2.2.1",
     "webpack": "^1.12.11",
     "yeticss": "^7.2.1"
   },
