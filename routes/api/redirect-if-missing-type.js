@@ -1,4 +1,4 @@
-import path from 'path';
+const path = require('path');
 
 module.exports = function (req, res, next) {
   if (req.params.type) return next();

@@ -1,7 +1,7 @@
 const async = require('async');
 const _ = require('lodash');
-import * as requests from './requestFactory';
-import * as data from '../../persistence';
+const requests = require('./requestFactory');
+const data = require('../../persistence');
 
 module.exports = function (req, res) {
   const fetchGists = (cb) => {
@@ -34,7 +34,7 @@ module.exports = function (req, res) {
         if (p.files) {
           return gistToProject(p);
         } else {
-          let project = repoToProject(p);
+          var project = repoToProject(p);
           const dbProject = _.find(results.dbProjects, {
             owner: project.owner,
             project: project.project

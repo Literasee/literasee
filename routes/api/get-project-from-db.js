@@ -1,4 +1,4 @@
-import * as data from '../../persistence';
+const data = require('../../persistence');
 
 module.exports = function (req, res, next) {
 

@@ -1,9 +1,10 @@
 const request = require('superagent');
-import * as requests from './requestFactory';
-import * as data from '../../persistence';
+const requests = require('./requestFactory');
+const data = require('../../persistence');
 
 module.exports = function (req, res) {
-  const { type, project } = req.body;
+  const type = req.body.type;
+  const project = req.body.project;
   const filename = type === 'keywords' ? type + '.txt' : type + '.md';
 
   const saveRepoFile = () => {

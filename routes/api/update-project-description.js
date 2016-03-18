@@ -1,9 +1,11 @@
 const request = require('superagent');
-import * as requests from './requestFactory';
-import * as data from '../../persistence';
+const requests = require('./requestFactory');
+const data = require('../../persistence');
 
 module.exports = function (req, res) {
-  const { project, title, subTitle } = req.body;
+  const project = req.body.project;
+  const title = req.body.title;
+  const subTitle = req.body.subTitle;
   const description = [title, subTitle].join('|');
 
   const updateRepoDescription = () => {

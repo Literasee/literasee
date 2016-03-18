@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
-import Promise from 'bluebird';
+const mongoose = require('mongoose');
+const Promise = require('bluebird');
 
 const uri = process.env.MONGOLAB_URI || 'mongodb://localhost/literasee';
 
@@ -32,4 +32,4 @@ function close (callback) {
   return new Promise(_close).nodeify(callback);
 }
 
-export default { open, close };
+module.exports = { open, close };

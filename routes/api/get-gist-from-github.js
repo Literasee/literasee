@@ -1,7 +1,7 @@
 const _ = require('lodash');
-import * as requests from './requestFactory';
-import * as data from '../../persistence';
-import getImageSize from './get-image-size';
+const requests = require('./requestFactory');
+const data = require('../../persistence');
+const getImageSize = require('./get-image-size');
 
 function gistToProject (p) {
   return {
@@ -17,7 +17,7 @@ function gistToProject (p) {
 }
 
 module.exports = function (req, res, next) {
-  const { project } = req.params;
+  const project = req.params.project;
 
   // gist ids are 20 characters long
   if (res.locals.isRepo || project.length !== 20) {
@@ -55,8 +55,8 @@ module.exports = function (req, res, next) {
 
       if (parallax) {
         p.parallax_url = parallax.raw_url;
-        getImageSize(p.parallax_url, (err, {width, height}) => {
-          p.parallax_size = `${width}px ${height}px`;
+        getImageSize(p.parallax_url, (err, dimensions) => {
+          p.parallax_size = `${dimensions.width}px ${dimensions.height}px`;
           saveAndContinue();
         })
       } else {

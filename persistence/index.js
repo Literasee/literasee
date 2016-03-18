@@ -1,19 +1,19 @@
-import { Project } from './models';
+const Project = require('./models').Project;
 
-export function getFeaturedProjects () {
+exports.getFeaturedProjects = function () {
   // TODO: limit to featured projects
   return Project.find();
 }
 
-export function getProjectsByOwner ({owner}) {
-  return Project.find({owner});
+exports.getProjectsByOwner = function (params) {
+  return Project.find(params.owner);
 }
 
-export function getProject ({owner, project}) {
-  return Project.findOne({owner, project});
+exports.getProject = function (params) {
+  return Project.findOne(params.owner, params.project);
 }
 
-export function saveProject (project) {
+exports.saveProject = function (project) {
   const conditions = { owner: project.owner, project: project.project };
   return Project.findOneAndUpdate(conditions, project, {
     new: true,

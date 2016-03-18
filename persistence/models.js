@@ -1,4 +1,5 @@
-import mongoose, { Schema } from 'mongoose';
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const ProjectSchema = new Schema({
     owner: String,
@@ -18,4 +19,4 @@ const ProjectSchema = new Schema({
     etag: String
 });
 
-export const Project = mongoose.model('Project', ProjectSchema);
+exports.Project = mongoose.model('Project', ProjectSchema);

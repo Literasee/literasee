@@ -1,7 +1,7 @@
-import https from 'https';
-import imageSizeStream from 'image-size-stream';
+const https = require('https');
+const imageSizeStream = require('image-size-stream');
 
-export default function (url, cb) {
+module.exports = function (url, cb) {
   var stream = imageSizeStream();
 
   stream

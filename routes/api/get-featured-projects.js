@@ -1,5 +1,5 @@
-import * as data from '../../persistence';
+const data = require('../../persistence');
 
 module.exports = function (req, res) {
-  return data.getFeaturedProjects().then(::res.json);
+  return data.getFeaturedProjects().then((result) => res.json(result));
 };

@@ -1,8 +1,9 @@
-import marked from 'marked';
+const marked = require('marked');
 
-export default function (req, res, next) {
-  const { type, asset } = req.params;
-  const { project } = res.locals;
+module.exports = function (req, res, next) {
+  const type = req.params.type;
+  const asset = req.params.asset;
+  const project = res.locals.project;
 
   if (type !== 'report' || asset) {
     return next();
