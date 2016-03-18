@@ -8,13 +8,11 @@
     "npm": "3.6.0"
   },
   "scripts": {
-    "dev": "nodemon -w src/routes/api -w src/routes/view src/index.js --exec babel-node src/server.js",
-    "prebuild": "stylus -c -u yeticss src/live-preview.styl -o public/live-preview.css",
+    "build-live-preview-css": "stylus -c -u yeticss live-preview.styl -o public/live-preview.css",
     "build": "webpack --config webpack.config.prod.js",
-    "postinstall": "npm run build",
-    "prestart": "rm -rf dist && babel src --out-dir dist && npm run copy",
-    "copy": "cp src/routes/edit/index.html dist/routes/edit/index.html && cp -R src/views dist/views",
-    "start": "node dist/index.js"
+    "dev": "nodemon -w routes/api -w routes/view index.js --exec babel-node server.js",
+    "start": "node index.js",
+    "postinstall": "npm run build"
   },
   "repository": {
     "type": "git",

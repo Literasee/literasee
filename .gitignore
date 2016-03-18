@@ -37,4 +37,3 @@ cache
 .env
 .idea
 public/bundle.*
-dist
