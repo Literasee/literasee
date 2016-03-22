@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import _ from 'lodash';
 import FileEditor from './FileEditor';
-import ReportOptionsPanel from './ReportOptionsPanel';
 
 import styles from './ProjectEditor.styl';
 
@@ -14,7 +13,6 @@ class ProjectEditor extends Component {
 
     const linkBase = ['', username, owner, pId].join('/').replace('//', '/');
     const originalCode = project[type];
-    const optionsPanel = type === 'report' ? <ReportOptionsPanel /> : null;
 
     const onCancel = () => {
       onCodeChanged(originalCode);
@@ -38,9 +36,7 @@ class ProjectEditor extends Component {
           onCodeChanged={onCodeChanged}
           onCancel={onCancel}
           onSave={saveFile}
-          code={project[type]}>
-          {optionsPanel}
-        </FileEditor>
+          code={project[type]} />
       </div>
     )
   }
