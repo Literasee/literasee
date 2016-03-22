@@ -26,7 +26,7 @@ module.exports = function (req, res, next) {
       longUrl: req.protocol + '://' + req.hostname + req.originalUrl
     })
     .end((err, result) => {
-      res.locals.project[urlProp] = result.body.data.url;
+      res.locals.project[urlProp] = result.body.data.url.substr(7);
       data.saveProject(res.locals.project).then(() => next());
     });
 
