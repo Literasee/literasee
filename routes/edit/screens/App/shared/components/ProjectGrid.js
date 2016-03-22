@@ -14,16 +14,30 @@ export default ({projects, username, createGist}) => {
 
                 let [ title, subTitle ] = (project.description || '').split('|');
                 if (!title) title = project.project;
-                let linkDest = project.owner + '/' + project.project;
+                let linkDest = `/${project.owner}/${project.project}`;
                 if (username && username !== project.owner) {
-                  linkDest = username + '/' + linkDest;
+                  linkDest = `/${username}${linkDest}`;
+                }
+
+                // direct unauthenticated users to the viewer
+                if (!username) {
+                  let { protocol, hostname } = document.location;
+                  const subdomain = hostname.split('.')[0];
+
+                  if (subdomain === 'edit') {
+                    hostname = hostname.replace('edit', 'view');
+                  } else if (subdomain !== 'view') {
+                    hostname = 'view.' + hostname;
+                  }
+
+                  linkDest = `${protocol}//${hostname}${linkDest}`;
                 }
 
                 return (
                   <div key={linkDest} className='col-xs-12 col-md-4 col-lg-4'>
                     <Link className='panel txt-left panel-project scales'
                       style={{backgroundImage: `url("${image}")`}}
-                      to={'/' + linkDest}>
+                      to={linkDest}>
                       <h4 className='mb0'>{title}</h4>
                       <p>{subTitle}</p>
                     </Link>
