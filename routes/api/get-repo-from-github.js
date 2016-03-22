@@ -61,7 +61,7 @@ module.exports = function (req, res, next) {
     if (err) {
       if (err && err.status === 304) return next();
 
-      return res.status(err.status).json(err);
+      return res.status(err.status).json({err, req});
     }
 
     const info = result.info.body;
