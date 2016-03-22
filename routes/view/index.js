@@ -11,6 +11,7 @@ router.get('/:owner/:project/:type?/:asset?', [
   require('../api/get-gist-from-github'),
   require('../api/get-repo-from-github'),
   require('../api/redirect-if-missing-type'),
+  require('./verify-or-get-short-url'),
   require('./render-report'),
   require('./render-presentation'),
   require('./serve-asset')
