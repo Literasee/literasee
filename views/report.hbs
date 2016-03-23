@@ -26,13 +26,31 @@
     });
   </script>
 
-  <div id="gist-info">
-    <a href="http://twitter.com?status=Check out what I saw on Literasee! {{project.report_short_url}}"><img src="/public/TwitterLogo.png" alt="Twitter Logo"/></a>
-    {{#if editUrl}}
-      <a href="{{gist_url}}"><img src="/public/GitHub-Mark-32px.png" alt="GitHub Logo"/></a>
-      <a href="{{editUrl}}">Edit</a>
-    {{/if}}
+  <div id="info-header">
+    <a href="/">
+      <img src="/public/img/literasee-logo.svg" height="38" />
+    </a>
+    <div>
+      <a class="info-link" href="http://github.com/{{project.owner}}">
+        <img src="{{project.avatar_url}}" width="36" height="36" />
+      </a>
+      <a class="info-link" href="http://twitter.com?status=Check out what I saw on Literasee! {{project.report_short_url}}">
+        <img src="/public/img/TwitterLogo.png" width="36" height="36" alt="Twitter Logo"/>
+      </a>
+    </div>
   </div>
+
+  <script>
+    var prevScrollY = 0;
+
+    document.addEventListener('scroll', function () {
+      var infoEl = document.getElementById('info-header');
+      var isScrollingDown = window.scrollY > prevScrollY;
+
+      infoEl.style.top = isScrollingDown ? '-54px' : 0;
+      prevScrollY = window.scrollY;
+    })
+  </script>
 
 </body>
 </html>

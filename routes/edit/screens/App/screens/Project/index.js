@@ -7,9 +7,9 @@ import styles from './Project.styl';
 
 class Project extends Component {
   saveFile () {
-    const { params, project, saveFile } = this.props;
+    const { params, project, user, saveFile } = this.props;
 
-    saveFile(params, project);
+    saveFile(params, project, user);
       // .then(::this._preview.refresh);
   }
 

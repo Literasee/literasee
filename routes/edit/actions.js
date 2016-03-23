@@ -220,7 +220,7 @@ function saveFileError(error) {
   }
 }
 
-export function saveFile(params, project) {
+export function saveFile(params, project, user) {
   const { username, owner, project: pId, type } = params;
 
   return dispatch => {
@@ -238,7 +238,8 @@ export function saveFile(params, project) {
       .withCredentials()
       .send({
         project,
-        type
+        type,
+        user
       })
       .then(resolve, reject);
   }

@@ -5,6 +5,7 @@ const data = require('../../persistence');
 module.exports = function (req, res) {
   const type = req.body.type;
   const project = req.body.project;
+  const user = req.body.user;
   const filename = type === 'keywords' ? type + '.txt' : type + '.md';
 
   const saveRepoFile = () => {
@@ -12,6 +13,7 @@ module.exports = function (req, res) {
       .saveRepoFile(req, filename)
       .end((err, result) => {
         project.etag = result.headers.etag;
+        project.avatar_url = user.avatar_url;
         project[type + '_sha'] = result.body.content.sha;
         data.saveProject(project).then((doc) => {
           res.json(doc);
@@ -24,6 +26,7 @@ module.exports = function (req, res) {
       .saveGistFile(req, filename)
       .end((err, result) => {
         project.etag = result.headers.etag;
+        project.avatar_url = user.avatar_url;
         data.saveProject(project).then((doc) => {
           res.json(doc);
         });

@@ -1,16 +1,22 @@
-#gist-info {
+#info-header {
   position: fixed;
-  right: 0;
   top: 0;
-  background-color: #eee;
-  padding: 0.5em;
+  right: 0;
+  left: 0;
+  height: 54px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid lightgray;
+  padding: 0.5em 1em;
   font-family: Helvetica, Arial, sans-serif;
+  transition: 0.3s all;
+  display: flex;
+  justify-content: space-between;
 }
 
-#gist-info a {
+a.info-link {
   opacity: 0.5;
 }
 
-#gist-info a:hover {
+a.info-link:hover {
   opacity: 1;
 }

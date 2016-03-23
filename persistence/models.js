@@ -18,7 +18,8 @@ const ProjectSchema = new Schema({
     thumbnail: String,
     parallax_url: String,
     parallax_size: String,
-    etag: String
+    etag: String,
+    avatar_url: String
 });
 
 exports.Project = mongoose.model('Project', ProjectSchema);
