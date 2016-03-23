@@ -3,10 +3,18 @@
     <img src="/public/img/literasee-logo.svg" height="38" />
   </a>
   <div class="header-links">
-    <a class="info-link" href="http://twitter.com?status=Check out what I saw on Literasee! {{short_url}}">
+    <a
+      class="info-link"
+      rel="noopener"
+      target="_blank"
+      href="http://twitter.com?status=Check out what I saw on Literasee! {{short_url}}">
       <img src="/public/img/TwitterLogo.png" width="36" height="36" alt="Twitter Logo"/>
     </a>
-    <a class="info-link" href="http://github.com/{{project.owner}}/{{project.project}}">
+    <a
+      class="info-link"
+      rel="noopener"
+      target="_blank"
+      href="http://github.com/{{project.owner}}/{{project.project}}">
       <img src="/public/img/GitHubLogo.png" width="36" height="36" alt="GitHub Logo"/>
     </a>
     {{#if show_button}}
@@ -14,7 +22,11 @@
       {{button_label}}
     </a>
     {{/if}}
-    <a class="info-link" href="http://github.com/{{project.owner}}">
+    <a
+      class="info-link"
+      rel="noopener"
+      target="_blank"
+      href="http://github.com/{{project.owner}}">
       <img src="{{project.avatar_url}}" width="36" height="36" />
     </a>
   </div>
