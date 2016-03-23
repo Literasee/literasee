@@ -26,21 +26,10 @@
     });
   </script>
 
-  <div id="info-header">
-    <a href="/">
-      <img src="/public/img/literasee-logo.svg" height="38" />
-    </a>
-    <div>
-      <a class="info-link" href="http://github.com/{{project.owner}}">
-        <img src="{{project.avatar_url}}" width="36" height="36" />
-      </a>
-      <a class="info-link" href="http://twitter.com?status=Check out what I saw on Literasee! {{project.report_short_url}}">
-        <img src="/public/img/TwitterLogo.png" width="36" height="36" alt="Twitter Logo"/>
-      </a>
-    </div>
-  </div>
+  {{> infoHeader}}
 
   <script>
+    // control header visibility
     var prevScrollY = 0;
 
     document.addEventListener('scroll', function () {

@@ -22,6 +22,14 @@ module.exports = function (req, res, next) {
 
   res.locals.title = project.description.split('|')[0];
   res.locals.body = marked(project.report);
+  res.locals.show_button = project.presentation;
 
-  res.render('report');
+  res.render('report', {
+    partials: {
+      infoHeader: 'info-header'
+    },
+    short_url: project.report_short_url,
+    button_label: 'Presentation',
+    button_url: req.originalUrl.replace('report', 'presentation')
+  });
 }

@@ -10,6 +10,7 @@ module.exports = function (req, res, next) {
   }
 
   res.locals.styles = [
+    '/public/nciea.css',
     '/public/gist-info.css'
   ];
 
@@ -22,6 +23,14 @@ module.exports = function (req, res, next) {
   res.locals.title = project.description.split('|')[0];
   res.locals.description = project.description.replace('|', ' – ');
   res.locals.owner = project.owner;
+  res.locals.show_button = project.report;
 
-  res.render('presentation');
+  res.render('presentation', {
+    partials: {
+      infoHeader: 'info-header'
+    },
+    short_url: project.presentation_short_url,
+    button_label: 'Report',
+    button_url: req.originalUrl.replace('presentation', 'report')
+  });
 }

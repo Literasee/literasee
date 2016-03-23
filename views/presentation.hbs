@@ -47,6 +47,16 @@
 
 		</div>
 
+		{{> infoHeader}}
+
+		<script>
+	    // control header visibility
+	    document.addEventListener('mousemove', function (event) {
+	      var infoEl = document.getElementById('info-header');
+	      infoEl.style.top = event.clientY > 60 ? '-54px' : 0;
+	    })
+	  </script>
+
 		<script src="/public/reveal/lib/js/head.min.js"></script>
 		<script src="/public/reveal/js/reveal.js"></script>
 

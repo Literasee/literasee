@@ -13,8 +13,31 @@
   justify-content: space-between;
 }
 
+.header-links {
+  display: flex;
+}
+
+.btn {
+  border-radius: 3px;
+  padding: 8px 10px;
+  line-height: 1.3;
+}
+
+.btn-primary {
+  border: 1px solid #0087b9;
+  color: #fff;
+  background-color: #0593c7;
+  background-image: linear-gradient(to bottom, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0) 100%);
+}
+
+.btn-primary:hover {
+  color: #fff;
+  background-color: #04769f;
+}
+
 a.info-link {
   opacity: 0.5;
+  margin-left: 0.5rem;
 }
 
 a.info-link:hover {
