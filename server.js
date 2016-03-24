@@ -37,13 +37,14 @@ const apiRouter = require('./routes/api');
 app.use(subdomain('api', apiRouter));
 app.use('/api', apiRouter);
 
-const editRouter = require('./routes/edit');
-app.use(subdomain('edit', editRouter));
-app.use('/edit', editRouter);
-
 const viewRouter = require('./routes/view');
 app.use(subdomain('view', viewRouter));
 app.use('/view', viewRouter);
+app.use('/', viewRouter);
+
+const editRouter = require('./routes/edit');
+app.use(subdomain('edit', editRouter));
+app.use('/edit', editRouter);
 
 // the React app is the fallback for all routes
 app.use(function (req, res) {

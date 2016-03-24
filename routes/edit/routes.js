@@ -8,15 +8,28 @@ import AdminContainer from './screens/App/screens/Admin/AdminContainer';
 import ProjectContainer from './screens/App/screens/Project/ProjectContainer';
 
 const verifyToken = (nextState, replace) => {
-  if (!cookies.token) replace({pathname: '/'});
+  const { hostname, pathname } = document.location;
+
+  // you cannot view another user's editor
+  if (hostname.indexOf('edit') === 0) {
+    if (!cookies.username || pathname.indexOf(cookies.username) < 0) {
+      replace({pathname: '/'});
+    }
+  }
 }
 
 const verifyProjectType = (nextState, replace) => {
-  if (!cookies.token) return replace({pathname: '/'});
+  const { hostname } = document.location;
+
+  // only authenticated users can use the editor
+  if (hostname.indexOf('edit') === 0 && !cookies.username) {
+    return replace({pathname: '/'});
+  }
 
   let { params: { type }, location: { pathname } } = nextState;
   if (pathname.substr(-1) !== '/') pathname += '/';
 
+  // direct to report editing by default
   if (['report', 'presentation', 'keywords', 'assets'].indexOf(type) < 0) {
     replace({pathname: pathname + 'report'});
   }

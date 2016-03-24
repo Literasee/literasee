@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router'
 
-export default ({projects, username, createGist}) => {
+export default ({projects, user, username, createGist}) => {
   return (
     <div className='row center-lg'>
       <div className='col-xs-12'>
@@ -21,18 +21,7 @@ export default ({projects, username, createGist}) => {
                 }
 
                 // direct unauthenticated users to the viewer
-                if (!username) {
-                  let { protocol, hostname } = document.location;
-                  const subdomain = hostname.split('.')[0];
-
-                  if (subdomain === 'edit') {
-                    hostname = hostname.replace('edit', 'view');
-                  } else if (subdomain !== 'view') {
-                    hostname = 'view.' + hostname;
-                  }
-
-                  linkDest = `${protocol}//${hostname}${linkDest}`;
-
+                if (!user) {
                   linkElement = (
                     <a className='panel txt-left panel-project scales'
                       style={{backgroundImage: `url("${image}")`}}

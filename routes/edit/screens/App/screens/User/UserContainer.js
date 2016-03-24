@@ -20,6 +20,7 @@ import {
 
 const mapStateToProps = (state) => {
   return {
+    user: state.user,
     username: state.username,
     projects: state.projects
   }
