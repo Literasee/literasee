@@ -24,6 +24,7 @@ module.exports = function (req, res, next) {
   res.locals.description = project.description.replace('|', ' – ');
   res.locals.owner = project.owner;
   res.locals.show_button = project.report;
+  res.locals.gist_subdomain = project.isRepo ? '' : 'gist.';
 
   res.render('presentation', {
     partials: {

@@ -23,6 +23,7 @@ module.exports = function (req, res, next) {
   res.locals.title = project.description.split('|')[0];
   res.locals.body = marked(project.report);
   res.locals.show_button = project.presentation;
+  res.locals.gist_subdomain = project.isRepo ? '' : 'gist.';
 
   res.render('report', {
     partials: {
