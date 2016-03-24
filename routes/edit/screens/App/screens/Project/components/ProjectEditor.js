@@ -8,16 +8,16 @@ import styles from './ProjectEditor.styl';
 class ProjectEditor extends Component {
 
   render () {
-    const { params, project, onCodeChanged, saveFile } = this.props;
+    const {
+      params,
+      project,
+      onCodeChanged,
+      onCancelChanges,
+      onSaveChanges
+    } = this.props;
     const { username, owner, project: pId, type } = params;
 
     const linkBase = ['', username, owner, pId].join('/').replace('//', '/');
-    const originalCode = project[type];
-
-    const onCancel = () => {
-      onCodeChanged(originalCode);
-      this.setState({});
-    }
 
     return (
       <div className={styles.container}>
@@ -34,8 +34,8 @@ class ProjectEditor extends Component {
         </nav>
         <FileEditor
           onCodeChanged={onCodeChanged}
-          onCancel={onCancel}
-          onSave={saveFile}
+          onCancel={onCancelChanges}
+          onSave={onSaveChanges}
           code={project[type]} />
       </div>
     )

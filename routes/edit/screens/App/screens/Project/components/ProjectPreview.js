@@ -32,7 +32,7 @@ class ProjectPreview extends Component {
     let src = code;
     src = marked(src);
     src = katex.render(src);
-    if (src.substr(0, 1) !== '<') src = '<' + src;
+    if (src.length && src.substr(0, 1) !== '<') src = '<' + src;
     src = '<div class="container">' + src + '</div>';
     return { __html: src };
   }
