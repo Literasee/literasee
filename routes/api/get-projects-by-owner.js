@@ -26,6 +26,9 @@ module.exports = function (req, res) {
     if (err) return res.status(500).json(err);
 
     const projects = results.gists.body
+      .filter((gist) => {
+        return gist.files['report.md'] || gist.files['presentation.md'];
+      })
       .concat(results.repos.body)
       .sort(function (a, b) {
         return Date.parse(b.updated_at) - Date.parse(a.updated_at);

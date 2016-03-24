@@ -32,7 +32,7 @@ module.exports = function (req, res, next) {
 
       if (err) {
         // 304 means we already have the latest version of the project in the db
-        // 404 hopefully means a corresponding gist was not found
+        // 404 means a corresponding gist was not found
         // hopefully this just means the project is a repo
         if (err.status === 304 || err.status === 404) {
           return next();
