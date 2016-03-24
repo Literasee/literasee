@@ -79,7 +79,7 @@ function fetchProjectsError(error) {
  }
 }
 
-export function fetchProjects ({ username }) {
+export function fetchProjects (username) {
   return (dispatch) => {
     dispatch(requestProjects());
 

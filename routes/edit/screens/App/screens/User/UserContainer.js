@@ -3,8 +3,8 @@ import User from './index';
 
 class UserContainer extends Component {
   componentDidMount () {
-    const { params, fetchProjects } = this.props;
-    fetchProjects(params);
+    const { params, username, fetchProjects } = this.props;
+    fetchProjects(params.username || username);
   }
 
   render () {
@@ -20,6 +20,7 @@ import {
 
 const mapStateToProps = (state) => {
   return {
+    username: state.username,
     projects: state.projects
   }
 }
