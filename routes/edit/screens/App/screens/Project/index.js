@@ -39,9 +39,9 @@ class Project extends Component {
   }
 
   onSaveChanges () {
-    const { params, project, user, saveFile } = this.props;
+    const { params, project, saveFile } = this.props;
 
-    saveFile(params, project, user);
+    saveFile(params, project);
   }
 
   render () {

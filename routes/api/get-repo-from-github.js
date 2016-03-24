@@ -16,7 +16,8 @@ function repoToProject (p, report, preso, keywords) {
     presentation_sha: preso.sha,
     keywords: keywords ? keywords.content.split('\n') : [],
     keywords_sha: keywords ? keywords.sha : null,
-    thumbnail: null
+    thumbnail: null,
+    avatar_url: p.owner.avatar_url
   }
 }
 

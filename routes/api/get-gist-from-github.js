@@ -12,6 +12,7 @@ function gistToProject (p) {
     report: p.files['report.md'].content,
     presentation: p.files['presentation.md'].content,
     thumbnail: null,
+    avatar_url: p.owner.avatar_url,
     keywords: p.files['keywords.txt'] && p.files['keywords.txt'].content.split('\n')
   }
 }

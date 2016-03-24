@@ -23,7 +23,6 @@ import {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user,
     token: state.token,
     project: state.project,
     path: state.routing.location.pathname
