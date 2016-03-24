@@ -4,8 +4,6 @@ const router = express.Router();
 
 router.use(require('cookie-parser')());
 
-router.get('/:owner', require('./owner-project-list'));
-
 router.get('/:owner/:project/:type?/:asset?', [
   require('../api/get-project-from-db'),
   require('../api/get-gist-from-github'),
