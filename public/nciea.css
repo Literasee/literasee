@@ -238,14 +238,26 @@ iframe,
 video {
   max-width: 100%;
 }
+h1 {
+    margin-top: 30px;
+}
+h2 {
+    margin-top: 25px;
+}
+h3 {
+    margin-top: 20px;
+}
+h4,
+h5,
+h6 {
+    margin-top: 20px;
+}
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  margin-top: 0;
-  margin-bottom: 30px;
   line-height: 1.25;
   font-family: 'aktiv-grotesk', helvetica neue, helvetica, arial, sans-serif;
 }
@@ -264,7 +276,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: 300;
+  font-weight: 400;
 }
 h6 {
   text-transform: uppercase;
