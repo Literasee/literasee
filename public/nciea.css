@@ -784,9 +784,9 @@ select:focus:-moz-focusring {
 code {
   font-family: Menlo, Monaco, Consolas, monospace;
   font-size: 12px;
-  padding: 3px 5px;
+  padding: 15px 10px;
   background-color: #eef;
-  border-radius: 3px;
+  border-radius: 5px;
   width: 100%;
   display: inline-block;
 }
