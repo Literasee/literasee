@@ -785,8 +785,9 @@ code {
   font-family: Menlo, Monaco, Consolas, monospace;
   font-size: 12px;
   padding: 3px 5px;
-  background-color: rgba(0,0,0,0.04);
+  background-color: #eef;
   border-radius: 3px;
+  width: 100%;
   display: inline-block;
 }
 pre {
