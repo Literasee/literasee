@@ -343,6 +343,14 @@ blockquote footer:before {
 .octicon-link:before {
   content: '\f05c';
 }
+.anchor {
+  display: inline-block;
+  padding-right: 2px;
+  margin-left: -18px;
+}
+.anchor:focus {
+  outline: none;
+}
 h1 .octicon-link,
 h2 .octicon-link,
 h3 .octicon-link,
