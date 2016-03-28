@@ -328,7 +328,7 @@ blockquote footer:before {
   font-size: 36px;
   line-height: 1.3;
 }
-body .octicon {
+.octicon {
   font: normal normal normal 16px/1 octicons-link;
   display: inline-block;
   text-decoration: none;
@@ -340,35 +340,35 @@ body .octicon {
   -ms-user-select: none;
   user-select: none;
 }
-body .octicon-link:before {
+.octicon-link:before {
   content: '\f05c';
 }
-body h1 .octicon-link,
-body h2 .octicon-link,
-body h3 .octicon-link,
-body h4 .octicon-link,
-body h5 .octicon-link,
-body h6 .octicon-link {
+h1 .octicon-link,
+h2 .octicon-link,
+h3 .octicon-link,
+h4 .octicon-link,
+h5 .octicon-link,
+h6 .octicon-link {
   color: #000;
   vertical-align: middle;
   visibility: hidden;
 }
 
-body h1:hover .anchor,
-body h2:hover .anchor,
-body h3:hover .anchor,
-body h4:hover .anchor,
-body h5:hover .anchor,
-body h6:hover .anchor {
+h1:hover .anchor,
+h2:hover .anchor,
+h3:hover .anchor,
+h4:hover .anchor,
+h5:hover .anchor,
+h6:hover .anchor {
   text-decoration: none;
 }
 
-body h1:hover .anchor .octicon-link,
-body h2:hover .anchor .octicon-link,
-body h3:hover .anchor .octicon-link,
-body h4:hover .anchor .octicon-link,
-body h5:hover .anchor .octicon-link,
-body h6:hover .anchor .octicon-link {
+h1:hover .anchor .octicon-link,
+h2:hover .anchor .octicon-link,
+h3:hover .anchor .octicon-link,
+h4:hover .anchor .octicon-link,
+h5:hover .anchor .octicon-link,
+h6:hover .anchor .octicon-link {
   visibility: visible;
 }
 
