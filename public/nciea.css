@@ -38,7 +38,6 @@ template {
 }
 a {
   background-color: transparent;
-  color: #0A97A7
 }
 a:active,
 a:hover {
@@ -207,7 +206,7 @@ p {
   color: #fff;
 }
 a {
-  color: #00b0e9;
+  color: #0A97A7;
   text-decoration: none;
   cursor: pointer;
 }
@@ -215,7 +214,7 @@ a:focus {
   outline: none;
 }
 a:hover {
-  color: #008dba;
+  color: #orange;
 }
 .pull-left {
   float: left;
@@ -324,6 +323,12 @@ blockquote footer:before {
 .blockquote-large {
   font-size: 36px;
   line-height: 1.3;
+}
+.anchorjs-link:hover {
+  color: orange;
+}
+*:hover > .anchorjs-link {
+  transition: color .25s linear;
 }
 @media screen and (max-width: 899px) {
   h1 {
