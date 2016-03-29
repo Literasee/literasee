@@ -214,7 +214,7 @@ a:focus {
   outline: none;
 }
 a:hover {
-  color: #orange;
+  color: orange;
 }
 .pull-left {
   float: left;
@@ -325,7 +325,7 @@ blockquote footer:before {
   line-height: 1.3;
 }
 .anchorjs-link:hover {
-  color: orange;
+  color: hotpink;
 }
 *:hover > .anchorjs-link {
   transition: color .25s linear;
