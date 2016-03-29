@@ -17,7 +17,8 @@ module.exports = function (req, res, next) {
   res.locals.scripts = [
     '/public/d3.min.js',
     '/public/d3-maximize.min.js',
-    '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
+    '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML',
+    '/public/anchor.min.js'
   ];
 
   res.locals.title = project.description.split('|')[0];
