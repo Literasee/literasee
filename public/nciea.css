@@ -79,7 +79,7 @@ sub {
   bottom: -0.25em;
 }
 img {
-  border: 0;
+  border: 2px;
   display: block;
   margin: 0 auto;
 }
