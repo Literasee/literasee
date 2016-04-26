@@ -20,8 +20,8 @@ function gistToProject (p) {
 module.exports = function (req, res, next) {
   const project = req.params.project;
 
-  // gist ids are 20 characters long
-  if (res.locals.isRepo || project.length !== 20) {
+  // gist ids are either 20 or 32 characters long
+  if (res.locals.isRepo || (project.length !== 20 && project.length !== 32)) {
     res.locals.isRepo = true;
     return next();
   }
