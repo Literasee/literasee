@@ -379,6 +379,8 @@ ul,
 ol {
   margin: 0 0 0 0;
   padding-left: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 ul li > ul,
 ol li > ul,
