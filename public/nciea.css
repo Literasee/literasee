@@ -197,7 +197,7 @@ body {
 }
 p {
   margin-top: 0;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 ::-moz-selection {
   background-color: #74ddff;
@@ -309,7 +309,6 @@ blockquote p:last-child {
   margin: 0;
 }
 blockquote footer {
-  margin-top: 15px;
   font-size: 16px;
   color: #9ba3a5;
 }
@@ -378,9 +377,9 @@ blockquote footer:before {
 ul,
 ol {
   margin: 0 0 0 0;
-  padding-left: 30px;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-left: 40px;
+  padding-top: 10px;
+  padding-bottom: 15px;
 }
 ul li > ul,
 ol li > ul,
