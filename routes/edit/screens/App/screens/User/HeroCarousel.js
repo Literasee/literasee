@@ -1,39 +1,31 @@
 import React, { Component } from 'react';
-import ProjectGrid from 'components/ProjectGrid';
+import CarouselA from './CarouselA';
+import CarouselB from './CarouselB';
 
 import styles from './HeroCarousel.styl'
 
 class HeroCarousel extends Component {
+
+  constructor () {
+    super();
+    this.state = { count: 0 };
+  }
+
+  componentDidMount () {
+    setInterval(::this.swap, 7500);
+  }
+
+  swap () {
+    this.setState({count: this.state.count + 1});
+  }
+
   render () {
+    const showA = this.state.count % 2 === 0;
+
     return (
-      <div className={styles.containerA}>
-        <div className={styles.nav}>
-
-        </div>
-        
-        <div className={styles.icons}>
-          <div className={styles.icon}>
-            <img width='212' height='166' src='/public/img/icon-create.png' />
-            <h2>Create</h2>
-            <p>Create engaging and compelling web-based content while minimizing the hassle of programming tools and environments</p>
-          </div>
-          <div className={styles.icon}>
-            <img width='212' height='166' src='/public/img/icon-collaborate.png' />
-            <h2>Collaborate</h2>
-            <p>Collaborate on the development of such content by using GitHub as a backend allowing for distributed content creation as well as the "forking" of work one wants to build upon</p>
-          </div>
-          <div className={styles.icon}>
-            <img width='212' height='166' src='/public/img/icon-communicate.png' />
-            <h2>Communicate</h2>
-            <p>Communicate the content developed through the web through the use of Literasee and social networking</p>
-          </div>
-        </div>
-
-        <div className={styles.cta}>
-          <button className='btn btn-primary btn-large'>
-            Connect and Create!
-          </button>
-        </div>
+      <div style={{position: 'relative'}}>
+        <CarouselA style={{opacity: showA ? 1 : 0}} />
+        <CarouselB style={{opacity: showA ? 0 : 1}} />
       </div>
     )
   }

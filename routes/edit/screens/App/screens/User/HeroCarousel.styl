@@ -1,11 +1,12 @@
 .containerA {
   background-image: radial-gradient(at top, #E8F7F8 0%, #CCEBEE 100%);
   width: 100%;
-  height: 35rem;
+  height: 36rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  position: absolute;
+  transition: opacity .5s ease-in-out;
 
   .nav {
     height: 5rem;
@@ -43,5 +44,49 @@
 
   .cta {
     height: 6rem;
+  }
+}
+
+.containerB {
+  background-image: radial-gradient(50% 107%, #4E5364 8%, #303141 100%);
+  width: 100%;
+  height: 36rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  transition: opacity .5s ease-in-out;
+
+  .nav {
+    height: 5rem;
+  }
+
+  .content {
+    display: flex;
+
+    .copy {
+      width: 40%;
+      margin-left: 8rem;
+      margin-right: 6rem;
+
+      h2 {
+        color: white;
+        line-height: 1.25;
+      }
+
+      p {
+        color: white;
+        line-height: 1.75;
+        font-weight: 300;
+        width: 70%;
+        padding: 2rem 0;
+      }
+    }
+
+    .preview {
+      width: 60%;
+      display: flex;
+      justify-content: flex-end;
+    }
   }
 }
