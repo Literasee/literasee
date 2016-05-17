@@ -9,14 +9,16 @@ export default function ({ user, username, onCreateProject }) {
   const oauthUrl = `https://github.com/login/oauth/authorize?client_id=${GH_CLIENT_ID}&scope=gist,repo`;
 
   return (
-    <div className={styles.container}>
-      <a href='/'><Logo scale='0.6' /></a>
-      <p>Create • Collaborate • Communicate</p>
-      <a
-        href={oauthUrl}
-        className='btn btn-primary'>
-        Log in with Github
-      </a>
-    </div>
+    <header className={styles.container + ' container-fluid'}>
+      <div></div>
+      <div><a href='/'><Logo scale='0.6' /></a></div>
+      <div>
+        <a
+          href={oauthUrl}
+          className='btn'>
+          Log in with Github
+        </a>
+      </div>
+    </header>
   )
 }

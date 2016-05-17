@@ -7,7 +7,11 @@
 //- Default button styles
 
 .btn
+  border: 1px solid rgba(151, 151, 151, 0.4)
   border-radius: $border-radius-base
+  font-family: $font-family
+  font-size: $font-size-base
+  color: rgba(0, 0, 0, 0.5)
   padding: $spacing-sm $spacing
   line-height: 1
 
@@ -31,7 +35,8 @@
 
 .btn-large
   padding: $spacing $spacing-lg
-  font-size: $font-size-lg
+  font-size: $font-size-med
+  font-weight: 500
 
 //- Small button
 
@@ -46,21 +51,19 @@
 //- Button color variant: primary
 
 .btn-primary
-  border: 1px solid lighten($blue-dark, 20%)
+  border: none
   color: white
-  background-color: $blue
-  background-image: linear-gradient(to bottom, rgba(255,255,255,0.25) 0%,rgba(255,255,255,0) 100%)
+  background-color: #BCC700
 
   &:hover
     color: white
-    background-color: darken($blue, 20%)
+    background-color: darken(#BCC700, 10%)
 
   &:disabled,
   &:disabled:hover,
   .btn-disabled,
   .btn-disabled:hover
     background-color: none
-    background-image: linear-gradient(to top, rgba(255,255,255,0.45) 0%,rgba(255,255,255,0.45) 100%)
 
 //- Button color variant: outlined
 

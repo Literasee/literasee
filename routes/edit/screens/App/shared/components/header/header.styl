@@ -6,9 +6,17 @@
   align-items: center;
   height: 4rem;
 
-  p {
-    font-size: $font-size-lg;
-    margin: 0;
+  div {
+    min-width: 200px;
+  }
+
+  div:nth-child(2) {
+    flex-grow: 1;
+    text-align: center;
+  }
+
+  div:last-child {
+    text-align: right;
   }
 }
 

@@ -16,10 +16,6 @@ export default function ({user, username, onCreateProject}) {
     )
   }
 
-  return (
-    <header className='container-fluid'>
-      <DefaultHeader />
-    </header>
-  )
+  return <DefaultHeader />;
 
 }
