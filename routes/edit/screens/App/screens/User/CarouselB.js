@@ -7,7 +7,11 @@ class CarouselB extends Component {
     return (
       <div className={styles.containerB} {...this.props}>
         <div className={styles.nav}>
-
+          <a
+            onClick={this.props.swapHero} 
+            style={{background: 'rgba(100, 100, 100, 0.8)'}}>
+          </a>
+          <a style={{background: '#FFFFFF'}} className={styles.disabled}></a>
         </div>
 
         <div className={styles.content}>

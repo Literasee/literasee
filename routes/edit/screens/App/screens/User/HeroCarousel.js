@@ -12,10 +12,15 @@ class HeroCarousel extends Component {
   }
 
   componentDidMount () {
-    setInterval(::this.swap, 7500);
+    this.swapper = setInterval(::this.swap, 2500);
   }
 
   swap () {
+    this.setState({count: this.state.count + 1});
+  }
+
+  swapHero () {
+    clearInterval(this.swapper);
     this.setState({count: this.state.count + 1});
   }
 
@@ -24,8 +29,18 @@ class HeroCarousel extends Component {
 
     return (
       <div style={{position: 'relative'}}>
-        <CarouselA style={{opacity: showA ? 1 : 0}} />
-        <CarouselB style={{opacity: showA ? 0 : 1}} />
+        <CarouselA
+          swapHero={::this.swapHero}
+          style={{
+            opacity: showA ? 1 : 0,
+            pointerEvents: showA ? 'all' : 'none'
+          }} />
+        <CarouselB
+          swapHero={::this.swapHero}
+          style={{
+            opacity: showA ? 0 : 1,
+            pointerEvents: showA ? 'none' : 'all'
+          }} />
       </div>
     )
   }
