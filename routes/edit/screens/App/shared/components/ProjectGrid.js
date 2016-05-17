@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 
 export default ({projects, user, username, createGist}) => {
   return (
-    <div className='row center-lg'>
+    <div className='row center-lg container-fluid'>
       <div className='col-xs-12'>
         <div className='row around-xs mt2'>
 

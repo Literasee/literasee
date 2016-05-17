@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import User from './index';
+import HeroCarousel from './HeroCarousel';
 
 class UserContainer extends Component {
   componentDidMount () {
@@ -8,7 +9,12 @@ class UserContainer extends Component {
   }
 
   render () {
-    return <User {...this.props} />;
+    return (
+      <main role='main'>
+        <HeroCarousel />
+        <User {...this.props} />
+      </main>
+    )
   }
 }
 

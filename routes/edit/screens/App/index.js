@@ -27,9 +27,7 @@ class App extends Component {
     return (
       <div className='wrapper'>
         <Header {...this.props} onCreateProject={::this.onCreateProject} />
-        <main role='main' className='section-dimmed container-fluid'>
-          {this.props.children}
-        </main>
+        {this.props.children}
         <Footer />
       </div>
     )
