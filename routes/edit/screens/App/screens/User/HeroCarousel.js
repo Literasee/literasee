@@ -12,7 +12,7 @@ class HeroCarousel extends Component {
   }
 
   componentDidMount () {
-    this.swapper = setInterval(::this.swap, 2500);
+    this.swapper = setInterval(::this.swap, 7500);
   }
 
   swap () {
