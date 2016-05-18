@@ -3,14 +3,14 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, browserHistory } from 'react-router';
 import routes from './routes';
-import cookies from './config/cookies'
+import initialState from './config/initialState'
 import configureStore from './store/configureStore';
 
 // this import format (leading !!, specifically)
 // instructs Webpack to not run this through configured loaders
 import styles from '!!style!css!stylus!./app.styl';
 
-const store = configureStore(cookies);
+const store = configureStore(initialState);
 
 render(
   <Provider store={store}>

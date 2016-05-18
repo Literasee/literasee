@@ -5,6 +5,7 @@ export default (function () {
 
   return {
     token: cookies.token || null,
-    username: cookies.username || null
+    username: cookies.username || null,
+    oauthUrl: `https://github.com/login/oauth/authorize?client_id=${GH_CLIENT_ID}&scope=gist,repo`
   };
 })()

@@ -32,9 +32,11 @@ class CarouselA extends Component {
         </div>
 
         <div className={styles.cta}>
-          <button className='btn btn-primary btn-large'>
+          <a
+            href={this.props.oauthUrl}
+            className='btn btn-primary btn-large'>
             Connect and Create!
-          </button>
+          </a>
         </div>
       </div>
     )

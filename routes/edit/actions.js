@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import request from 'superagent-bluebird-promise';
-import cookies from './config/cookies';
+import initialState from './config/initialState';
 import {
   getApiUrl,
   getFeaturedProjectsUrl,
@@ -43,7 +43,7 @@ export function fetchUser() {
 
     return fetch('https://api.github.com/user', {
         headers: {
-          'Authorization': 'token ' + cookies.token,
+          'Authorization': 'token ' + initialState.token,
           'Accept': 'application/vnd.github.v3'
         }
       })
@@ -172,7 +172,7 @@ export function createGist(files) {
     return fetch('https://api.github.com/gists', {
         method: 'POST',
         headers: {
-          'Authorization': 'token ' + cookies.token,
+          'Authorization': 'token ' + initialState.token,
           'Accept': 'application/vnd.github.v3'
         },
         body: JSON.stringify({files})

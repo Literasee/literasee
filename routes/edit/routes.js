@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, IndexRoute, Redirect } from 'react-router';
-import cookies from './config/cookies';
+import initialState from './config/initialState';
 
 import App from './screens/App';
 import UserContainer from './screens/App/screens/User/UserContainer';
@@ -12,7 +12,7 @@ const verifyToken = (nextState, replace) => {
 
   // you cannot view another user's editor
   if (hostname.indexOf('edit') === 0) {
-    if (!cookies.username || pathname.indexOf(cookies.username) < 0) {
+    if (!initialState.username || pathname.indexOf(initialState.username) < 0) {
       replace({pathname: '/'});
     }
   }
@@ -22,7 +22,7 @@ const verifyProjectType = (nextState, replace) => {
   const { hostname } = document.location;
 
   // only authenticated users can use the editor
-  if (hostname.indexOf('edit') === 0 && !cookies.username) {
+  if (hostname.indexOf('edit') === 0 && !initialState.username) {
     return replace({pathname: '/'});
   }
 

@@ -31,12 +31,14 @@ class HeroCarousel extends Component {
       <div style={{position: 'relative'}}>
         <CarouselA
           swapHero={::this.swapHero}
+          oauthUrl={this.props.oauthUrl}
           style={{
             opacity: showA ? 1 : 0,
             pointerEvents: showA ? 'all' : 'none'
           }} />
         <CarouselB
           swapHero={::this.swapHero}
+          oauthUrl={this.props.oauthUrl}
           style={{
             opacity: showA ? 0 : 1,
             pointerEvents: showA ? 'none' : 'all'

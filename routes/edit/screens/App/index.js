@@ -45,7 +45,8 @@ const mapStateToProps = (state) => {
   return {
     user: state.user,
     username: state.username, // available immediately from cookie
-    path: state.routing.location.pathname
+    path: state.routing.location.pathname,
+    oauthUrl: state.oauthUrl
   }
 }
 

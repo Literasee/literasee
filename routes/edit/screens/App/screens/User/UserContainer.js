@@ -11,7 +11,7 @@ class UserContainer extends Component {
   render () {
     return (
       <main role='main'>
-        <HeroCarousel />
+        <HeroCarousel oauthUrl={this.props.oauthUrl} />
         <User {...this.props} />
       </main>
     )
@@ -28,7 +28,8 @@ const mapStateToProps = (state) => {
   return {
     user: state.user,
     username: state.username,
-    projects: state.projects
+    projects: state.projects,
+    oauthUrl: state.oauthUrl
   }
 }
 

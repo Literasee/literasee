@@ -9,6 +9,7 @@ import { combineReducers } from 'redux';
 const rootReducer = combineReducers({
   token: (state = null, action) => state,
   username: (state = null, action) => state,
+  oauthUrl: (state = null, action) => state,
   user,
   projects,
   project,
