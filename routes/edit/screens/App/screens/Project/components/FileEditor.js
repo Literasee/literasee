@@ -11,22 +11,6 @@ const FileEditor = ({ code, onCodeChanged, onCancel, onSave, children }) => {
         code={code}
         onCodeChange={onCodeChanged}
         onSave={onSave} />
-      <div className={styles.buttonContainer}>
-        <button
-          onClick={onCancel}
-          type='button'
-          name='button'
-          className='btn btn-outlined'>
-          Cancel
-        </button>
-        <button
-          onClick={onSave}
-          type='button'
-          name='button'
-          className='btn btn-primary'>
-          Save
-        </button>
-      </div>
     </div>
   )
 }

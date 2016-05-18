@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ProjectHeader from './components/ProjectHeader';
+import ProjectMetadata from './components/ProjectMetadata';
 import ProjectEditor from './components/ProjectEditor';
 import ProjectPreview from './components/ProjectPreview';
 
@@ -49,22 +49,13 @@ class Project extends Component {
 
     return (
       <div className={styles.container}>
-        <ProjectHeader
+        <ProjectMetadata {...this.props} />
+        <ProjectEditor
           params={params}
           project={project}
-          onSaveTitles={::this.onSaveTitles} />
-        <div className={styles.contentArea}>
-          <ProjectEditor
-            params={params}
-            project={project}
-            onCodeChanged={::this.onCodeChanged}
-            onCancelChanges={::this.onCancelChanges}
-            onSaveChanges={::this.onSaveChanges} />
-          <ProjectPreview
-            params={params}
-            project={project}
-            ref={(c) => this._preview = c} />
-        </div>
+          onCodeChanged={::this.onCodeChanged}
+          onCancelChanges={::this.onCancelChanges}
+          onSaveChanges={::this.onSaveChanges} />
       </div>
     )
   }
