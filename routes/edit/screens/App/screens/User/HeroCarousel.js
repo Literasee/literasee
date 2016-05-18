@@ -15,6 +15,10 @@ class HeroCarousel extends Component {
     this.swapper = setInterval(::this.swap, 7500);
   }
 
+  componentWillUnmount () {
+    clearInterval(this.swapper);
+  }
+
   swap () {
     this.setState({count: this.state.count + 1});
   }
