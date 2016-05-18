@@ -11,7 +11,7 @@ class UserContainer extends Component {
   render () {
     return (
       <main role='main'>
-        <HeroCarousel oauthUrl={this.props.oauthUrl} />
+        <HeroCarousel username={this.props.username} oauthUrl={this.props.oauthUrl} />
         <User {...this.props} />
       </main>
     )

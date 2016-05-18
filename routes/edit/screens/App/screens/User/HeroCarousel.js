@@ -27,6 +27,8 @@ class HeroCarousel extends Component {
   render () {
     const showA = this.state.count % 2 === 0;
 
+    if (this.props.username) return <span></span>;
+
     return (
       <div style={{position: 'relative'}}>
         <CarouselA
