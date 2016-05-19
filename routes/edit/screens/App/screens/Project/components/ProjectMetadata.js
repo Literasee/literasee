@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 import styles from './ProjectMetadata.styl';
 
@@ -10,14 +11,16 @@ const getTitles = (project) => {
   return { title, subTitle };
 }
 
-const ProjectMetadata = ({ project }) => {
+const ProjectMetadata = ({ project, params }) => {
   const { title, subTitle } = getTitles(project);
 
   return (
     <div className={styles.container}>
-      <button className={styles.backBtn}>
+      <Link
+        to={'/' + params.username}
+        className={styles.backBtn}>
         <img src='/public/img/icon-back.png' /> Back
-      </button>
+      </Link>
       <h1>{title}</h1>
       <p>{subTitle}</p>
     </div>

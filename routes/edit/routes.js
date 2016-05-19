@@ -26,13 +26,14 @@ const verifyProjectType = (nextState, replace) => {
     return replace({pathname: '/'});
   }
 
-  let { params: { type }, location: { pathname } } = nextState;
+  let { params: { type, mode }, location: { pathname } } = nextState;
   if (pathname.substr(-1) !== '/') pathname += '/';
 
   // direct to report editing by default
-  if (['report', 'presentation', 'keywords', 'assets'].indexOf(type) < 0) {
-    replace({pathname: pathname + 'report'});
-  }
+  type = ['report', 'presentation'].indexOf(type) < 0 ? 'report' : null;
+  mode = ['edit', 'preview'].indexOf(mode) < 0 ? 'edit' : null;
+  if (type && mode) return replace({pathname: pathname + type + '/' + mode});
+  if (mode) replace({pathname: pathname + mode});
 }
 
 export default (

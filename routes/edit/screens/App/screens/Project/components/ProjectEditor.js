@@ -17,7 +17,8 @@ class ProjectEditor extends Component {
       onCancelChanges,
       onSaveChanges
     } = this.props;
-    const { username, owner, project: pId, type, mode } = params;
+    const { username, owner, project: pId, type } = params;
+    const mode = params.mode || 'edit';
 
     const linkBase = ['', username, owner, pId].join('/').replace('//', '/');
 
