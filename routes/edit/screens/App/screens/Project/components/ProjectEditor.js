@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import _ from 'lodash';
 import FileEditor from './FileEditor';
 import Toolbar from './Toolbar';
+import ProjectPreview from './ProjectPreview';
 
 import styles from './ProjectEditor.styl';
 
@@ -19,6 +20,14 @@ class ProjectEditor extends Component {
     const { username, owner, project: pId, type, mode } = params;
 
     const linkBase = ['', username, owner, pId].join('/').replace('//', '/');
+
+    const contentView = mode === 'preview'
+      ? <ProjectPreview project={project} params={params} /> 
+      : <FileEditor
+        onCodeChanged={onCodeChanged}
+        onCancel={onCancelChanges}
+        onSave={onSaveChanges}
+        code={project[type]} />;
 
     return (
       <div className={styles.container}>
@@ -53,15 +62,10 @@ class ProjectEditor extends Component {
           </div>
         </nav>
         <Toolbar />
-        <FileEditor
-          onCodeChanged={onCodeChanged}
-          onCancel={onCancelChanges}
-          onSave={onSaveChanges}
-          code={project[type]} />
+        {contentView}
       </div>
     )
   }
-
 }
 
 export default ProjectEditor;
