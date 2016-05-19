@@ -24,8 +24,10 @@ class App extends Component {
   }
 
   render () {
+    const wrapperClass = this.props.path.split('/').length > 2 ? ' blue-bg' : '';
+
     return (
-      <div className='wrapper'>
+      <div className={'wrapper' + wrapperClass}>
         <Header {...this.props} onCreateProject={::this.onCreateProject} />
         {this.props.children}
         <Footer />
