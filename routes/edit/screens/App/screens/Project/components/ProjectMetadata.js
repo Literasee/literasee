@@ -15,6 +15,9 @@ const ProjectMetadata = ({ project }) => {
 
   return (
     <div className={styles.container}>
+      <button className={styles.backBtn}>
+        <img src='/public/img/icon-back.png' /> Back
+      </button>
       <h1>{title}</h1>
       <p>{subTitle}</p>
     </div>

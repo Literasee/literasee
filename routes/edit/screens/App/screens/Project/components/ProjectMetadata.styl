@@ -3,11 +3,37 @@
 .container {
   display: flex;
   flex-direction: column;
-  padding-top: 6rem;
+  align-items: flex-start;
+  padding-top: 0.5rem;
   padding-right: 4rem;
 
   p {
     font-size: $font-size-med;
     font-weight: $font-weight-light;
+  }
+}
+
+.backBtn {
+  background: transparent;
+  display: flex;
+  align-items: center;
+  padding: 0 0 5rem;
+  border: none;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-light;
+  color: rgba(0, 0, 0, 0.5);
+
+  img {
+    opacity: 0.4;
+    padding-right: 0.7rem;
+    padding-bottom: 0.1rem;
+  }
+
+  &:hover {
+    color: #000000;
+
+    img {
+      opacity: 1;
+    }
   }
 }
