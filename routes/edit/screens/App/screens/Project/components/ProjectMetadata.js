@@ -2,10 +2,21 @@ import React from 'react';
 
 import styles from './ProjectMetadata.styl';
 
+const getTitles = (project) => {
+  const { description } = project;
+  const title = description ? description.split('|')[0].trim() : project.id;
+  const subTitle = description ? description.split('|')[1] : '';
+
+  return { title, subTitle };
+}
+
 const ProjectMetadata = ({ project }) => {
+  const { title, subTitle } = getTitles(project);
+
   return (
     <div className={styles.container}>
-      <h1>{project.description}</h1>
+      <h1>{title}</h1>
+      <p>{subTitle}</p>
     </div>
   );
 }
