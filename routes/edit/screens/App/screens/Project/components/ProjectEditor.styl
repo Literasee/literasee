@@ -1,4 +1,5 @@
 @import '~styles/variables';
+@import '~styles/buttons';
 
 .container {
   display: flex;
@@ -9,29 +10,59 @@
 .nav {
   display: flex;
   align-items: baseline;
+}
 
-  a {
-    font-size: 20px;
-    font-weight: 300;
+.navLink {
+  composes: btn;
+  composes: btn-large;
+
+  display: flex;
+  align-items: flex-start;
+  align-self: flex-end;
+  font-size: 20px;
+  font-weight: 300;
+  color: #000000;
+  border: none;
+
+  &:hover {
     color: #000000;
-    border: none;
 
-    &.active {
-      background: #F5F5F5;
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
-      border-top-left-radius: 8px;
-      border-top-right-radius: 8px;
-      font-weight: 500;
+    img {
+      opacity: 1;
     }
+  }
+
+  &.active {
+    background: #F5F5F5;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    font-weight: 500;
+
+    img {
+      opacity: 1;
+    }
+  }
+
+  * {
+    padding: 0 0.25rem;
+  }
+
+  img {
+    opacity: 0.25;
   }
 }
 
 .buttonContainer {
   display: flex;
   justify-content: flex-end;
-  padding-top: 1rem;
+  align-items: flex-start;
   flex: 1;
+
+  button {
+    font-size: $font-size-med;
+  }
 
   button:last-child {
     margin-left: 0.6rem;

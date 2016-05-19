@@ -25,14 +25,16 @@ class ProjectEditor extends Component {
         <nav role='navigation' className={styles.nav}>
           <Link
             to={linkBase + '/report'}
-            className='btn btn-large'
+            className={styles.navLink}
             activeClassName={styles.active}>
+            <img src='/public/img/icon-report.svg' />
             Report
           </Link>
           <Link
             to={linkBase + '/presentation'}
-            className='btn btn-large'
+            className={styles.navLink}
             activeClassName={styles.active}>
+            <img src='/public/img/icon-presentation.svg' />
             Presentation
           </Link>
           <div className={styles.buttonContainer}>
