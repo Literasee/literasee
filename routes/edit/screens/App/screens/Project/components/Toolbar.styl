@@ -1,16 +1,26 @@
+@import '~styles/variables';
+@import '~styles/buttons';
+
 .container {
   background: #F5F5F5;
   height: 3rem;
   box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.12);
   display: flex;
-  align-items: center;
+  align-items: stretch;
+  justify-content: space-between;
   padding-left: 1.2rem;
   z-index: 200;
+}
 
-  .buttonGroup {
-    display: flex;
-    padding-right: 0.5rem;
-  }
+.tools {
+  display: flex;
+  align-items: center;
+  margin-right: 0.5rem;
+}
+
+.buttonGroup {
+  display: flex;
+  padding-right: 0.5rem;
 
   button {
     display: flex;
@@ -32,6 +42,38 @@
       img {
         opacity: 1;
       }
+    }
+  }
+}
+
+.modeToggle {
+  composes: btn-group;
+  composes: tools;
+}
+
+.toggleBtn {
+  composes: btn;
+  composes: btn-small;
+
+  display: flex;
+  align-items: center;
+
+  &:hover, &.active {
+    background: white;
+    color: #000000;
+  }
+
+  * {
+    padding: 0.2rem;
+  }
+
+  img {
+    opacity: 0.4;
+  }
+
+  &:hover, &.active {
+    img {
+      opacity: 1;
     }
   }
 }

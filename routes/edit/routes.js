@@ -51,12 +51,12 @@ export default (
         component={AdminContainer} />
 
       <Route
-        path=':project(/:type)'
+        path=':project(/:type)(/:mode)'
         onEnter={verifyProjectType}
         component={ProjectContainer} />
 
       <Route
-        path=':owner/:project(/:type)'
+        path=':owner/:project(/:type)(/:mode)'
         onEnter={verifyProjectType}
         component={ProjectContainer} />
     </Route>

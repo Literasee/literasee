@@ -16,7 +16,7 @@ class ProjectEditor extends Component {
       onCancelChanges,
       onSaveChanges
     } = this.props;
-    const { username, owner, project: pId, type } = params;
+    const { username, owner, project: pId, type, mode } = params;
 
     const linkBase = ['', username, owner, pId].join('/').replace('//', '/');
 
@@ -24,14 +24,14 @@ class ProjectEditor extends Component {
       <div className={styles.container}>
         <nav role='navigation' className={styles.nav}>
           <Link
-            to={linkBase + '/report'}
+            to={linkBase + '/report/' + mode}
             className={styles.navLink}
             activeClassName={styles.active}>
             <img src='/public/img/icon-report.svg' />
             Report
           </Link>
           <Link
-            to={linkBase + '/presentation'}
+            to={linkBase + '/presentation/' + mode}
             className={styles.navLink}
             activeClassName={styles.active}>
             <img src='/public/img/icon-presentation.svg' />
