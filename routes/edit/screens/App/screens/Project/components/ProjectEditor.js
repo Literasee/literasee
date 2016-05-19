@@ -22,12 +22,12 @@ class ProjectEditor extends Component {
     const linkBase = ['', username, owner, pId].join('/').replace('//', '/');
 
     const contentView = mode === 'preview'
-      ? <ProjectPreview project={project} params={params} /> 
+      ? <ProjectPreview project={project} params={params} />
       : <FileEditor
-        onCodeChanged={onCodeChanged}
-        onCancel={onCancelChanges}
-        onSave={onSaveChanges}
-        code={project[type]} />;
+          onCodeChanged={onCodeChanged}
+          onCancel={onCancelChanges}
+          onSave={onSaveChanges}
+          code={project[type]} />;
 
     return (
       <div className={styles.container}>
@@ -48,12 +48,14 @@ class ProjectEditor extends Component {
           </Link>
           <div className={styles.buttonContainer}>
             <button
+              onClick={onSaveChanges.bind(null, true)}
               type='button'
               name='button'
               className='btn'>
               Save &amp; Open
             </button>
             <button
+              onClick={onSaveChanges}
               type='button'
               name='button'
               className='btn btn-primary'>

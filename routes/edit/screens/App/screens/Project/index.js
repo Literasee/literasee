@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ProjectMetadata from './components/ProjectMetadata';
 import ProjectEditor from './components/ProjectEditor';
 import ProjectPreview from './components/ProjectPreview';
+import { getProjectViewUrl } from 'utils/urlUtil';
 
 import styles from './Project.styl';
 
@@ -38,10 +39,15 @@ class Project extends Component {
     if (this.state.originalCode) this.onCodeChanged(this.state.originalCode);
   }
 
-  onSaveChanges () {
+  onSaveChanges (open) {
     const { params, project, saveFile } = this.props;
 
-    saveFile(params, project);
+    saveFile(params, project)
+      .then((result) => {
+        if (open) {
+          window.open(getProjectViewUrl(params));
+        }
+      });
   }
 
   render () {
