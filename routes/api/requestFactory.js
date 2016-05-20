@@ -78,11 +78,16 @@ exports.saveRepoFile = function (req, filename) {
   const token = req.cookies.token;
   const url = `https://api.github.com/repos/${owner}/${project}/contents/${filename}`;
 
+  var content = req.body.project[req.body.type];
+  if (Array.isArray(content)) {
+    content = content.filter(w => w.length).join('\n');
+  }
+
   return standardizeRequest(request.put(url), token)
     .send({
       path: filename,
       message: 'Updating ' + filename,
-      content: new Buffer(req.body.project[req.body.type]).toString('base64'),
+      content: new Buffer(content).toString('base64'),
       sha: req.body.project[req.body.type + '_sha']
     });
 }

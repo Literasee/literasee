@@ -220,8 +220,9 @@ function saveFileError(error) {
   }
 }
 
-export function saveFile(params, project) {
-  const { username, owner, project: pId, type } = params;
+export function saveFile(params, project, type) {
+  const { username, owner, project: pId } = params;
+  type = type || params.type;
 
   return dispatch => {
     dispatch(saveFileStart(pId, type));

@@ -50,12 +50,18 @@ class Project extends Component {
       });
   }
 
+  saveKeywords () {
+    const { params, project, saveFile } = this.props;
+
+    saveFile(params, project, 'keywords');
+  }
+
   render () {
     const { project, params } = this.props;
 
     return (
       <div className={styles.container}>
-        <ProjectMetadata {...this.props} />
+        <ProjectMetadata save={::this.saveKeywords} {...this.props} />
         <ProjectEditor
           params={params}
           project={project}

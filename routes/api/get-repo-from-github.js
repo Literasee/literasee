@@ -45,7 +45,7 @@ module.exports = function (req, res, next) {
       .getRepoFile(req, file, res.locals.etag)
       .end((err, result) => {
         if (err && file === 'keywords.txt') {
-          cb(null, '');
+          cb(null, []);
         } else {
           cb(err, result);
         }
