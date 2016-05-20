@@ -5,7 +5,9 @@ import styles from './Keywords.styl';
 class Keywords extends Component {
 
   render () {
-    const { keywords = [], add, remove} = this.props;
+    let { keywords, add, remove} = this.props;
+    keywords = keywords || [];
+
     return (
       <div className={styles.container}>
         <h5>Keywords:</h5>

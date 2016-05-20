@@ -22,7 +22,8 @@ function repoToProject (p, report, preso, keywords) {
 }
 
 function getContents (obj) {
-  if (!obj) return null;
+  if (!obj || !obj.body) return null;
+  
   return {
     content: new Buffer(obj.body.content, 'base64').toString(),
     sha: obj.body.sha

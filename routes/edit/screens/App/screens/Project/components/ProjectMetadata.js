@@ -18,6 +18,8 @@ const ProjectMetadata = (props) => {
 
   const addKeyword = (event, input) => {
     if (event.key === 'Enter') {
+      project.keywords = project.keywords || [];
+      
       if (project.keywords.indexOf(input.value.toLowerCase()) < 0) {
         project.keywords.push(input.value.toLowerCase());
         props.save();
