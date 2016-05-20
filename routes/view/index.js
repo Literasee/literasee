@@ -5,6 +5,9 @@ const router = express.Router();
 router.use(require('cookie-parser')());
 
 router.get('/:owner/:project/:type?/:asset?', [
+  function (req, res, next) {
+    if (req.subdomains.indexOf('edit') > -1) next('route');
+  },
   require('../api/get-project-from-db'),
   require('../api/get-gist-from-github'),
   require('../api/get-repo-from-github'),
