@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { getProjectViewUrl } from 'utils/urlUtil';
 import marked from 'marked';
-import katex from 'parse-katex';
 
 import styles from './ProjectPreview.styl';
 
@@ -13,6 +12,16 @@ class ProjectPreview extends Component {
     window.addEventListener('message', (e) => {
       this.currentHash = e.data;
     });
+
+    if (window.MathJax) {
+      this.renderMathJax();
+    } else {
+      setTimeout(this.renderMathJax, 2000);
+    }
+  }
+
+  renderMathJax () {
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, document.getElementById("live-preview")]);
   }
 
   getMarkup (code) {
@@ -20,8 +29,6 @@ class ProjectPreview extends Component {
 
     let src = code;
     src = marked(src);
-    src = katex.render(src);
-    if (src.length && src.substr(0, 1) !== '<') src = '<' + src;
     src = '<div class="container">' + src + '</div>';
     return { __html: src };
   }

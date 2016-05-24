@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="/public/css/octicons.min.css">
     <link rel="stylesheet" href="/public/css/purecss-menus-min.css">
     <link rel="stylesheet" href="/public/live-preview.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.2.0/katex.min.css">
 
     <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
 
@@ -24,6 +23,16 @@
     <div id="root"></div>
 
     <script src="/public/bundle.js"></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ['\\(','\\)'] ],
+          displayMath: [ ['$$', '$$'], ["\[", "\]"] ],
+          processEscapes: true
+        }
+      });
+    </script>
+    <script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
 </body>
 </html>
