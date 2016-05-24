@@ -7,6 +7,7 @@ router.use(require('cookie-parser')());
 router.get('/:owner/:project/:type?/:asset?', [
   function (req, res, next) {
     if (req.subdomains.indexOf('edit') > -1) next('route');
+    next();
   },
   require('../api/get-project-from-db'),
   require('../api/get-gist-from-github'),
