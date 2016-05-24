@@ -20,7 +20,7 @@ export function getApiUrl (endpoint) {
 
 export function getProjectViewUrl (params, stateType) {
   const { protocol, hostname, port } = document.location;
-  const host = hostname.replace(hostname.split('.')[0], 'view');
+  const host = 'view.' + hostname.replace('edit.', '');
   const { username, owner, project } = params;
   const type = stateType || params.type;
 
