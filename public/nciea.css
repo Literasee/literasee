@@ -1589,7 +1589,8 @@ tr.table-cell-alert a:hover {
 }
 body {
   padding-top: 60px;
-  width:  70%;
+  width:  65%;
+  margin: auto;
 }
 iframe {
   border: none;
