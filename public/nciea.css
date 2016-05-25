@@ -192,12 +192,13 @@ body {
   color: #4d5659;
   text-rendering: optimizeSpeed;
   margin: auto;
-  width: 65%;
   background: #D0DAE2;
 }
 p {
   margin-top: 0;
   margin-bottom: 15px;
+  width: 60%;
+  line-height=1.7;
 }
 ::-moz-selection {
   background-color: #74ddff;
