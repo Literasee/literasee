@@ -4,7 +4,7 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 body {
-  margin: auto;
+  margin: 0;
 }
 article,
 aside,
@@ -1588,8 +1588,6 @@ tr.table-cell-alert a:hover {
   }
 }
 body {
-  margin: 0;
-  padding: 0;
   padding-top: 60px;
   width:  65%;
 }
