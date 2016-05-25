@@ -194,6 +194,8 @@ body {
   line-height: 1.5;
   color: #4d5659;
   text-rendering: optimizeSpeed;
+  margin: auto;
+  width: 65%;
 }
 p {
   margin-top: 0;
