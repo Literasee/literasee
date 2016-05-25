@@ -3,9 +3,6 @@ html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 }
-body {
-  margin: 0;
-}
 article,
 aside,
 details,
@@ -196,6 +193,7 @@ body {
   text-rendering: optimizeSpeed;
   margin: auto;
   width: 65%;
+  background: #D0DAE2;
 }
 p {
   margin-top: 0;
