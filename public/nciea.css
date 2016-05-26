@@ -87,9 +87,11 @@ figure {
   margin: 1em 40px;
 }
 hr {
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-  height: 0;
+  border: 0;
+  height: 2px;
+  width: 25%;
+  margin: 75px auto;
+  background-color: rgba(0,0,0,0.3);
 }
 pre {
   overflow: auto;
@@ -197,10 +199,9 @@ body {
 p {
   margin-top: 0;
   margin-bottom: 15px;
-  width: 60%;
   line-height=1.7;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 ::-moz-selection {
   background-color: #74ddff;
@@ -481,7 +482,7 @@ dl dd {
 }
 @media screen and (min-width: 901px) {
   .container {
-    width: 70%;
+    width: 50%;
   }
 }
 select,
