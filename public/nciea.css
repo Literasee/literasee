@@ -1610,4 +1610,8 @@ body {
 }
 iframe {
   border: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
