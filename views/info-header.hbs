@@ -1,33 +1,38 @@
-<div id="info-header">
-  <a href="/">
-    <img src="/public/img/literasee-logo.svg" height="38" />
-  </a>
-  <div class="header-links">
-    <a
-      class="info-link"
-      rel="noopener"
-      target="_blank"
-      href="http://twitter.com?status=Check out what I saw on Literasee! {{short_url}}">
-      <img src="/public/img/TwitterLogo.png" width="36" height="36" alt="Twitter Logo"/>
-    </a>
+<header>
+  <div class="header-left">
+    <a href="/"><img src="/public/img/literasee-logo.svg" height="40" /></a>
+    <a href="{{report_url}}" class="type-link{{report_link_class}}">Report</a>
+    <a href="{{presentation_url}}" class="type-link{{presentation_link_class}}">Presentation</a>
+  </div>
+  <div class="header-right">
     <a
       class="info-link"
       rel="noopener"
       target="_blank"
       href="http://{{gist_subdomain}}github.com/{{project.owner}}/{{project.project}}">
-      <img src="/public/img/GitHubLogo.png" width="36" height="36" alt="GitHub Logo"/>
+      <img src="/public/img/icon-source.png" alt="Source icon"/>
     </a>
-    {{#if show_button}}
-    <a class="info-link btn btn-primary" href="{{button_url}}">
-      {{button_label}}
+    <a
+      class="info-link"
+      rel="noopener"
+      target="_blank"
+      href="http://{{gist_subdomain}}github.com/{{project.owner}}">
+      <img src="/public/img/icon-github.png" alt="GitHub icon"/>
     </a>
-    {{/if}}
+    <a
+      class="info-link"
+      rel="noopener"
+      target="_blank"
+      href="http://twitter.com?status=Check out what I saw on Literasee! {{short_url}}">
+      <img src="/public/img/icon-twtr.png" alt="Twitter icon"/>
+    </a>
     <a
       class="info-link"
       rel="noopener"
       target="_blank"
       href="http://github.com/{{project.owner}}">
-      <img src="{{project.avatar_url}}" width="36" height="36" />
+      <img src="{{project.avatar_url}}" id="avatar" width="36" height="36" />
     </a>
   </div>
-</div>
+</header>
+<link href='https://fonts.googleapis.com/css?family=Roboto:300,500' rel='stylesheet' type='text/css'>

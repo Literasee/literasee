@@ -23,7 +23,6 @@ module.exports = function (req, res, next) {
   res.locals.title = project.description.split('|')[0];
   res.locals.description = project.description.replace('|', ' – ');
   res.locals.owner = project.owner;
-  res.locals.show_button = project.report;
   res.locals.gist_subdomain = project.isRepo ? '' : 'gist.';
 
   res.render('presentation', {
@@ -31,7 +30,9 @@ module.exports = function (req, res, next) {
       infoHeader: 'info-header'
     },
     short_url: project.presentation_short_url,
-    button_label: 'Report',
-    button_url: req.originalUrl.replace('presentation', 'report')
+    report_url: req.originalUrl.replace('presentation', 'report'),
+    presentation_url: req.originalUrl.replace('report', 'presentation'),
+    report_link_class: req.originalUrl.indexOf('report') > -1 ? ' active' : '',
+    presentation_link_class: req.originalUrl.indexOf('presentation') > -1 ? ' active' : ''
   });
 }

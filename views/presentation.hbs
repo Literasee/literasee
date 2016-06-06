@@ -51,10 +51,10 @@
 
 		<script>
 	    // control header visibility
-			var infoEl = document.getElementById('info-header');
+			var infoEl = document.querySelector('header');
 			if (window.top === window) {
 	    	document.addEventListener('mousemove', function (event) {
-		      infoEl.style.top = event.clientY > 60 ? '-54px' : 0;
+		      infoEl.style.top = event.clientY > 70 ? '-65px' : 0;
 		    })
 			} else {
 				infoEl.parentNode.removeChild(infoEl);
