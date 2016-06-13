@@ -6,7 +6,7 @@ router.use(require('cookie-parser')());
 
 router.get('/:owner/:project/:type?/:asset?', [
   function (req, res, next) {
-    if (req.subdomains.indexOf('edit') > -1) next('route');
+    if (req.subdomains.indexOf('edit') > -1) return next('route');
     next();
   },
   require('../api/get-project-from-db'),
