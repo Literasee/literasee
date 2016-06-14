@@ -24,7 +24,7 @@ class App extends Component {
   }
 
   render () {
-    const wrapperClass = this.props.path.split('/').filter(f => f.length).length > 2 ? ' blue-bg' : '';
+    const wrapperClass = this.props.path.split('/').filter(f => f.length).length > 1 ? ' blue-bg' : '';
 
     return (
       <div className={'wrapper' + wrapperClass}>

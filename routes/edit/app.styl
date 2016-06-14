@@ -19,10 +19,6 @@
   background-color: #F4F4F4;
 }
 
-.blue-bg {
-  background-color: #CCEBEE;
-}
-
 header {
   width: 100%;
 }
@@ -36,6 +32,10 @@ main {
 
 footer {
   padding: 0 2rem;
+}
+
+.blue-bg {
+  background-color: $blue-bg;
 }
 
 .ace_gutter {
@@ -55,4 +55,28 @@ footer {
 }
 :-ms-input-placeholder { /* Internet Explorer 10-11 */
    color: rgba(black, 0.4);
+}
+
+.backBtn {
+  background: transparent;
+  display: flex;
+  align-items: center;
+  border: none;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-light;
+  color: rgba(0, 0, 0, 0.5);
+
+  img {
+    opacity: 0.4;
+    padding-right: 0.7rem;
+    padding-bottom: 0.1rem;
+  }
+
+  &:hover {
+    color: #000000;
+
+    img {
+      opacity: 1;
+    }
+  }
 }

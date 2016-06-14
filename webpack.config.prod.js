@@ -12,7 +12,7 @@ module.exports = {
     publicPath: '/public/'
   },
   resolve: {
-    modulesDirectories: ['shared', 'node_modules']
+    modulesDirectories: ['edit', 'shared', 'node_modules']
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
