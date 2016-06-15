@@ -4,9 +4,10 @@ const ENABLE_CHARLES_PROXY = false;
 
 if (ENABLE_CHARLES_PROXY) require('superagent-proxy')(request);
 
-function standardizeRequest (req, token) {
+function standardizeRequest (req, token, etag) {
   if (ENABLE_CHARLES_PROXY) req.proxy('http://localhost:8888');
   if (token) req.set('Authorization', 'token ' + token);
+  if (etag) req.set('If-None-Match', etag);
   req.set('Accept', 'application/vnd.github.v3');
   req.query({
     client_id: process.env.GH_CLIENT_ID,
@@ -15,7 +16,7 @@ function standardizeRequest (req, token) {
   return req;
 }
 
-exports.getUserGistsRequest = function (req) {
+exports.getUserGistsRequest = function (req, etag) {
   const owner = req.params.owner;
   const username = req.cookies.username;
   const token = req.cookies.token;
@@ -24,10 +25,10 @@ exports.getUserGistsRequest = function (req) {
   // if getting the authorized user's projects we have to use a different url
   if (owner === username) url = 'https://api.github.com/gists';
 
-  return standardizeRequest(request.get(url), token);
+  return standardizeRequest(request.get(url), token, etag);
 }
 
-exports.getUserReposRequest = function (req) {
+exports.getUserReposRequest = function (req, etag) {
   const owner = req.params.owner;
   const username = req.cookies.username;
   const token = req.cookies.token;
@@ -36,7 +37,7 @@ exports.getUserReposRequest = function (req) {
   // if getting the authorized user's projects we have to use a different url
   if (owner === username) url = 'https://api.github.com/user/repos';
 
-  return standardizeRequest(request.get(url), token)
+  return standardizeRequest(request.get(url), token, etag)
     .query({
       type: 'all',
       sort: 'pushed'
@@ -48,8 +49,7 @@ exports.getGistRequest = function (req, etag) {
   const token = req.cookies.token;
   const url = `https://api.github.com/gists/${project}`;
 
-  return standardizeRequest(request.get(url), token)
-    .set('If-None-Match', etag || '');
+  return standardizeRequest(request.get(url), token, etag);
 }
 
 exports.getRepoInfo = function (req, etag) {
@@ -58,8 +58,7 @@ exports.getRepoInfo = function (req, etag) {
   const token = req.cookies.token;
   const url = `https://api.github.com/repos/${owner}/${project}`;
 
-  return standardizeRequest(request.get(url), token)
-    .set('If-None-Match', etag || '');
+  return standardizeRequest(request.get(url), token, etag);
 }
 
 exports.getRepoFile = function (req, filename, etag) {
@@ -68,8 +67,7 @@ exports.getRepoFile = function (req, filename, etag) {
   const token = req.cookies.token;
   const url = `https://api.github.com/repos/${owner}/${project}/contents/${filename || ''}`;
 
-  return standardizeRequest(request.get(url), token)
-    .set('If-None-Match', etag || '');
+  return standardizeRequest(request.get(url), token, etag);
 }
 
 exports.saveRepoFile = function (req, filename) {

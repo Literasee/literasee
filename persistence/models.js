@@ -23,3 +23,14 @@ const ProjectSchema = new Schema({
 });
 
 exports.Project = mongoose.model('Project', ProjectSchema);
+
+const UserSchema = new Schema({
+    username: String,
+    repos: String,
+    repos_etag: String,
+    gists: String,
+    gists_etag: String,
+    ignored: {type: [String], default: []}
+});
+
+exports.User = mongoose.model('User', UserSchema);
