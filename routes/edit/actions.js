@@ -95,6 +95,35 @@ export function fetchProjects (username) {
 }
 
 /*
+ * PROJECT ADMIN
+ */
+
+export function setProjectIgnoredState (username, projectId, ignored) {
+  return (dispatch) => {
+    dispatch({ type: 'SET_PROJECT_IGNORED_START' });
+
+    request
+      .put(`/api/projects/${username}/ignore`)
+      .withCredentials()
+      .send({
+        projectId,
+        ignored
+      })
+      .end((err, result) => {
+        if (err) return dispatch({
+          type: 'SET_PROJECT_IGNORED_ERROR',
+          error: err
+        });
+
+        dispatch({
+          type: 'SET_PROJECT_IGNORED_SUCCESS',
+          result: result.body
+        });
+      });
+  }
+}
+
+/*
 * PROJECT
 */
 

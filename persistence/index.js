@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const Project = require('./models').Project;
 const User = require('./models').User;
 
@@ -27,4 +28,18 @@ exports.saveUserProjects = function (userData) {
     new: true,
     upsert: true
   });
+}
+
+exports.setProjectIgnoredState = function (username, projectId, ignored) {
+  return User
+    .findOne({username})
+    .then((user) => {
+      if (ignored) {
+        user.ignored = _.uniq([].concat(user.ignored, projectId));
+      } else if (user.ignored.indexOf(projectId) > -1) {
+        user.ignored = _.filter(user.ignored, (pId) => pId !== projectId);
+      }
+
+      return user.save();
+    });
 }

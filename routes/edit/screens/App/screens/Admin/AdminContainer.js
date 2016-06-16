@@ -3,7 +3,8 @@ import Admin from './index';
 
 class AdminContainer extends Component {
   componentDidMount () {
-    this.props.fetchProjects();
+    const { username, projects, fetchProjects } = this.props;
+    fetchProjects(username);
   }
 
   render () {
@@ -14,18 +15,21 @@ class AdminContainer extends Component {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
-  fetchProjects
+  fetchProjects,
+  setProjectIgnoredState
 } from '../../../../actions';
 
 const mapStateToProps = (state) => {
   return {
+    username: state.username,
     projects: state.projects
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    fetchProjects
+    fetchProjects,
+    setProjectIgnoredState
   }, dispatch);
 }
 

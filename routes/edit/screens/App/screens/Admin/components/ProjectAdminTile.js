@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
 
-const ProjectAdminTile = (project) => {
+import styles from './ProjectAdminTile.styl';
+import classNames from 'classnames';
+
+const ProjectAdminTile = ({project, onClick}) => {
   let title = project.name; // only repos have a name field
   title = title || (project.description || '').split('|')[0].trim();
   title = title || project.id;
   const subTitle = (project.description || '').split('|')[1];
-  const image = project.files && project.files['thumbnail.png'] ?
-    project.files['thumbnail.png'].raw_url :
-    '/public/img/thumb.png';
+  const desc = subTitle ? <p>{subTitle}</p> : null;
+  const classes = classNames(styles.adminPanel, {
+    [styles.ignoredPanel]: project.isIgnored
+  })
 
   return (
-    <div key={project.id} className='col-lg-12'>
-      <div
-        className='panel txt-left panel-project'
-        style={{backgroundImage: `url("${image}")`}}>
-        <h4 className='mb0'>{title}</h4>
-        <p>{subTitle}</p>
-      </div>
+    <div className={classes} onClick={onClick}>
+      <h4>{title || project.project}</h4>
+      {desc}
     </div>
   )
 }

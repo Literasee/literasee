@@ -10,7 +10,7 @@
   "scripts": {
     "build-live-preview-css": "stylus -c -u yeticss live-preview.styl -o public/live-preview.css",
     "build": "webpack --config webpack.config.prod.js",
-    "dev": "nodemon -w routes/api -w routes/view index.js",
+    "dev": "nodemon -w persistence -w routes/api -w routes/view index.js",
     "start": "node index.js",
     "postinstall": "npm run build"
   },

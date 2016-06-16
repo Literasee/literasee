@@ -1,4 +1,3 @@
-const request = require('superagent');
 const requests = require('./requestFactory');
 const data = require('../../persistence');
 
