@@ -32,7 +32,7 @@ router.get('/projects/:owner/:project', [
     res.json(res.locals.project);
   }
 ]);
-router.put('/projects/:owner/ignore', require('./ignore-project'));
+router.put('/projects/:owner/ignore', require('./ignore-projects'));
 router.put('/projects/:owner/:project', require('./save-project-file'));
 router.patch('/projects/:owner/:project', require('./update-project-description'));
 

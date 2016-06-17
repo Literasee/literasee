@@ -2,11 +2,11 @@ const data = require('../../persistence');
 
 module.exports = function (req, res) {
   const username = req.params.owner;
-  const projectId = req.body.projectId;
+  const projectIds = req.body.projectIds;
   const ignored = Boolean(req.body.ignored);
 
   data
-    .setProjectIgnoredState(username, projectId, ignored)
+    .setProjectsIgnoredState(username, projectIds, ignored)
     .then((user) => {
       res.json(user);
     });

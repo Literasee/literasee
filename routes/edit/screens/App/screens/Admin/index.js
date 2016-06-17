@@ -7,16 +7,22 @@ import styles from './Admin.styl';
 
 class Admin extends Component {
   render () {
-    const { projects, params, username, setProjectIgnoredState } = this.props;
+    const { projects, params, username, setProjectsIgnoredState } = this.props;
     const [ ignoredProjects, activeProjects ] = _.partition(projects, (p) => {
       return p.isIgnored;
     });
 
     const activateProject = (pId) => {
-      setProjectIgnoredState(username, pId, false);
+      setProjectsIgnoredState(username, [pId], false);
     }
     const ignoreProject = (pId) => {
-      setProjectIgnoredState(username, pId, true);
+      setProjectsIgnoredState(username, [pId], true);
+    }
+    const ignoreAll = () => {
+      setProjectsIgnoredState(username, _.map(activeProjects, 'id'), true);
+    }
+    const showAll = () => {
+      setProjectsIgnoredState(username, _.map(ignoredProjects, 'id'), false);
     }
 
     return (
@@ -29,7 +35,10 @@ class Admin extends Component {
           </Link>
         </div>
         <div className={styles.listPane}>
-          <h5>Literasee Projects</h5>
+          <div className={styles.listHeader}>
+            <h5>Literasee Projects</h5>
+            <button onClick={ignoreAll}>Ignore All</button>
+          </div>
           <div className={styles.listContainer}>
             {
               activeProjects.map((p) => {
@@ -44,7 +53,10 @@ class Admin extends Component {
           </div>
         </div>
         <div className={styles.listPane}>
-          <h5>Ignored Projects</h5>
+          <div className={styles.listHeader}>
+            <h5>Ignored Projects</h5>
+            <button onClick={showAll}>Show All</button>
+          </div>
           <div className={styles.listContainer}>
             {
               ignoredProjects.map((p) => {

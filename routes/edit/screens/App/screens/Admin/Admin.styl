@@ -31,6 +31,24 @@
   padding-left: 4rem;
 }
 
+.listHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+
+  button {
+    background: transparent;
+    border: 0;
+    font-weight: $font-weight-light;
+    color: $gray-dark;
+    opacity: 0.6;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
 .listContainer {
   flex: 1;
   overflow: hidden;

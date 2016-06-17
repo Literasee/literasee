@@ -30,14 +30,14 @@ exports.saveUserProjects = function (userData) {
   });
 }
 
-exports.setProjectIgnoredState = function (username, projectId, ignored) {
+exports.setProjectsIgnoredState = function (username, projectIds, ignored) {
   return User
     .findOne({username})
     .then((user) => {
       if (ignored) {
-        user.ignored = _.uniq([].concat(user.ignored, projectId));
-      } else if (user.ignored.indexOf(projectId) > -1) {
-        user.ignored = _.filter(user.ignored, (pId) => pId !== projectId);
+        user.ignored = _.uniq([].concat(user.ignored, projectIds));
+      } else {
+        user.ignored = _.filter(user.ignored, (pId) => projectIds.indexOf(pId) < 0);
       }
 
       return user.save();

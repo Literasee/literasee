@@ -98,7 +98,7 @@ export function fetchProjects (username) {
  * PROJECT ADMIN
  */
 
-export function setProjectIgnoredState (username, projectId, ignored) {
+export function setProjectsIgnoredState (username, projectIds, ignored) {
   return (dispatch) => {
     dispatch({ type: 'SET_PROJECT_IGNORED_START' });
 
@@ -106,7 +106,7 @@ export function setProjectIgnoredState (username, projectId, ignored) {
       .put(`/api/projects/${username}/ignore`)
       .withCredentials()
       .send({
-        projectId,
+        projectIds,
         ignored
       })
       .end((err, result) => {

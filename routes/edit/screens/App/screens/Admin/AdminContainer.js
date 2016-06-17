@@ -16,7 +16,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
   fetchProjects,
-  setProjectIgnoredState
+  setProjectsIgnoredState
 } from '../../../../actions';
 
 const mapStateToProps = (state) => {
@@ -29,7 +29,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     fetchProjects,
-    setProjectIgnoredState
+    setProjectsIgnoredState
   }, dispatch);
 }
 
