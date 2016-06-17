@@ -12,11 +12,20 @@ const ProjectAdminTile = ({project, onClick}) => {
   const classes = classNames(styles.adminPanel, {
     [styles.ignoredPanel]: project.isIgnored
   })
+  const btnLabel = project.isIgnored ? 'Show' : 'Ignore';
 
   return (
     <div className={classes} onClick={onClick}>
-      <h4>{title || project.project}</h4>
-      {desc}
+      <div>
+        <h4>{title || project.project}</h4>
+        {desc}
+      </div>
+      <button
+        type='button'
+        className='btn'>
+        <span>{btnLabel}</span>
+        <img src='/public/img/icon-small-arrow.png' />
+      </button>
     </div>
   )
 }
