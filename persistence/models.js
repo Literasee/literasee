@@ -5,6 +5,7 @@ const ProjectSchema = new Schema({
     owner: String,
     project: String,
     description: String,
+    style: String,
     isRepo: Boolean,
     isFeatured: Boolean,
     report: String,

@@ -10,9 +10,14 @@ module.exports = function (req, res, next) {
   }
 
   res.locals.styles = [
-    '/public/nciea.css',
     '/public/gist-info.css'
   ];
+
+  if (project.style === 'technical') {
+    res.locals.styles.push('/public/css/technical.css');
+  } else {
+    res.locals.styles.push('/public/nciea.css');
+  }
 
   res.locals.scripts = [
     '/public/d3.min.js',
