@@ -9,8 +9,8 @@ function gistToProject (p) {
     owner: p.owner.login,
     project: p.id,
     description: p.description,
-    report: p.files['report.md'].content,
-    presentation: p.files['presentation.md'].content,
+    report: p.files['report.md'] && p.files['report.md'].content || '',
+    presentation: p.files['presentation.md'] && p.files['presentation.md'].content || '',
     thumbnail: null,
     avatar_url: p.owner.avatar_url,
     keywords: p.files['keywords.txt'] && p.files['keywords.txt'].content.split('\n')
