@@ -26,7 +26,7 @@ module.exports = function (req, res, next) {
     '/public/anchor.min.js'
   ];
 
-  res.locals.title = project.description.split('|')[0];
+  res.locals.title = project.description ? project.description.split('|')[0] : '';
   res.locals.body = marked(project.report);
   res.locals.gist_subdomain = project.isRepo ? '' : 'gist.';
 
