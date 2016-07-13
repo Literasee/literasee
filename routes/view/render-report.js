@@ -13,7 +13,7 @@ module.exports = function (req, res, next) {
     '/public/gist-info.css'
   ];
 
-  if (project.style === 'technical') {
+  if (project.report.indexOf('id="literasee-tech-report"') > -1) {
     res.locals.styles.push('/public/css/technical.css');
   } else {
     res.locals.styles.push('/public/nciea.css');
