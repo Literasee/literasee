@@ -10,10 +10,10 @@ function repoToProject (p, report, preso, keywords) {
     owner: p.owner.login,
     project: p.name,
     description: p.description,
-    report: report.content,
-    report_sha: report.sha,
-    presentation: preso.content,
-    presentation_sha: preso.sha,
+    report: report && report.content,
+    report_sha: report && report.sha,
+    presentation: preso && preso.content,
+    presentation_sha: preso && preso.sha,
     keywords: keywords ? keywords.content.split('\n') : [],
     keywords_sha: keywords ? keywords.sha : null,
     thumbnail: null,
@@ -23,7 +23,7 @@ function repoToProject (p, report, preso, keywords) {
 
 function getContents (obj) {
   if (!obj || !obj.body) return null;
-  
+
   return {
     content: new Buffer(obj.body.content, 'base64').toString(),
     sha: obj.body.sha
@@ -45,7 +45,8 @@ module.exports = function (req, res, next) {
     requests
       .getRepoFile(req, file, res.locals.etag)
       .end((err, result) => {
-        if (err && file === 'keywords.txt') {
+        // 404s (should) just mean that a repo doesn't have all possible files
+        if (err && err.status === 404) {
           cb(null, []);
         } else {
           cb(err, result);
