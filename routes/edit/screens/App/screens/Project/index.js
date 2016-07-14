@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ProjectMetadata from './components/ProjectMetadata';
 import ProjectEditor from './components/ProjectEditor';
-import ProjectPreview from './components/ProjectPreview';
 import { getProjectViewUrl } from 'utils/urlUtil';
 
 import styles from './Project.styl';
