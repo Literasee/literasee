@@ -449,9 +449,6 @@ dl dd {
   .container {
     width: 90%;
   }
-  .iframe-container {
-    width: 100%;
-  }
   [class^="grid-flex-cell"] {
     flex: 0 0 100%;
   }
@@ -483,27 +480,10 @@ dl dd {
   .container {
     width: 85%;
   }
-  .iframe-container {
-    width: 130%;
-    height: 500px;
-    margin: 0 -12rem;
-  }
 }
 @media screen and (min-width: 901px) {
   .container {
     width: 50%;
-  }
-  .iframe-container {
-    width: 200%;
-    height: 500px;
-    margin: 0 -17rem;
-  }
-}
-@media screen and (min-width: 1000px) {
-  .iframe-container {
-    width: 180%;
-    height: 700px;
-    margin: 0 -22rem;
   }
 }
 select,
@@ -1625,9 +1605,23 @@ tr.table-cell-alert a:hover {
     page-break-after: avoid;
   }
 }
+
 body {
   padding-top: 60px;
 }
+
 iframe {
-  border: none;
+  display: block;
+  width: 100%;
+  border: 0;
+}
+
+.full-width {
+  display: block;
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  margin-left: -50vw;
+  right: 50%; /* only needed for rtl */
+  margin-right: -50vw; /* only needed for rtl */
 }
