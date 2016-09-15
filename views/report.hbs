@@ -29,7 +29,7 @@
   </script>
   <script>
     anchors.options = {
-        placement: 'left',
+      placement: 'left',
     };
     anchors.add('h2, h3, h4, h5, h6');
   </script>
@@ -44,7 +44,11 @@
 
       infoEl.style.top = isScrollingDown ? '-65px' : 0;
       prevScrollY = window.scrollY;
-    })
+    });
+
+    document.querySelectorAll('[data-pym-url]').forEach(function (el) {
+      new pym.Parent(el.getAttribute('id'), el.getAttribute('data-pym-url'));
+    });
   </script>
 
 </body>
