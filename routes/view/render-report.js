@@ -24,7 +24,8 @@ module.exports = function (req, res, next) {
     '/public/d3-maximize.min.js',
     '//pym.nprapps.org/pym.v1.min.js',
     '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML',
-    '/public/anchor.min.js'
+    '/public/anchor.min.js',
+    '//literasee.github.io/literasee-platform/index.js'
   ];
 
   res.locals.title = project.description ? project.description.split('|')[0] : '';
