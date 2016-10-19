@@ -1620,3 +1620,11 @@ iframe {
   right: 50%; /* only needed for rtl */
   margin-right: -50vw; /* only needed for rtl */
 }
+
+.horizontal {
+  display: flex;
+}
+
+.horizontal > div {
+  flex-grow: 1;
+}
