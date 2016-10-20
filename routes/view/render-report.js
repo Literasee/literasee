@@ -24,7 +24,7 @@ module.exports = function (req, res, next) {
     '//pym.nprapps.org/pym.v1.min.js',
     '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML',
     '/public/anchor.min.js',
-    '//viz.literasee.io/utils.js'
+    '/public/host-utils.js'
   ];
 
   res.locals.title = project.description ? project.description.split('|')[0] : '';
