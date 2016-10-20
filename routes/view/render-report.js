@@ -20,12 +20,11 @@ module.exports = function (req, res, next) {
   }
 
   res.locals.scripts = [
-    '/public/d3.min.js',
-    '/public/d3-maximize.min.js',
+    '//d3js.org/d3.v4.min.js',
     '//pym.nprapps.org/pym.v1.min.js',
     '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML',
     '/public/anchor.min.js',
-    '//cutscores-viz.literasee.io/utils.js'
+    '//viz.literasee.io/utils.js'
   ];
 
   res.locals.title = project.description ? project.description.split('|')[0] : '';
