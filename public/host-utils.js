@@ -45,6 +45,9 @@ function max (id) {
   d.style.setProperty('display', 'flex');
   d.style.setProperty('flex-direction', 'column');
   d.style.setProperty('justify-content', 'center');
+  if (d.classList.contains('full-width')) {
+    d.style.setProperty('margin-left', '0');
+  }
 
   var bg = document.createElement('div');
   bg.style.setProperty('position', 'absolute');
@@ -57,25 +60,34 @@ function max (id) {
   var i = d.querySelector('iframe');
   i.style.setProperty('position', 'relative');
   i.style.setProperty('padding', '0 2em');
+  i.style.setProperty('visibility', 'hidden');
+
+  d.insertBefore(bg, i);
 
   i.contentWindow.document.onkeyup = function (e) {
     if (e.keyCode === 27) min(id);
   }
   i.contentWindow.document.querySelector('#maxBtn').innerText = 'minimize';
-
-  d.insertBefore(bg, i);
+  setTimeout(function () {
+    i.contentWindow.pymChild.sendHeight();
+    i.style.removeProperty('visibility');
+  }, 100);
 }
 
 function min (id) {
   if (id.substr(0, 1) !== '#') id = '#' + id;
 
   var d = document.querySelector(id);
+  d.style.removeProperty('z-index');
   d.style.removeProperty('position');
   d.style.removeProperty('top');
   d.style.removeProperty('right');
   d.style.removeProperty('bottom');
   d.style.removeProperty('left');
   d.style.removeProperty('margin');
+  if (d.classList.contains('full-width')) {
+    d.style.setProperty('margin-left', '-50vw');
+  }
 
   d.removeChild(d.querySelector('div'));
 
@@ -84,4 +96,9 @@ function min (id) {
   i.style.removeProperty('padding');
   i.contentWindow.document.onkeyup = null;
   i.contentWindow.document.querySelector('#maxBtn').innerText = 'maximize';
+  i.style.setProperty('visibility', 'hidden');
+  setTimeout(function () {
+    i.contentWindow.pymChild.sendHeight();
+    i.style.removeProperty('visibility');
+  }, 100);
 }
