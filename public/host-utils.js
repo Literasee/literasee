@@ -36,12 +36,12 @@ function max (id) {
   if (id.substr(0, 1) !== '#') id = '#' + id;
 
   var d = document.querySelector(id);
+  d.style.setProperty('z-index', 3000);
   d.style.setProperty('position', 'fixed');
   d.style.setProperty('top', 0);
   d.style.setProperty('right', 0);
   d.style.setProperty('bottom', 0);
   d.style.setProperty('left', 0);
-  d.style.setProperty('margin', '0 2em');
   d.style.setProperty('display', 'flex');
   d.style.setProperty('flex-direction', 'column');
   d.style.setProperty('justify-content', 'center');
@@ -56,6 +56,7 @@ function max (id) {
 
   var i = d.querySelector('iframe');
   i.style.setProperty('position', 'relative');
+  i.style.setProperty('padding', '0 2em');
 
   i.contentWindow.document.onkeyup = function (e) {
     if (e.keyCode === 27) min(id);
@@ -80,6 +81,7 @@ function min (id) {
 
   var i = d.querySelector('iframe');
   i.style.removeProperty('position');
+  i.style.removeProperty('padding');
   i.contentWindow.document.onkeyup = null;
   i.contentWindow.document.querySelector('#maxBtn').innerText = 'maximize';
 }
