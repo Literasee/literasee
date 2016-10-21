@@ -45,21 +45,23 @@ function max (id) {
   d.style.setProperty('display', 'flex');
   d.style.setProperty('flex-direction', 'column');
   d.style.setProperty('justify-content', 'center');
+  d.style.setProperty('margin', '0 2em');
   if (d.classList.contains('full-width')) {
-    d.style.setProperty('margin-left', '0');
+    d.classList.remove('full-width');
+    d.setAttribute('data-fw', true);
   }
 
   var bg = document.createElement('div');
   bg.style.setProperty('position', 'absolute');
   bg.style.setProperty('background', 'white');
   bg.style.setProperty('opacity', 0.96);
-  bg.style.setProperty('width', '100%');
-  bg.style.setProperty('height', '100%');
+  bg.style.setProperty('margin-left', '-2em');
+  bg.style.setProperty('width', '100vw');
+  bg.style.setProperty('height', '100vw');
   bg.onclick = min.bind(null, id);
 
   var i = d.querySelector('iframe');
   i.style.setProperty('position', 'relative');
-  i.style.setProperty('padding', '0 2em');
   i.style.setProperty('visibility', 'hidden');
 
   d.insertBefore(bg, i);
@@ -85,15 +87,15 @@ function min (id) {
   d.style.removeProperty('bottom');
   d.style.removeProperty('left');
   d.style.removeProperty('margin');
-  if (d.classList.contains('full-width')) {
-    d.style.setProperty('margin-left', '-50vw');
+  if (d.getAttribute('data-fw')) {
+    d.classList.add('full-width');
+    d.removeAttribute('data-fw');
   }
 
   d.removeChild(d.querySelector('div'));
 
   var i = d.querySelector('iframe');
   i.style.removeProperty('position');
-  i.style.removeProperty('padding');
   i.contentWindow.document.onkeyup = null;
   i.contentWindow.document.querySelector('#maxBtn').innerText = 'maximize';
   i.style.setProperty('visibility', 'hidden');
