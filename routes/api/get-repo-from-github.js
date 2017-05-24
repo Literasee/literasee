@@ -32,10 +32,6 @@ function getContents (obj) {
 module.exports = function (req, res, next) {
   const project = req.params.project;
 
-  if (!res.locals.isRepo) {
-    return next();
-  }
-
   const fetchRepoInfo = (cb) => {
     requests.getRepoInfo(req, res.locals.etag).end(cb);
   }
