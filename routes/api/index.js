@@ -26,7 +26,6 @@ router.get('/projects/featured', require('./get-featured-projects'));
 router.get('/projects/:owner', require('./get-projects-by-owner'));
 router.get('/projects/:owner/:project', [
   require('./get-project-from-db'),
-  require('./get-gist-from-github'),
   require('./get-repo-from-github'),
   function (req, res) {
     res.json(res.locals.project);

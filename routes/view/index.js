@@ -10,7 +10,6 @@ router.get('/:owner/:project/:type?/:asset?', [
     next();
   },
   require('../api/get-project-from-db'),
-  require('../api/get-gist-from-github'),
   require('../api/get-repo-from-github'),
   require('../api/redirect-if-missing-type'),
   require('./verify-or-get-short-url'),

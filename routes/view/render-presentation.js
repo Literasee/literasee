@@ -10,8 +10,7 @@ module.exports = function (req, res, next) {
   }
 
   res.locals.styles = [
-    '/public/nciea.css',
-    '/public/gist-info.css'
+    '/public/nciea.css'
   ];
 
   res.locals.scripts = [
@@ -23,7 +22,6 @@ module.exports = function (req, res, next) {
   res.locals.title = project.description.split('|')[0];
   res.locals.description = project.description.replace('|', ' – ');
   res.locals.owner = project.owner;
-  res.locals.gist_subdomain = project.isRepo ? '' : 'gist.';
 
   res.render('presentation', {
     partials: {

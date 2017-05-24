@@ -13,7 +13,6 @@ module.exports = function (req, res) {
 
     return Promise.props({
       dbData: Promise.resolve(dbData),
-      gistsPromise: Promise.resolve(requests.getUserGistsRequest(req, dbData.gists_etag)).reflect(),
       reposPromise: Promise.resolve(requests.getUserReposRequest(req, dbData.repos_etag)).reflect()
     });
   }
@@ -23,13 +22,7 @@ module.exports = function (req, res) {
     .then(getProjectsFromGitHub)
     .then(result => {
       const dbData = result.dbData;
-      const gistsPromise = result.gistsPromise;
       const reposPromise = result.reposPromise;
-
-      const gistsChanged = gistsPromise.isFulfilled();
-      const gistsData = gistsChanged ? gistsPromise.value() : gistsPromise.reason();
-      const gists = gistsData.text || dbData.gists;
-      const gists_etag = gistsChanged ? gistsData.header.etag : dbData.gists_etag;
 
       const reposChanged = reposPromise.isFulfilled();
       const reposData = reposChanged ? reposPromise.value() : reposPromise.reason();
@@ -38,14 +31,12 @@ module.exports = function (req, res) {
 
       var userData = {
         username,
-        gists,
-        gists_etag,
         repos,
         repos_etag,
         ignored: dbData.ignored || []
       }
 
-      if (gistsChanged || reposChanged) {
+      if (reposChanged) {
         return data.saveUserProjects(userData);
       } else {
         return userData;
@@ -53,15 +44,12 @@ module.exports = function (req, res) {
 
     })
     .then((userData) => {
-      const projects = JSON.parse(userData.gists)
-        .filter((gist) => gist.files['report.md'] || gist.files['presentation.md'])
-        .concat(JSON.parse(userData.repos))
+      const projects = JSON.parse(userData.repos)
         .sort((a, b) => Date.parse(b.updated_at) - Date.parse(a.updated_at))
         .map((p) => {
           return {
             id: p.id.toString(),
             isIgnored: userData.ignored.indexOf(p.id) > -1,
-            isRepo: !p.files,
             owner: p.owner.login,
             project: p.name || p.id,
             description: p.description

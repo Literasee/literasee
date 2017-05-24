@@ -9,9 +9,7 @@ module.exports = function (req, res, next) {
     return next();
   }
 
-  res.locals.styles = [
-    '/public/gist-info.css'
-  ];
+  res.locals.styles = [];
 
   if (project.report.indexOf('id="literasee-tech-report"') > -1) {
     res.locals.styles.unshift('/public/css/technical.css');
@@ -29,7 +27,6 @@ module.exports = function (req, res, next) {
 
   res.locals.title = project.description ? project.description.split('|')[0] : '';
   res.locals.body = marked(project.report);
-  res.locals.gist_subdomain = project.isRepo ? '' : 'gist.';
 
   res.render('report', {
     partials: {

@@ -6,7 +6,6 @@ const getImageSize = require('./get-image-size');
 
 function repoToProject (p, report, preso, keywords) {
   return {
-    isRepo: true,
     owner: p.owner.login,
     project: p.name,
     description: p.description,

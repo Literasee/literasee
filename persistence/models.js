@@ -6,7 +6,6 @@ const ProjectSchema = new Schema({
     project: String,
     description: String,
     style: String,
-    isRepo: Boolean,
     isFeatured: Boolean,
     report: String,
     report_sha: String,
@@ -29,8 +28,6 @@ const UserSchema = new Schema({
     username: String,
     repos: String,
     repos_etag: String,
-    gists: String,
-    gists_etag: String,
     ignored: {type: [String], default: []}
 });
 

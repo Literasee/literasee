@@ -18,20 +18,5 @@ module.exports = function (req, res) {
       });
   }
 
-  const saveGistFile = () => {
-    requests
-      .saveGistFile(req, filename)
-      .end((err, result) => {
-        project.etag = result.headers.etag;
-        data.saveProject(project).then((doc) => {
-          res.json(doc);
-        });
-      });
-  }
-
-  if (project.isRepo) {
-    saveRepoFile();
-  } else {
-    saveGistFile();
-  }
+  saveRepoFile();
 }
