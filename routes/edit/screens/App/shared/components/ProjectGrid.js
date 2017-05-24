@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router'
 
-export default ({projects, user, username, createGist}) => {
+export default ({projects, user, username, createRepo}) => {
   return (
     <div className='center-lg container-fluid'>
       <div className='col-xs-12'>

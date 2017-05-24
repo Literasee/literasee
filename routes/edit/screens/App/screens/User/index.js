@@ -10,7 +10,7 @@ class User extends Component {
         projects={projects.filter(p => !p.isIgnored)}
         user={user}
         username={params.username}
-        createGist={onCreateProject} />
+        createRepo={onCreateProject} />
     )
   }
 }

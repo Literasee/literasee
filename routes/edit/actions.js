@@ -171,43 +171,50 @@ export function fetchProject({ username, owner, project }) {
 */
 
 
-export const REQUEST_CREATE_GIST = 'REQUEST_CREATE_GIST'
-function requestCreateGist () {
+export const REQUEST_CREATE_REPO = 'REQUEST_CREATE_REPO'
+function requestCreateRepo () {
  return {
-   type: REQUEST_CREATE_GIST
+   type: REQUEST_CREATE_REPO
  }
 }
 
-export const RECEIVE_CREATE_GIST = 'RECEIVE_CREATE_GIST'
-function receiveCreateGist (result) {
+export const RECEIVE_CREATE_REPO = 'RECEIVE_CREATE_REPO'
+function receiveCreateRepo (result) {
  return {
-   type: RECEIVE_CREATE_GIST,
+   type: RECEIVE_CREATE_REPO,
    result
  }
 }
 
-export const ERROR_CREATE_GIST = 'ERROR_CREATE_GIST'
-function errorCreateGist (error) {
+export const ERROR_CREATE_REPO = 'ERROR_CREATE_REPO'
+function errorCreateRepo (error) {
  return {
-   type: ERROR_CREATE_GIST,
+   type: ERROR_CREATE_REPO,
    error
  }
 }
 
-export function createGist(files) {
+export function createRepo(files) {
   return dispatch => {
-    dispatch(requestCreateGist())
+    dispatch(requestCreateRepo())
 
-    return fetch('https://api.github.com/gists', {
+    return fetch('https://api.github.com/user/repos', {
         method: 'POST',
         headers: {
           'Authorization': 'token ' + initialState.token,
           'Accept': 'application/vnd.github.v3'
         },
-        body: JSON.stringify({files})
+        body: JSON.stringify({
+          auto_init: true,
+          name: 'literasee-created-repo',
+          topics: [
+            'literasee',
+            'idyll'
+          ]
+        })
       })
       .then(req => req.json(), err => console.error(err))
-      .then(json => dispatch(receiveCreateGist(json)))
+      .then(json => dispatch(receiveCreateRepo(json)))
   }
 }
 
