@@ -5,8 +5,7 @@ const router = express.Router();
 
 const corsOptions = {
   origin: [
-    /\.?dev\.com:3000$/,
-    /\.?literasee\.(io|org)$/
+    /\.?literasee\.(io|org|local)(:3000)?$/
   ],
   methods: ['GET', 'PUT', 'PATCH'],
   allowedHeaders: ['Authorization', 'Content-Type'],

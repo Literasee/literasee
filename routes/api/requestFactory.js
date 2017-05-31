@@ -9,6 +9,7 @@ function standardizeRequest (req, token, etag) {
   if (token) req.set('Authorization', 'token ' + token);
   if (etag) req.set('If-None-Match', etag);
   req.set('Accept', 'application/vnd.github.v3');
+  req.set('Accept', 'application/vnd.github.mercy-preview+json'); // include topics
   req.query({
     client_id: process.env.GH_CLIENT_ID,
     client_secret: process.env.GH_CLIENT_SECRET

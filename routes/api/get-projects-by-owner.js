@@ -45,14 +45,15 @@ module.exports = function (req, res) {
     })
     .then((userData) => {
       const projects = JSON.parse(userData.repos)
+        .filter(p => p.topics.includes('idyll'))
         .sort((a, b) => Date.parse(b.updated_at) - Date.parse(a.updated_at))
         .map((p) => {
           return {
             id: p.id.toString(),
-            isIgnored: userData.ignored.indexOf(p.id) > -1,
             owner: p.owner.login,
             project: p.name || p.id,
-            description: p.description
+            description: p.description,
+            topics: p.topics
           };
         });
 
