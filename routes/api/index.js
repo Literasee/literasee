@@ -21,17 +21,17 @@ router.use(require('body-parser').json({limit: '10mb'}));
 // actual routes
 //
 
-router.get('/projects/featured', require('./get-featured-projects'));
-router.get('/projects/:owner', require('./get-projects-by-owner'));
-router.get('/projects/:owner/:project', [
+router.get('/featured', require('./get-featured-projects'));
+router.get('/:owner', require('./get-projects-by-owner'));
+router.get('/:owner/:project', [
   require('./get-project-from-db'),
   require('./get-repo-from-github'),
   function (req, res) {
     res.json(res.locals.project);
   }
 ]);
-router.put('/projects/:owner/ignore', require('./ignore-projects'));
-router.put('/projects/:owner/:project', require('./save-project-file'));
-router.patch('/projects/:owner/:project', require('./update-project-description'));
+router.put('/:owner/ignore', require('./ignore-projects'));
+router.put('/:owner/:project', require('./save-project-file'));
+router.patch('/:owner/:project', require('./update-project-description'));
 
 module.exports = router;

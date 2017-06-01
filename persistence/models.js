@@ -9,7 +9,7 @@ const ProjectSchema = new Schema({
     isFeatured: Boolean,
     source: String,
     source_sha: String,
-    report_short_url: String,
+    short_url: String,
     thumbnail: String,
     parallax_url: String,
     parallax_size: String,
