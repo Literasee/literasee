@@ -66,12 +66,12 @@
     "redux-thunk": "^1.0.3",
     "serve-favicon": "^2.3.0",
     "style-loader": "^0.13.0",
-    "stylus": "^0.53.0",
-    "stylus-loader": "^1.5.0",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.1",
     "superagent": "^1.7.1",
     "superagent-bluebird-promise": "^3.0.0",
     "superagent-proxy": "^1.0.0",
-    "webpack": "^1.12.11",
+    "webpack": "^1.15.0",
     "yeticss": "^7.2.1"
   },
   "devDependencies": {
