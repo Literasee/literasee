@@ -4,8 +4,8 @@
   "description": "Literasee platform viewer and editor",
   "main": "index.js",
   "engines": {
-    "node": "5.6.0",
-    "npm": "3.6.0"
+    "node": "8.0.0",
+    "npm": "5.0.1"
   },
   "scripts": {
     "build-live-preview-css": "stylus -c -u yeticss live-preview.styl -o public/live-preview.css",
