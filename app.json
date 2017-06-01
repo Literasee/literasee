@@ -1,0 +1,30 @@
+{
+  "name": "literasee",
+  "scripts": {
+  },
+  "env": {
+    "CLOUDINARY_URL": {
+      "required": true
+    },
+    "GH_CLIENT_ID": {
+      "required": true
+    },
+    "GH_CLIENT_SECRET": {
+      "required": true
+    },
+    "MONGOLAB_URI": {
+      "required": true
+    }
+  },
+  "formation": {
+  },
+  "addons": [
+    "cloudinary",
+    "mongolab"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
