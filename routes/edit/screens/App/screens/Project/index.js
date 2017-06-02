@@ -16,12 +16,12 @@ class Project extends Component {
     const { project, params } = this.props;
 
     if (this.state && !this.state.originalCode) {
-      this.setState({originalCode: project[params.type]});
+      this.setState({originalCode: project.source});
     }
 
-    if (nextProps.path !== this.props.path) {
-      this.setState({originalCode: project[nextProps.params.type]});
-    }
+    // if (nextProps.path !== this.props.path) {
+    //   this.setState({originalCode: project[nextProps.params.type]});
+    // }
   }
 
   onSaveTitles (title, subTitle) {
@@ -31,7 +31,7 @@ class Project extends Component {
 
   onCodeChanged (newCode) {
     const { params, codeChanged } = this.props;
-    codeChanged(params.type, newCode || ' ');
+    codeChanged(newCode || ' ');
   }
 
   onCancelChanges () {

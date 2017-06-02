@@ -84,7 +84,7 @@ export function fetchProjects (username) {
     dispatch(requestProjects());
 
     request
-      .get(`/api/projects/${username || 'featured'}`)
+      .get(`/api/${username || 'featured'}`)
       .withCredentials()
       .end((err, result) => {
         if (err) return dispatch(fetchProjectsError(err));
@@ -103,7 +103,7 @@ export function setProjectsIgnoredState (username, projectIds, ignored) {
     dispatch({ type: 'SET_PROJECT_IGNORED_START' });
 
     request
-      .put(`/api/projects/${username}/ignore`)
+      .put(`/api/${username}/ignore`)
       .withCredentials()
       .send({
         projectIds,
@@ -156,7 +156,7 @@ export function fetchProject({ username, owner, project }) {
     dispatch(requestProject(project));
 
     request
-      .get(`/api/projects/${owner || username}/${project}`)
+      .get(`/api/${owner || username}/${project}`)
       .withCredentials()
       .end((err, result) => {
         if (err) return dispatch(fetchProjectError(err));
@@ -219,10 +219,9 @@ export function createRepo(files) {
 }
 
 export const CODE_CHANGED = 'CODE_CHANGED';
-export function codeChanged (projectType, code) {
+export function codeChanged (code) {
   return {
     type: CODE_CHANGED,
-    projectType,
     code
   }
 }
@@ -271,7 +270,7 @@ export function saveFile(params, project, type) {
     }
 
     return request
-      .put(`/api/projects/${owner || username}/${pId}`)
+      .put(`/api/${owner || username}/${pId}`)
       .withCredentials()
       .send({
         project,
@@ -318,7 +317,7 @@ export function updateProjectDescription(params, project, title = '', subTitle =
     }
 
     return request
-      .patch(`/api/projects/${owner || username}/${pId}`)
+      .patch(`/api/${owner || username}/${pId}`)
       .withCredentials()
       .send({
         project,
