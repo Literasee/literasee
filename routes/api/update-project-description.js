@@ -20,21 +20,5 @@ module.exports = function (req, res) {
       });
   }
 
-  const updateGistDescription = () => {
-    requests
-      .updateGistDescription(req, description)
-      .end((err, result) => {
-        project.etag = result.headers.etag;
-        project.description = description;
-        data.saveProject(project).then((doc) => {
-          res.json(doc);
-        });
-      });
-  }
-
-  if (project.isRepo) {
-    updateRepoDescription();
-  } else {
-    updateGistDescription();
-  }
+  updateRepoDescription();
 }

@@ -19,7 +19,7 @@ export default function project (state = {}, action) {
       return action.result;
 
     case CODE_CHANGED:
-      return {...state, [action.projectType]: action.code};
+      return {...state, source: action.code};
 
     default:
       return state;

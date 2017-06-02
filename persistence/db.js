@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Promise = require('bluebird');
 
+mongoose.Promise = Promise;
+
 const uri = process.env.MONGOLAB_URI || 'mongodb://localhost/literasee';
 
 function open (callback) {

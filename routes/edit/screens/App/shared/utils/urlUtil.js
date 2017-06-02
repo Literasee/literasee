@@ -18,13 +18,12 @@ export function getApiUrl (endpoint) {
   return `${protocol}//${host}:${port}/${endpoint}/`;
 }
 
-export function getProjectViewUrl (params, stateType) {
+export function getProjectViewUrl (params) {
   const { protocol, hostname, port } = document.location;
   const host = 'view.' + hostname.replace('edit.', '');
   const { username, owner, project } = params;
-  const type = stateType || params.type;
 
-  return `${protocol}//${host}:${port}/${owner || username}/${project}/${type}/`;
+  return `${protocol}//${host}:${port}/${owner || username}/${project}/`;
 }
 
 export function getFeaturedProjectsUrl () {

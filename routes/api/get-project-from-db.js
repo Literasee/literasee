@@ -6,7 +6,6 @@ module.exports = function (req, res, next) {
     if (result) {
       res.locals.project = result;
       res.locals.etag = result.etag;
-      res.locals.isRepo = result.isRepo;
     }
 
     next();

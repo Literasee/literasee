@@ -4,18 +4,13 @@ const requests = require('./requestFactory');
 const data = require('../../persistence');
 const getImageSize = require('./get-image-size');
 
-function repoToProject (p, report, preso, keywords) {
+function repoToProject (p, source) {
   return {
-    isRepo: true,
     owner: p.owner.login,
     project: p.name,
     description: p.description,
-    report: report && report.content,
-    report_sha: report && report.sha,
-    presentation: preso && preso.content,
-    presentation_sha: preso && preso.sha,
-    keywords: keywords ? keywords.content.split('\n') : [],
-    keywords_sha: keywords ? keywords.sha : null,
+    source: source && source.content,
+    source_sha: source && source.sha,
     thumbnail: null,
     avatar_url: p.owner.avatar_url
   }
@@ -32,10 +27,6 @@ function getContents (obj) {
 
 module.exports = function (req, res, next) {
   const project = req.params.project;
-
-  if (!res.locals.isRepo) {
-    return next();
-  }
 
   const fetchRepoInfo = (cb) => {
     requests.getRepoInfo(req, res.locals.etag).end(cb);
@@ -57,9 +48,7 @@ module.exports = function (req, res, next) {
   async.parallel({
     info: fetchRepoInfo,
     contents: fetchRepoFile(),
-    report: fetchRepoFile('report.md'),
-    presentation: fetchRepoFile('presentation.md'),
-    keywords: fetchRepoFile('keywords.txt')
+    source: fetchRepoFile('index.idl')
   }, (err, result) => {
     if (err) {
       if (err && err.status === 304) return next();
@@ -68,15 +57,13 @@ module.exports = function (req, res, next) {
     }
 
     const info = result.info.body;
-    const report = getContents(result.report);
-    const presentation = getContents(result.presentation);
-    const keywords = getContents(result.keywords);
+    const source = getContents(result.source);
     const thumbnail = _.find(result.contents.body, {name: 'thumbnail.png'});
     const parallax = _.find(result.contents.body, function (file) {
       return file.name.indexOf('parallax') === 0;
     });
 
-    const p = repoToProject(info, report, presentation, keywords);
+    const p = repoToProject(info, source);
     p.etag = result.info.headers.etag;
     p.thumbnail = thumbnail ? thumbnail.download_url : null;
 

@@ -26,13 +26,11 @@ const verifyProjectType = (nextState, replace) => {
     return replace({pathname: '/'});
   }
 
-  let { params: { type, mode }, location: { pathname } } = nextState;
+  let { params: { mode }, location: { pathname } } = nextState;
   if (pathname.substr(-1) !== '/') pathname += '/';
 
   // direct to report editing by default
-  type = ['report', 'presentation'].indexOf(type) < 0 ? 'report' : null;
   mode = ['edit', 'preview'].indexOf(mode) < 0 ? 'edit' : null;
-  if (type && mode) return replace({pathname: pathname + type + '/' + mode});
   if (mode) replace({pathname: pathname + mode});
 }
 
@@ -52,12 +50,12 @@ export default (
         component={AdminContainer} />
 
       <Route
-        path=':project(/:type)(/:mode)'
+        path=':project(/:mode)'
         onEnter={verifyProjectType}
         component={ProjectContainer} />
 
       <Route
-        path=':owner/:project(/:type)(/:mode)'
+        path=':owner/:project(/:mode)'
         onEnter={verifyProjectType}
         component={ProjectContainer} />
     </Route>

@@ -15,11 +15,11 @@ class App extends Component {
   }
 
   onCreateProject () {
-    const { params, createGist, redirectToGist } = this.props
+    const { params, createRepo, redirectToRepo } = this.props
 
-    createGist(templates)
+    createRepo(templates)
       .then(({result}) => {
-        redirectToGist(params.username, result.id)
+        redirectToRepo(params.username, result.id)
       })
   }
 
@@ -40,7 +40,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
   fetchUser,
-  createGist
+  createRepo
 } from '../../actions';
 
 const mapStateToProps = (state) => {
@@ -55,11 +55,11 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     fetchUser,
-    createGist,
+    createRepo,
     redirectToUserHome: (username) => (dispatch) => {
       dispatch(routeActions.push('/' + username))
     },
-    redirectToGist: (username, id) => (dispatch) => {
+    redirectToRepo: (username, id) => (dispatch) => {
       dispatch(routeActions.push('/' + username + '/' + id))
     }
   }, dispatch);
