@@ -43,7 +43,7 @@ class Project extends Component {
 
     saveFile(params, project)
       .then((result) => {
-        if (open) {
+        if (open === true) {
           window.open(getProjectViewUrl(params));
         }
       });
