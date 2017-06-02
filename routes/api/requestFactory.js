@@ -42,6 +42,20 @@ exports.getRepoInfo = function (req, etag) {
   return standardizeRequest(request.get(url), token, etag);
 }
 
+exports.createRepoFile = function (req) {
+  const owner = req.params.owner;
+  const project = req.params.project;
+  const token = req.cookies.token;
+  const url = `https://api.github.com/repos/${owner}/${project}/contents/${req.body.path}`;
+
+  return standardizeRequest(request.put(url), token)
+    .send({
+      path: req.body.path,
+      message: 'Updating ' + req.body.path,
+      content: new Buffer(req.body.content).toString('base64')
+    });
+}
+
 exports.getRepoFile = function (req, filename, etag) {
   const owner = req.params.owner;
   const project = req.params.project;

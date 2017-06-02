@@ -47,7 +47,7 @@ module.exports = {
         ]
       },
       {
-        test: /\.md$/,
+        test: /\.idl$/,
         loader: 'raw'
       }
     ]

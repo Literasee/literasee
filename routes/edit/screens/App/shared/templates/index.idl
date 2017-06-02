@@ -1,0 +1,23 @@
+[meta title:"Page Title Yo" description:"Short description of your project" /]
+
+[Header
+  title:"Welcome to Idyll!!!"
+  subtitle:"Open index.idl to start writing"
+  author:"Ben Clinkinbeard"
+  authorLink:"https://idyll-lang.github.io" /]
+
+
+This is an Idyll file. Write text
+as you please in here. To add interactivity,
+you can add  different components to the text.
+
+Here is how you can use a variable:
+
+[var name:"exampleVar" value: 3 /]
+
+[Range min:0 max:10 value:exampleVar /]
+[DisplayVar var:exampleVar /]
+
+You can use standard html tags if a
+component with the same name
+doesn't exist.

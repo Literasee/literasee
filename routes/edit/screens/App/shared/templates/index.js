@@ -1,11 +1,7 @@
-import report from './report.md'
-import presentation from './presentation.md'
+import idl from './index.idl'
 
 export default {
-  'report.md': {
-    content: report
-  },
-  'presentation.md': {
-    content: presentation
+  'index.idl': {
+    content: idl
   }
 }

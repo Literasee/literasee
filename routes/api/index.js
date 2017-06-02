@@ -30,6 +30,7 @@ router.get('/:owner/:project', [
     res.json(res.locals.project);
   }
 ]);
+router.put('/:owner/:project/add', require('./add-repo-file'));
 router.put('/:owner/ignore', require('./ignore-projects'));
 router.put('/:owner/:project', require('./save-project-file'));
 router.patch('/:owner/:project', require('./update-project-description'));

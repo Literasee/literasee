@@ -167,9 +167,8 @@ export function fetchProject({ username, owner, project }) {
 }
 
 /*
-* CREATE GIST
+* CREATE REPO
 */
-
 
 export const REQUEST_CREATE_REPO = 'REQUEST_CREATE_REPO'
 function requestCreateRepo () {
@@ -194,7 +193,7 @@ function errorCreateRepo (error) {
  }
 }
 
-export function createRepo(files) {
+export function createRepo() {
   return dispatch => {
     dispatch(requestCreateRepo())
 
@@ -205,16 +204,56 @@ export function createRepo(files) {
           'Accept': 'application/vnd.github.v3'
         },
         body: JSON.stringify({
-          auto_init: true,
-          name: 'literasee-created-repo',
-          topics: [
-            'literasee',
-            'idyll'
-          ]
+          name: 'literasee-created-repo'
         })
       })
       .then(req => req.json(), err => console.error(err))
       .then(json => dispatch(receiveCreateRepo(json)))
+  }
+}
+
+/*
+* CREATE FILE
+*/
+
+export const REQUEST_CREATE_FILE = 'REQUEST_CREATE_FILE'
+function requestCreateFile () {
+ return {
+   type: REQUEST_CREATE_FILE
+ }
+}
+
+export const RECEIVE_CREATE_FILE = 'RECEIVE_CREATE_FILE'
+function receiveCreateFile (result) {
+ return {
+   type: RECEIVE_CREATE_FILE,
+   result
+ }
+}
+
+export const ERROR_CREATE_FILE = 'ERROR_CREATE_FILE'
+function errorCreateFile (error) {
+ return {
+   type: ERROR_CREATE_FILE,
+   error
+ }
+}
+
+export function createFile(params, projectName, path, content) {
+  const { username, owner } = params;
+
+  return dispatch => {
+    dispatch(requestCreateFile())
+
+    return request
+      .put(`/api/${owner || username}/${projectName}/add`)
+      .withCredentials()
+      .send({
+        path,
+        content
+      })
+      .then(result => dispatch(receiveCreateFile(result.body)))
+      .catch(err => console.error(err))
   }
 }
 

@@ -15,12 +15,18 @@ class App extends Component {
   }
 
   onCreateProject () {
-    const { params, createRepo, redirectToRepo } = this.props
+    const { params, createFile, createRepo, redirectToRepo } = this.props
+    let projectName;
 
-    createRepo(templates)
+    createRepo()
       .then(({result}) => {
-        redirectToRepo(params.username, result.id)
+        projectName = result.name;
+        return createFile(params, projectName, 'index.idl', templates['index.idl'].content)
       })
+      .then(({result}) => {
+        redirectToRepo(params.username, projectName)
+      });
+
   }
 
   render () {
@@ -39,6 +45,7 @@ class App extends Component {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
+  createFile,
   fetchUser,
   createRepo
 } from '../../actions';
@@ -54,6 +61,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
+    createFile,
     fetchUser,
     createRepo,
     redirectToUserHome: (username) => (dispatch) => {
