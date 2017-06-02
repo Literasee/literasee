@@ -57,7 +57,7 @@ module.exports = function (local, port) {
   db.open()
     .then(function () {
       app.listen(port, function () {
-        console.log('Server listening at http://localhost:' + port);
+        console.log('Server listening at http://literasee.local:' + port);
       });
     });
 };

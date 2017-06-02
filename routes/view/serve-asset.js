@@ -7,5 +7,6 @@ module.exports = function (req, res, next) {
   const asset = req.params.asset || 'index.html';
   const project  = res.locals.project;
 
+  res.setHeader('Cache-Control', 'no-cache')
   res.sendFile(join(project.dir, asset))
 }
