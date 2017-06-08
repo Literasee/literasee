@@ -45,7 +45,7 @@ module.exports = function (req, res) {
     })
     .then((userData) => {
       const projects = JSON.parse(userData.repos)
-        .filter(p => p.topics.includes('idyll'))
+        .filter(p => p.topics.includes('literasee'))
         .sort((a, b) => Date.parse(b.updated_at) - Date.parse(a.updated_at))
         .map((p) => {
           return {
