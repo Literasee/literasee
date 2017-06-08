@@ -8,7 +8,6 @@
     "npm": "5.0.1"
   },
   "scripts": {
-    "build-live-preview-css": "stylus -c -u yeticss live-preview.styl -o public/live-preview.css",
     "build": "webpack --config webpack.config.prod.js",
     "dev": "nodemon -w persistence -w routes/api -w routes/view index.js",
     "start": "node index.js",
@@ -68,8 +67,7 @@
     "superagent": "^1.7.1",
     "superagent-bluebird-promise": "^3.0.0",
     "superagent-proxy": "^1.0.0",
-    "webpack": "^2.6.1",
-    "yeticss": "^7.2.1"
+    "webpack": "^2.6.1"
   },
   "devDependencies": {
     "nodemon": "^1.11.0",
