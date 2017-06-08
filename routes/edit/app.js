@@ -8,7 +8,7 @@ import configureStore from './store/configureStore';
 
 // this import format (leading !!, specifically)
 // instructs Webpack to not run this through configured loaders
-import styles from '!!style!css!stylus!./app.styl';
+import styles from '!!style-loader!css-loader!stylus-loader!./app.styl';
 
 const store = configureStore(initialState);
 
