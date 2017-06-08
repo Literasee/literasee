@@ -8,6 +8,7 @@ module.exports = function (req, res, next) {
   project.dir = projectDir;
 
   if (
+    !req.query.source &&
     fs.existsSync(projectDir) &&
     (req.params.asset || res.locals.etag === project.etag)
   ) return next();
@@ -22,5 +23,5 @@ module.exports = function (req, res, next) {
   .once('update', (output) => {
     res.sendFile(join(projectDir, 'index.html'));
   })
-  .build(project.source);
+  .build(req.query.source || project.source);
 }
