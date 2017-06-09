@@ -17,18 +17,8 @@ class ProjectEditor extends Component {
       onCancelChanges,
       onSaveChanges
     } = this.props;
-    const { username, owner, project: pId } = params;
+
     const mode = params.mode || 'edit';
-
-    const linkBase = ['', username, owner, pId].join('/').replace('//', '/');
-
-    const contentView = mode === 'preview'
-      ? <ProjectPreview project={project} params={params} />
-      : <FileEditor
-          onCodeChanged={onCodeChanged}
-          onCancel={onCancelChanges}
-          onSave={onSaveChanges}
-          code={project.source} />;
 
     return (
       <div className={styles.container}>
@@ -51,7 +41,21 @@ class ProjectEditor extends Component {
           </div>
         </nav>
         <Toolbar />
-        {contentView}
+        <div style={{
+          display: 'flex',
+          flex: 1
+        }}>
+          <FileEditor
+            mode={mode}
+            onCodeChanged={onCodeChanged}
+            onCancel={onCancelChanges}
+            onSave={onSaveChanges}
+            code={project.source} />
+          <ProjectPreview
+            mode={mode}
+            project={project}
+            params={params} />
+        </div>
       </div>
     )
   }

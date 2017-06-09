@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ProjectMetadata from './components/ProjectMetadata';
 import ProjectEditor from './components/ProjectEditor';
 import { getProjectViewUrl } from 'utils/urlUtil';
+import debounce from 'lodash/debounce';
 
 import styles from './Project.styl';
 
@@ -10,6 +11,8 @@ class Project extends Component {
   constructor () {
     super();
     this.state = {originalCode: null};
+    // don't react to every keystroke
+    this.onCodeChanged = debounce(this.onCodeChanged, 250);
   }
 
   componentWillReceiveProps (nextProps) {
@@ -30,8 +33,7 @@ class Project extends Component {
   }
 
   onCodeChanged (newCode) {
-    const { params, codeChanged } = this.props;
-    codeChanged(newCode || ' ');
+    this.props.codeChanged(newCode || ' ');
   }
 
   onCancelChanges () {
