@@ -1,8 +1,9 @@
 import React from 'react'
 import Carousel from '../../components/carousel'
+import ProjectGrid from '../../components/projectGrid'
 
 export default () =>
   <main role="main">
     <Carousel />
-    <h3>Featured Projects Grid</h3>
+    <ProjectGrid />
   </main>
