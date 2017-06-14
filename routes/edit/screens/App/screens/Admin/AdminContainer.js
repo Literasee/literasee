@@ -1,39 +1,36 @@
-import React, { Component } from 'react';
-import Admin from './index';
+import React, { Component } from 'react'
+import Admin from './index'
 
 class AdminContainer extends Component {
-  componentDidMount () {
-    const { username, projects, fetchProjects } = this.props;
-    fetchProjects(username);
+  componentDidMount() {
+    const { username, projects, fetchProjects } = this.props
+    fetchProjects(username)
   }
 
-  render () {
-    return <Admin {...this.props} />;
+  render() {
+    return <Admin {...this.props} />
   }
 }
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import {
-  fetchProjects,
-  setProjectsIgnoredState
-} from '../../../../actions';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { fetchProjects, setProjectsIgnoredState } from '../../../../actions'
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     username: state.username,
-    projects: state.projects
+    projects: state.projects,
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    fetchProjects,
-    setProjectsIgnoredState
-  }, dispatch);
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      fetchProjects,
+      setProjectsIgnoredState,
+    },
+    dispatch,
+  )
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AdminContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(AdminContainer)

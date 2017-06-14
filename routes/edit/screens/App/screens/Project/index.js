@@ -1,25 +1,24 @@
-import React, { Component } from 'react';
-import ProjectMetadata from './components/ProjectMetadata';
-import ProjectEditor from './components/ProjectEditor';
-import { getProjectViewUrl } from 'utils/urlUtil';
-import debounce from 'lodash/debounce';
+import React, { Component } from 'react'
+import ProjectMetadata from './components/ProjectMetadata'
+import ProjectEditor from './components/ProjectEditor'
+import { getProjectViewUrl } from 'utils/urlUtil'
+import debounce from 'lodash/debounce'
 
-import styles from './Project.styl';
+import styles from './Project.styl'
 
 class Project extends Component {
-
-  constructor () {
-    super();
-    this.state = {originalCode: null};
+  constructor() {
+    super()
+    this.state = { originalCode: null }
     // don't react to every keystroke
-    this.onCodeChanged = debounce(this.onCodeChanged, 250);
+    this.onCodeChanged = debounce(this.onCodeChanged, 250)
   }
 
-  componentWillReceiveProps (nextProps) {
-    const { project, params } = this.props;
+  componentWillReceiveProps(nextProps) {
+    const { project, params } = this.props
 
     if (this.state && !this.state.originalCode) {
-      this.setState({originalCode: project.source});
+      this.setState({ originalCode: project.source })
     }
 
     // if (nextProps.path !== this.props.path) {
@@ -27,38 +26,37 @@ class Project extends Component {
     // }
   }
 
-  onSaveTitles (title, subTitle) {
-    const { params, project, updateProjectDescription } = this.props;
-    updateProjectDescription(params, project, title, subTitle);
+  onSaveTitles(title, subTitle) {
+    const { params, project, updateProjectDescription } = this.props
+    updateProjectDescription(params, project, title, subTitle)
   }
 
-  onCodeChanged (newCode) {
-    this.props.codeChanged(newCode || ' ');
+  onCodeChanged(newCode) {
+    this.props.codeChanged(newCode || ' ')
   }
 
-  onCancelChanges () {
-    if (this.state.originalCode) this.onCodeChanged(this.state.originalCode);
+  onCancelChanges() {
+    if (this.state.originalCode) this.onCodeChanged(this.state.originalCode)
   }
 
-  onSaveChanges (open) {
-    const { params, project, saveFile } = this.props;
+  onSaveChanges(open) {
+    const { params, project, saveFile } = this.props
 
-    saveFile(params, project)
-      .then((result) => {
-        if (open === true) {
-          window.open(getProjectViewUrl(params));
-        }
-      });
+    saveFile(params, project).then(result => {
+      if (open === true) {
+        window.open(getProjectViewUrl(params))
+      }
+    })
   }
 
-  saveKeywords () {
-    const { params, project, saveFile } = this.props;
+  saveKeywords() {
+    const { params, project, saveFile } = this.props
 
-    saveFile(params, project, 'keywords');
+    saveFile(params, project, 'keywords')
   }
 
-  render () {
-    const { project, params } = this.props;
+  render() {
+    const { project, params } = this.props
 
     return (
       <div className={styles.container}>
@@ -68,10 +66,11 @@ class Project extends Component {
           project={project}
           onCodeChanged={::this.onCodeChanged}
           onCancelChanges={::this.onCancelChanges}
-          onSaveChanges={::this.onSaveChanges} />
+          onSaveChanges={::this.onSaveChanges}
+        />
       </div>
     )
   }
 }
 
-export default Project;
+export default Project

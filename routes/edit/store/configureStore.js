@@ -1,16 +1,16 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import { syncHistory, routeReducer } from 'react-router-redux';
-import { browserHistory } from 'react-router';
-import thunk from 'redux-thunk';
+import { createStore, applyMiddleware, compose } from 'redux'
+import { syncHistory, routeReducer } from 'react-router-redux'
+import { browserHistory } from 'react-router'
+import thunk from 'redux-thunk'
 
-import rootReducer from '../reducers';
+import rootReducer from '../reducers'
 
 const finalCreateStore = compose(
-  applyMiddleware(thunk, syncHistory(browserHistory))
-)(createStore);
+  applyMiddleware(thunk, syncHistory(browserHistory)),
+)(createStore)
 
-export default (initialState) => {
-  const store = finalCreateStore(rootReducer, initialState);
+export default initialState => {
+  const store = finalCreateStore(rootReducer, initialState)
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
@@ -20,5 +20,5 @@ export default (initialState) => {
     })
   }
 
-  return store;
+  return store
 }

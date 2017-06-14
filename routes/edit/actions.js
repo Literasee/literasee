@@ -1,23 +1,23 @@
-import fetch from 'isomorphic-fetch';
-import request from 'superagent-bluebird-promise';
-import initialState from './config/initialState';
+import fetch from 'isomorphic-fetch'
+import request from 'superagent-bluebird-promise'
+import initialState from './config/initialState'
 import {
   getApiUrl,
   getFeaturedProjectsUrl,
-  getProjectsUrl
-} from './screens/App/shared/utils/urlUtil';
+  getProjectsUrl,
+} from './screens/App/shared/utils/urlUtil'
 
-const GET_PROJECTS_URL = getApiUrl('projects');
-const GET_PROJECT_URL = getApiUrl('project');
+const GET_PROJECTS_URL = getApiUrl('projects')
+const GET_PROJECT_URL = getApiUrl('project')
 
 /*
  * USER
  */
 
 export const USER_FETCH_START = 'USER_FETCH_START'
-function requestUser () {
+function requestUser() {
   return {
-    type: USER_FETCH_START
+    type: USER_FETCH_START,
   }
 }
 
@@ -25,7 +25,7 @@ export const USER_FETCH_SUCCESS = 'USER_FETCH_SUCCESS'
 function fetchUserSuccess(result) {
   return {
     type: USER_FETCH_SUCCESS,
-    result
+    result,
   }
 }
 
@@ -33,7 +33,7 @@ export const USER_FETCH_ERROR = 'USER_FETCH_ERROR'
 function fetchUserError(error) {
   return {
     type: USER_FETCH_ERROR,
-    error
+    error,
   }
 }
 
@@ -42,11 +42,11 @@ export function fetchUser() {
     dispatch(requestUser())
 
     return fetch('https://api.github.com/user', {
-        headers: {
-          'Authorization': 'token ' + initialState.token,
-          'Accept': 'application/vnd.github.v3'
-        }
-      })
+      headers: {
+        Authorization: 'token ' + initialState.token,
+        Accept: 'application/vnd.github.v3',
+      },
+    })
       .then(req => req.json(), err => console.error(err))
       .then(json => dispatch(fetchUserSuccess(json)))
   }
@@ -57,40 +57,40 @@ export function fetchUser() {
  */
 
 export const PROJECTS_FETCH_START = 'PROJECTS_FETCH_START'
-function requestProjects () {
- return {
-   type: PROJECTS_FETCH_START
- }
+function requestProjects() {
+  return {
+    type: PROJECTS_FETCH_START,
+  }
 }
 
 export const PROJECTS_FETCH_SUCCESS = 'PROJECTS_FETCH_SUCCESS'
 function fetchProjectsSuccess(result) {
- return {
-   type: PROJECTS_FETCH_SUCCESS,
-   result
- }
+  return {
+    type: PROJECTS_FETCH_SUCCESS,
+    result,
+  }
 }
 
 export const PROJECTS_FETCH_ERROR = 'PROJECTS_FETCH_ERROR'
 function fetchProjectsError(error) {
- return {
-   type: PROJECTS_FETCH_ERROR,
-   error
- }
+  return {
+    type: PROJECTS_FETCH_ERROR,
+    error,
+  }
 }
 
-export function fetchProjects (username) {
-  return (dispatch) => {
-    dispatch(requestProjects());
+export function fetchProjects(username) {
+  return dispatch => {
+    dispatch(requestProjects())
 
     request
       .get(`/api/${username || 'featured'}`)
       .withCredentials()
       .end((err, result) => {
-        if (err) return dispatch(fetchProjectsError(err));
+        if (err) return dispatch(fetchProjectsError(err))
 
-        dispatch(fetchProjectsSuccess(result.body));
-      });
+        dispatch(fetchProjectsSuccess(result.body))
+      })
   }
 }
 
@@ -98,28 +98,29 @@ export function fetchProjects (username) {
  * PROJECT ADMIN
  */
 
-export function setProjectsIgnoredState (username, projectIds, ignored) {
-  return (dispatch) => {
-    dispatch({ type: 'SET_PROJECT_IGNORED_START' });
+export function setProjectsIgnoredState(username, projectIds, ignored) {
+  return dispatch => {
+    dispatch({ type: 'SET_PROJECT_IGNORED_START' })
 
     request
       .put(`/api/${username}/ignore`)
       .withCredentials()
       .send({
         projectIds,
-        ignored
+        ignored,
       })
       .end((err, result) => {
-        if (err) return dispatch({
-          type: 'SET_PROJECT_IGNORED_ERROR',
-          error: err
-        });
+        if (err)
+          return dispatch({
+            type: 'SET_PROJECT_IGNORED_ERROR',
+            error: err,
+          })
 
         dispatch({
           type: 'SET_PROJECT_IGNORED_SUCCESS',
-          result: result.body
-        });
-      });
+          result: result.body,
+        })
+      })
   }
 }
 
@@ -128,41 +129,41 @@ export function setProjectsIgnoredState (username, projectIds, ignored) {
 */
 
 export const PROJECT_FETCH_START = 'PROJECT_FETCH_START'
-function requestProject (id) {
- return {
-   type: PROJECT_FETCH_START,
-   id
- }
+function requestProject(id) {
+  return {
+    type: PROJECT_FETCH_START,
+    id,
+  }
 }
 
 export const PROJECT_FETCH_SUCCESS = 'PROJECT_FETCH_SUCCESS'
 function fetchProjectSuccess(result) {
- return {
-   type: PROJECT_FETCH_SUCCESS,
-   result
- }
+  return {
+    type: PROJECT_FETCH_SUCCESS,
+    result,
+  }
 }
 
 export const PROJECT_FETCH_ERROR = 'PROJECT_FETCH_ERROR'
 function fetchProjectError(error) {
- return {
-   type: PROJECT_FETCH_ERROR,
-   error
- }
+  return {
+    type: PROJECT_FETCH_ERROR,
+    error,
+  }
 }
 
 export function fetchProject({ username, owner, project }) {
-  return (dispatch) => {
-    dispatch(requestProject(project));
+  return dispatch => {
+    dispatch(requestProject(project))
 
     request
       .get(`/api/${owner || username}/${project}`)
       .withCredentials()
       .end((err, result) => {
-        if (err) return dispatch(fetchProjectError(err));
+        if (err) return dispatch(fetchProjectError(err))
 
-        dispatch(fetchProjectSuccess(result.body));
-      });
+        dispatch(fetchProjectSuccess(result.body))
+      })
   }
 }
 
@@ -171,26 +172,26 @@ export function fetchProject({ username, owner, project }) {
 */
 
 export const REQUEST_CREATE_REPO = 'REQUEST_CREATE_REPO'
-function requestCreateRepo () {
- return {
-   type: REQUEST_CREATE_REPO
- }
+function requestCreateRepo() {
+  return {
+    type: REQUEST_CREATE_REPO,
+  }
 }
 
 export const RECEIVE_CREATE_REPO = 'RECEIVE_CREATE_REPO'
-function receiveCreateRepo (result) {
- return {
-   type: RECEIVE_CREATE_REPO,
-   result
- }
+function receiveCreateRepo(result) {
+  return {
+    type: RECEIVE_CREATE_REPO,
+    result,
+  }
 }
 
 export const ERROR_CREATE_REPO = 'ERROR_CREATE_REPO'
-function errorCreateRepo (error) {
- return {
-   type: ERROR_CREATE_REPO,
-   error
- }
+function errorCreateRepo(error) {
+  return {
+    type: ERROR_CREATE_REPO,
+    error,
+  }
 }
 
 export function createRepo() {
@@ -198,15 +199,15 @@ export function createRepo() {
     dispatch(requestCreateRepo())
 
     return fetch('https://api.github.com/user/repos', {
-        method: 'POST',
-        headers: {
-          'Authorization': 'token ' + initialState.token,
-          'Accept': 'application/vnd.github.v3'
-        },
-        body: JSON.stringify({
-          name: 'literasee-created-repo'
-        })
-      })
+      method: 'POST',
+      headers: {
+        Authorization: 'token ' + initialState.token,
+        Accept: 'application/vnd.github.v3',
+      },
+      body: JSON.stringify({
+        name: 'literasee-created-repo',
+      }),
+    })
       .then(req => req.json(), err => console.error(err))
       .then(json => dispatch(receiveCreateRepo(json)))
   }
@@ -217,30 +218,30 @@ export function createRepo() {
 */
 
 export const REQUEST_CREATE_FILE = 'REQUEST_CREATE_FILE'
-function requestCreateFile () {
- return {
-   type: REQUEST_CREATE_FILE
- }
+function requestCreateFile() {
+  return {
+    type: REQUEST_CREATE_FILE,
+  }
 }
 
 export const RECEIVE_CREATE_FILE = 'RECEIVE_CREATE_FILE'
-function receiveCreateFile (result) {
- return {
-   type: RECEIVE_CREATE_FILE,
-   result
- }
+function receiveCreateFile(result) {
+  return {
+    type: RECEIVE_CREATE_FILE,
+    result,
+  }
 }
 
 export const ERROR_CREATE_FILE = 'ERROR_CREATE_FILE'
-function errorCreateFile (error) {
- return {
-   type: ERROR_CREATE_FILE,
-   error
- }
+function errorCreateFile(error) {
+  return {
+    type: ERROR_CREATE_FILE,
+    error,
+  }
 }
 
 export function createFile(params, projectName, path, content) {
-  const { username, owner } = params;
+  const { username, owner } = params
 
   return dispatch => {
     dispatch(requestCreateFile())
@@ -250,18 +251,18 @@ export function createFile(params, projectName, path, content) {
       .withCredentials()
       .send({
         path,
-        content
+        content,
       })
       .then(result => dispatch(receiveCreateFile(result.body)))
       .catch(err => console.error(err))
   }
 }
 
-export const CODE_CHANGED = 'CODE_CHANGED';
-export function codeChanged (code) {
+export const CODE_CHANGED = 'CODE_CHANGED'
+export function codeChanged(code) {
   return {
     type: CODE_CHANGED,
-    code
+    code,
   }
 }
 
@@ -270,11 +271,11 @@ export function codeChanged (code) {
 */
 
 export const SAVE_FILE = 'SAVE_FILE'
-function saveFileStart (id, file) {
+function saveFileStart(id, file) {
   return {
     type: SAVE_FILE,
     id,
-    file
+    file,
   }
 }
 
@@ -282,7 +283,7 @@ export const SAVE_FILE_SUCCESS = 'SAVE_FILE_SUCCESS'
 function saveFileSuccess(result) {
   return {
     type: SAVE_FILE_SUCCESS,
-    result
+    result,
   }
 }
 
@@ -290,21 +291,21 @@ export const SAVE_FILE_ERROR = 'SAVE_FILE_ERROR'
 function saveFileError(error) {
   return {
     type: SAVE_FILE_ERROR,
-    error
+    error,
   }
 }
 
 export function saveFile(params, project, type) {
-  const { username, owner, project: pId } = params;
+  const { username, owner, project: pId } = params
 
   return dispatch => {
-    dispatch(saveFileStart(pId, type));
+    dispatch(saveFileStart(pId, type))
 
-    const resolve = (result) => {
-      return dispatch(saveFileSuccess(result.body));
+    const resolve = result => {
+      return dispatch(saveFileSuccess(result.body))
     }
-    const reject = (err) => {
-      return dispatch(saveFileError(err));
+    const reject = err => {
+      return dispatch(saveFileError(err))
     }
 
     return request
@@ -312,46 +313,53 @@ export function saveFile(params, project, type) {
       .withCredentials()
       .send({
         project,
-        type
+        type,
       })
-      .then(resolve, reject);
+      .then(resolve, reject)
   }
 }
 
-export const UPDATE_PROJECT_DESCRIPTION = 'UPDATE_PROJECT_DESCRIPTION';
-function updateProjectDescriptionStart () {
+export const UPDATE_PROJECT_DESCRIPTION = 'UPDATE_PROJECT_DESCRIPTION'
+function updateProjectDescriptionStart() {
   return {
-    type: UPDATE_PROJECT_DESCRIPTION
+    type: UPDATE_PROJECT_DESCRIPTION,
   }
 }
 
-export const UPDATE_PROJECT_DESCRIPTION_SUCCESS = 'UPDATE_PROJECT_DESCRIPTION_SUCCESS';
+export const UPDATE_PROJECT_DESCRIPTION_SUCCESS =
+  'UPDATE_PROJECT_DESCRIPTION_SUCCESS'
 function updateProjectDescriptionSuccess(result) {
   return {
     type: UPDATE_PROJECT_DESCRIPTION_SUCCESS,
-    result
+    result,
   }
 }
 
-export const UPDATE_PROJECT_DESCRIPTION_ERROR = 'UPDATE_PROJECT_DESCRIPTION_ERROR';
+export const UPDATE_PROJECT_DESCRIPTION_ERROR =
+  'UPDATE_PROJECT_DESCRIPTION_ERROR'
 function updateProjectDescriptionError(error) {
   return {
     type: UPDATE_PROJECT_DESCRIPTION_ERROR,
-    error
+    error,
   }
 }
 
-export function updateProjectDescription(params, project, title = '', subTitle = '') {
-  const { username, owner, project: pId } = params;
+export function updateProjectDescription(
+  params,
+  project,
+  title = '',
+  subTitle = '',
+) {
+  const { username, owner, project: pId } = params
 
   return dispatch => {
-    dispatch(updateProjectDescriptionStart());
+    dispatch(updateProjectDescriptionStart())
 
-    const resolve = (result) => {
-      return dispatch(updateProjectDescriptionSuccess(result.body));
+    const resolve = result => {
+      return dispatch(updateProjectDescriptionSuccess(result.body))
     }
-    const reject = (err) => {
-      return dispatch(updateProjectDescriptionError(err));
+    const reject = err => {
+      return dispatch(updateProjectDescriptionError(err))
     }
 
     return request
@@ -360,25 +368,25 @@ export function updateProjectDescription(params, project, title = '', subTitle =
       .send({
         project,
         title: title.trim(),
-        subTitle: subTitle.trim()
+        subTitle: subTitle.trim(),
       })
-      .then(resolve, reject);
+      .then(resolve, reject)
   }
 }
 
 export const ADD_FILE = 'ADD_FILE'
-export function addFile (filename) {
+export function addFile(filename) {
   return {
     type: ADD_FILE,
-    filename
+    filename,
   }
 }
 
 export const OPEN_FILE = 'OPEN_FILE'
-export function openFile (filename) {
+export function openFile(filename) {
   return {
     type: OPEN_FILE,
-    filename
+    filename,
   }
 }
 
@@ -387,26 +395,26 @@ export function openFile (filename) {
 */
 
 export const REQUEST_UPLOAD_FILES = 'REQUEST_UPLOAD_FILES'
-function requestUploadFiles () {
- return {
-   type: REQUEST_UPLOAD_FILES
- }
+function requestUploadFiles() {
+  return {
+    type: REQUEST_UPLOAD_FILES,
+  }
 }
 
 export const RECEIVE_UPLOAD_FILES = 'RECEIVE_UPLOAD_FILES'
-function receiveUploadFiles (result) {
- return {
-   type: RECEIVE_UPLOAD_FILES,
-   result
- }
+function receiveUploadFiles(result) {
+  return {
+    type: RECEIVE_UPLOAD_FILES,
+    result,
+  }
 }
 
 export const ERROR_UPLOAD_FILES = 'ERROR_UPLOAD_FILES'
-function errorUploadFiles (error) {
- return {
-   type: ERROR_UPLOAD_FILES,
-   error
- }
+function errorUploadFiles(error) {
+  return {
+    type: ERROR_UPLOAD_FILES,
+    error,
+  }
 }
 
 export function uploadFiles(username, files) {
@@ -418,34 +426,34 @@ export function uploadFiles(username, files) {
     files.forEach((file, index) => data.append('file' + index, file))
     return fetch('/add_image', {
       method: 'POST',
-      body: data
+      body: data,
     })
-    .then(req => req.json(), err => console.error(err))
-    .then(json => dispatch(receiveUploadFiles(json)))
+      .then(req => req.json(), err => console.error(err))
+      .then(json => dispatch(receiveUploadFiles(json)))
   }
 }
 
 export const REQUEST_USER_IMAGES = 'REQUEST_USER_IMAGES'
-function requestUserImages () {
- return {
-   type: REQUEST_USER_IMAGES
- }
+function requestUserImages() {
+  return {
+    type: REQUEST_USER_IMAGES,
+  }
 }
 
 export const RECEIVE_USER_IMAGES = 'RECEIVE_USER_IMAGES'
-function receiveUserImages (result) {
- return {
-   type: RECEIVE_USER_IMAGES,
-   result
- }
+function receiveUserImages(result) {
+  return {
+    type: RECEIVE_USER_IMAGES,
+    result,
+  }
 }
 
 export const ERROR_USER_IMAGES = 'ERROR_USER_IMAGES'
-function errorUserImages (error) {
- return {
-   type: ERROR_USER_IMAGES,
-   error
- }
+function errorUserImages(error) {
+  return {
+    type: ERROR_USER_IMAGES,
+    error,
+  }
 }
 
 export function getUserImages(username) {
@@ -463,9 +471,9 @@ export function getUserImages(username) {
 */
 
 export const SET_PREVIEW_TYPE = 'SET_PREVIEW_TYPE'
-export function setPreviewType (previewType) {
- return {
-   type: SET_PREVIEW_TYPE,
-   previewType
- }
+export function setPreviewType(previewType) {
+  return {
+    type: SET_PREVIEW_TYPE,
+    previewType,
+  }
 }

@@ -1,10 +1,10 @@
-import user from './user';
-import projects from './projects';
-import project from './project';
-import images from './images';
+import user from './user'
+import projects from './projects'
+import project from './project'
+import images from './images'
 
-import { routeReducer } from 'react-router-redux';
-import { combineReducers } from 'redux';
+import { routeReducer } from 'react-router-redux'
+import { combineReducers } from 'redux'
 
 const rootReducer = combineReducers({
   token: (state = null, action) => state,
@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
   projects,
   project,
   images,
-  routing: routeReducer
-});
+  routing: routeReducer,
+})
 
-export default rootReducer;
+export default rootReducer

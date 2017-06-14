@@ -1,18 +1,16 @@
-import React from 'react';
-import { Link } from 'react-router';
-import Logo from './Logo';
+import React from 'react'
+import { Link } from 'react-router'
+import Logo from './Logo'
 
-import styles from './header.styl';
+import styles from './header.styl'
 
-export default function ({ oauthUrl }) {
+export default function({ oauthUrl }) {
   return (
     <header className={styles.container + ' container-fluid'}>
-      <div></div>
-      <div><a href='/'><Logo scale='0.6' /></a></div>
+      <div />
+      <div><a href="/"><Logo scale="0.6" /></a></div>
       <div>
-        <a
-          href={oauthUrl}
-          className='btn'>
+        <a href={oauthUrl} className="btn">
           Log in with Github
         </a>
       </div>

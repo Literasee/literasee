@@ -1,20 +1,18 @@
-const data = require('../../persistence');
+const data = require('../../persistence')
 
-module.exports = function (req, res, next) {
-
-  const resolve = (result) => {
+module.exports = function(req, res, next) {
+  const resolve = result => {
     if (result) {
-      res.locals.project = result;
-      res.locals.etag = result.etag;
+      res.locals.project = result
+      res.locals.etag = result.etag
     }
 
-    next();
+    next()
   }
 
-  const reject = (err) => {
-    res.status(500).json(err);
+  const reject = err => {
+    res.status(500).json(err)
   }
 
-  return data.getProject(req.params)
-    .then(resolve, reject);
-};
+  return data.getProject(req.params).then(resolve, reject)
+}
