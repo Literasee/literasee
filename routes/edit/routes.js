@@ -2,8 +2,10 @@ import React from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
 import Header from './components/header'
+import Footer from './components/footer'
 
 import App from './screens/App'
+import Homepage from './screens/homepage'
 import UserContainer from './screens/App/screens/User/UserContainer'
 import AdminContainer from './screens/App/screens/Admin/AdminContainer'
 import ProjectContainer from './screens/App/screens/Project/ProjectContainer'
@@ -37,15 +39,11 @@ const verifyProjectType = (nextState, replace) => {
 
 export default () =>
   <Router>
-    <div>
+    <div className="wrapper">
       <Header />
 
-      <Route exact path="/" render={() => <h1>Homepage</h1>} />
-      <Route
-        exact
-        path="/:username"
-        render={({ match }) => <h1>User page: {match.params.username}</h1>}
-      />
+      <Route exact path="/" component={Homepage} />
+      <Route exact path="/:username" component={UserContainer} />
       <Route
         path="/:username/:project/:mode?"
         render={({ match }) =>
@@ -54,6 +52,8 @@ export default () =>
             {' '}{match.params.mode} mode
           </h1>}
       />
+
+      <Footer />
     </div>
   </Router>
 

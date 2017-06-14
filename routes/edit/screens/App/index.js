@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { routeActions } from 'react-router-redux'
 
-import Header from './shared/components/header'
-import Footer from './shared/components/footer'
 import templates from './shared/templates'
 
 class App extends Component {
@@ -41,9 +39,7 @@ class App extends Component {
 
     return (
       <div className={'wrapper' + wrapperClass}>
-        <Header {...this.props} onCreateProject={::this.onCreateProject} />
         {this.props.children}
-        <Footer />
       </div>
     )
   }

@@ -11,48 +11,6 @@ const GET_PROJECTS_URL = getApiUrl('projects')
 const GET_PROJECT_URL = getApiUrl('project')
 
 /*
- * USER
- */
-
-export const USER_FETCH_START = 'USER_FETCH_START'
-function requestUser() {
-  return {
-    type: USER_FETCH_START,
-  }
-}
-
-export const USER_FETCH_SUCCESS = 'USER_FETCH_SUCCESS'
-function fetchUserSuccess(result) {
-  return {
-    type: USER_FETCH_SUCCESS,
-    result,
-  }
-}
-
-export const USER_FETCH_ERROR = 'USER_FETCH_ERROR'
-function fetchUserError(error) {
-  return {
-    type: USER_FETCH_ERROR,
-    error,
-  }
-}
-
-export function fetchUser() {
-  return dispatch => {
-    dispatch(requestUser())
-
-    return fetch('https://api.github.com/user', {
-      headers: {
-        Authorization: 'token ' + initialState.token,
-        Accept: 'application/vnd.github.v3',
-      },
-    })
-      .then(req => req.json(), err => console.error(err))
-      .then(json => dispatch(fetchUserSuccess(json)))
-  }
-}
-
-/*
  * PROJECTS
  */
 
