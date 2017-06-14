@@ -1,6 +1,7 @@
 import React from 'react'
-import { Route, IndexRoute, Redirect } from 'react-router'
-import initialState from './config/initialState'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+
+import Header from './components/header'
 
 import App from './screens/App'
 import UserContainer from './screens/App/screens/User/UserContainer'
@@ -34,26 +35,43 @@ const verifyProjectType = (nextState, replace) => {
   if (mode) replace({ pathname: pathname + mode })
 }
 
-export default (
-  <Route path="/" component={App}>
-    <IndexRoute component={UserContainer} />
+export default () =>
+  <Router>
+    <div>
+      <Header />
 
-    <Route path=":username">
-      <IndexRoute onEnter={verifyToken} component={UserContainer} />
-
-      <Route path="admin" onEnter={verifyToken} component={AdminContainer} />
-
+      <Route exact path="/" render={() => <h1>Homepage</h1>} />
       <Route
-        path=":project(/:mode)"
-        onEnter={verifyProjectType}
-        component={ProjectContainer}
+        exact
+        path="/:username"
+        render={({ match }) => <h1>User page: {match.params.username}</h1>}
       />
-
       <Route
-        path=":owner/:project(/:mode)"
-        onEnter={verifyProjectType}
-        component={ProjectContainer}
+        path="/:username/:project/:mode?"
+        render={({ match }) =>
+          <h1>
+            {match.params.project} project by {match.params.username} in
+            {' '}{match.params.mode} mode
+          </h1>}
       />
-    </Route>
-  </Route>
-)
+    </div>
+  </Router>
+
+// <IndexRoute component={UserContainer} />
+//     <Route path=":username">
+//       <IndexRoute onEnter={verifyToken} component={UserContainer} />
+
+//       <Route path="admin" onEnter={verifyToken} component={AdminContainer} />
+
+//       <Route
+//         path=":project(/:mode)"
+//         onEnter={verifyProjectType}
+//         component={ProjectContainer}
+//       />
+
+//       <Route
+//         path=":owner/:project(/:mode)"
+//         onEnter={verifyProjectType}
+//         component={ProjectContainer}
+//       />
+//     </Route>
