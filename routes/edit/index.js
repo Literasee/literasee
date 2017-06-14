@@ -1,6 +1,5 @@
 const express = require('express')
 const request = require('superagent')
-
 const router = express.Router()
 
 //
@@ -16,7 +15,7 @@ router.get('/logout', function(req, res) {
 //
 // OAUTH CALLBACK
 //
-router.use(function(req, res, next) {
+const oauth = (req, res, next) => {
   // if a URL param named code was sent
   // we're on the final step of the OAuth process
   // if the param wasn't sent we do nothing
@@ -62,6 +61,19 @@ router.use(function(req, res, next) {
           res.redirect(result.body.login)
         })
     })
-})
+}
+
+//
+// USER REDIRECT
+//
+const redirectLoggedInUser = (req, res, next) => {
+  if (req.cookies.username && !req.originalUrl.includes(req.cookies.username)) {
+    res.redirect(req.cookies.username)
+  } else {
+    next()
+  }
+}
+
+router.use(oauth, redirectLoggedInUser)
 
 module.exports = router
