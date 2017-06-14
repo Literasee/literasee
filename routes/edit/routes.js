@@ -7,7 +7,6 @@ import Footer from './components/footer'
 import App from './screens/App'
 import Homepage from './screens/homepage'
 import UserDashboard from './screens/userDashboard'
-import AdminContainer from './screens/App/screens/Admin/AdminContainer'
 import ProjectContainer from './screens/App/screens/Project/ProjectContainer'
 
 const verifyToken = (nextState, replace) => {
@@ -62,8 +61,6 @@ export default () =>
 // <IndexRoute component={UserContainer} />
 //     <Route path=":username">
 //       <IndexRoute onEnter={verifyToken} component={UserContainer} />
-
-//       <Route path="admin" onEnter={verifyToken} component={AdminContainer} />
 
 //       <Route
 //         path=":project(/:mode)"

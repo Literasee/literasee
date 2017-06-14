@@ -11,36 +11,6 @@ const GET_PROJECTS_URL = getApiUrl('projects')
 const GET_PROJECT_URL = getApiUrl('project')
 
 /*
- * PROJECT ADMIN
- */
-
-export function setProjectsIgnoredState(username, projectIds, ignored) {
-  return dispatch => {
-    dispatch({ type: 'SET_PROJECT_IGNORED_START' })
-
-    request
-      .put(`/api/${username}/ignore`)
-      .withCredentials()
-      .send({
-        projectIds,
-        ignored,
-      })
-      .end((err, result) => {
-        if (err)
-          return dispatch({
-            type: 'SET_PROJECT_IGNORED_ERROR',
-            error: err,
-          })
-
-        dispatch({
-          type: 'SET_PROJECT_IGNORED_SUCCESS',
-          result: result.body,
-        })
-      })
-  }
-}
-
-/*
 * PROJECT
 */
 
