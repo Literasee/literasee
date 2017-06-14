@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 
 import Keywords from './Keywords'
 import styles from './ProjectMetadata.styl'
@@ -13,7 +13,7 @@ const getTitles = project => {
 }
 
 const ProjectMetadata = props => {
-  const { project, params } = props
+  const { project } = props
   const { title, subTitle } = getTitles(project)
 
   const addKeyword = (event, input) => {
@@ -41,7 +41,7 @@ const ProjectMetadata = props => {
   return (
     <div className={styles.container}>
       <div>
-        <Link to={'/' + params.username} className={styles.backBtn}>
+        <Link to={'/' + props.match.params.username} className={styles.backBtn}>
           <img src="/public/img/icon-back.png" /> Back
         </Link>
         <h1>{title}</h1>

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router'
 import _ from 'lodash'
 import FileEditor from './FileEditor'
 import Toolbar from './Toolbar'

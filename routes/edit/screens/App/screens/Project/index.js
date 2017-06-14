@@ -6,33 +6,41 @@ import debounce from 'lodash/debounce'
 
 import styles from './Project.styl'
 
+// :username/:owner/:project/:mode
+// fetchProject,
+// codeChanged,
+// saveFile,
+// updateProjectDescription
+
 class Project extends Component {
   constructor() {
     super()
     this.state = { originalCode: null }
+
+    this.saveKeywords = this.saveKeywords.bind(this)
+    this.onCodeChanged = this.onCodeChanged.bind(this)
+    this.onCancelChanges = this.onCancelChanges.bind(this)
+    this.onSaveChanges = this.onSaveChanges.bind(this)
+
     // don't react to every keystroke
     this.onCodeChanged = debounce(this.onCodeChanged, 250)
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { project, params } = this.props
+  componentDidMount() {
+    const { owner, username, project } = this.props.match.params
 
-    if (this.state && !this.state.originalCode) {
-      this.setState({ originalCode: project.source })
-    }
-
-    // if (nextProps.path !== this.props.path) {
-    //   this.setState({originalCode: project[nextProps.params.type]});
-    // }
-  }
-
-  onSaveTitles(title, subTitle) {
-    const { params, project, updateProjectDescription } = this.props
-    updateProjectDescription(params, project, title, subTitle)
+    fetch(`/api/${owner || username}/${project}`, {
+      withCredentials: true,
+    })
+      .then(req => req.json(), err => console.error(err))
+      .then(project => {
+        this.setState({ project })
+      })
   }
 
   onCodeChanged(newCode) {
-    this.props.codeChanged(newCode || ' ')
+    // this.props.codeChanged(newCode || ' ')
+    this.state.project.source = newCode
   }
 
   onCancelChanges() {
@@ -56,17 +64,24 @@ class Project extends Component {
   }
 
   render() {
-    const { project, params } = this.props
+    const { project } = this.state
+    const { match } = this.props
+
+    if (!project) return <h3>Loading...</h3>
 
     return (
       <div className={styles.container}>
-        <ProjectMetadata save={::this.saveKeywords} {...this.props} />
-        <ProjectEditor
-          params={params}
+        <ProjectMetadata
+          save={this.saveKeywords}
           project={project}
-          onCodeChanged={::this.onCodeChanged}
-          onCancelChanges={::this.onCancelChanges}
-          onSaveChanges={::this.onSaveChanges}
+          {...this.props}
+        />
+        <ProjectEditor
+          params={match.params}
+          project={project}
+          onCodeChanged={this.onCodeChanged}
+          onCancelChanges={this.onCancelChanges}
+          onSaveChanges={this.onSaveChanges}
         />
       </div>
     )

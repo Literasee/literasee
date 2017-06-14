@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router'
+import { NavLink } from 'react-router-dom'
 
 import styles from './Toolbar.styl'
 
@@ -33,20 +33,20 @@ class Toolbar extends Component {
           </div>
         </div>
         <div className={styles.modeToggle}>
-          <Link
+          <NavLink
             to={path + '/edit'}
             className={styles.toggleBtn}
             activeClassName={styles.active}
           >
             <img src="/public/img/toolbar/edit.png" /> Edit
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             to={path + '/preview'}
             className={styles.toggleBtn}
             activeClassName={styles.active}
           >
             <img src="/public/img/toolbar/preview.png" /> Preview
-          </Link>
+          </NavLink>
         </div>
       </div>
     )

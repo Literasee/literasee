@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import Header from './components/header'
 import Footer from './components/footer'
@@ -7,7 +7,7 @@ import Footer from './components/footer'
 import App from './screens/App'
 import Homepage from './screens/homepage'
 import UserDashboard from './screens/userDashboard'
-import ProjectContainer from './screens/App/screens/Project/ProjectContainer'
+import ProjectScreen from './screens/App/screens/Project'
 
 const verifyToken = (nextState, replace) => {
   const { hostname, pathname } = document.location
@@ -43,16 +43,13 @@ export default () =>
 
       <Route exact path="/" component={Homepage} />
       <Route exact path="/:username" component={UserDashboard} />
-      <Route
-        path="/:username/:project/:mode?"
-        render={({ match }) =>
-          <main role="main">
-            <h1>
-              {match.params.project} project by {match.params.username} in
-              {' '}{match.params.mode} mode
-            </h1>
-          </main>}
-      />
+      <Switch>
+        <Route path="/:username/:project/:mode?" component={ProjectScreen} />
+        <Route
+          path="/:username/:owner/:project/:mode?"
+          component={ProjectScreen}
+        />
+      </Switch>
 
       <Footer />
     </div>

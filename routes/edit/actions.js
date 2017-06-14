@@ -11,49 +11,6 @@ const GET_PROJECTS_URL = getApiUrl('projects')
 const GET_PROJECT_URL = getApiUrl('project')
 
 /*
-* PROJECT
-*/
-
-export const PROJECT_FETCH_START = 'PROJECT_FETCH_START'
-function requestProject(id) {
-  return {
-    type: PROJECT_FETCH_START,
-    id,
-  }
-}
-
-export const PROJECT_FETCH_SUCCESS = 'PROJECT_FETCH_SUCCESS'
-function fetchProjectSuccess(result) {
-  return {
-    type: PROJECT_FETCH_SUCCESS,
-    result,
-  }
-}
-
-export const PROJECT_FETCH_ERROR = 'PROJECT_FETCH_ERROR'
-function fetchProjectError(error) {
-  return {
-    type: PROJECT_FETCH_ERROR,
-    error,
-  }
-}
-
-export function fetchProject({ username, owner, project }) {
-  return dispatch => {
-    dispatch(requestProject(project))
-
-    request
-      .get(`/api/${owner || username}/${project}`)
-      .withCredentials()
-      .end((err, result) => {
-        if (err) return dispatch(fetchProjectError(err))
-
-        dispatch(fetchProjectSuccess(result.body))
-      })
-  }
-}
-
-/*
 * CREATE REPO
 */
 
