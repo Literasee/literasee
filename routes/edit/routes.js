@@ -6,7 +6,7 @@ import Footer from './components/footer'
 
 import App from './screens/App'
 import Homepage from './screens/homepage'
-import UserContainer from './screens/App/screens/User/UserContainer'
+import UserDashboard from './screens/userDashboard'
 import AdminContainer from './screens/App/screens/Admin/AdminContainer'
 import ProjectContainer from './screens/App/screens/Project/ProjectContainer'
 
@@ -43,14 +43,16 @@ export default () =>
       <Header />
 
       <Route exact path="/" component={Homepage} />
-      <Route exact path="/:username" component={UserContainer} />
+      <Route exact path="/:username" component={UserDashboard} />
       <Route
         path="/:username/:project/:mode?"
         render={({ match }) =>
-          <h1>
-            {match.params.project} project by {match.params.username} in
-            {' '}{match.params.mode} mode
-          </h1>}
+          <main role="main">
+            <h1>
+              {match.params.project} project by {match.params.username} in
+              {' '}{match.params.mode} mode
+            </h1>
+          </main>}
       />
 
       <Footer />

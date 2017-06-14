@@ -19,9 +19,7 @@ class ProjectGrid extends Component {
 
   render() {
     const { projects = [] } = this.state
-    // TODO: clean up everything below (user stuff, etc)
     const { username } = this.props
-    const user = null
 
     return (
       <div className="center-lg container-fluid">
@@ -34,25 +32,12 @@ class ProjectGrid extends Component {
               let [title, subTitle] = (project.description || '').split('|')
               if (!title) title = project.project
               let linkDest = `/${project.owner}/${project.project}`
-              let linkElement
               if (username && username !== project.owner) {
                 linkDest = `/${username}${linkDest}`
               }
 
-              // direct unauthenticated users to the viewer
-              if (!user) {
-                linkElement = (
-                  <a
-                    className="panel txt-left panel-project scales"
-                    style={{ backgroundImage: `url("${image}")` }}
-                    href={linkDest}
-                  >
-                    <h4 className="mb0">{title}</h4>
-                    <p>{subTitle}</p>
-                  </a>
-                )
-              } else {
-                linkElement = (
+              return (
+                <div key={linkDest} className="col-xs-12 col-md-4 col-lg-4">
                   <Link
                     className="panel txt-left panel-project scales"
                     style={{ backgroundImage: `url("${image}")` }}
@@ -61,12 +46,6 @@ class ProjectGrid extends Component {
                     <h4 className="mb0">{title}</h4>
                     <p>{subTitle}</p>
                   </Link>
-                )
-              }
-
-              return (
-                <div key={linkDest} className="col-xs-12 col-md-4 col-lg-4">
-                  {linkElement}
                 </div>
               )
             })}

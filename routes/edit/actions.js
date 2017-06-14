@@ -11,48 +11,6 @@ const GET_PROJECTS_URL = getApiUrl('projects')
 const GET_PROJECT_URL = getApiUrl('project')
 
 /*
- * PROJECTS
- */
-
-export const PROJECTS_FETCH_START = 'PROJECTS_FETCH_START'
-function requestProjects() {
-  return {
-    type: PROJECTS_FETCH_START,
-  }
-}
-
-export const PROJECTS_FETCH_SUCCESS = 'PROJECTS_FETCH_SUCCESS'
-function fetchProjectsSuccess(result) {
-  return {
-    type: PROJECTS_FETCH_SUCCESS,
-    result,
-  }
-}
-
-export const PROJECTS_FETCH_ERROR = 'PROJECTS_FETCH_ERROR'
-function fetchProjectsError(error) {
-  return {
-    type: PROJECTS_FETCH_ERROR,
-    error,
-  }
-}
-
-export function fetchProjects(username) {
-  return dispatch => {
-    dispatch(requestProjects())
-
-    request
-      .get(`/api/${username || 'featured'}`)
-      .withCredentials()
-      .end((err, result) => {
-        if (err) return dispatch(fetchProjectsError(err))
-
-        dispatch(fetchProjectsSuccess(result.body))
-      })
-  }
-}
-
-/*
  * PROJECT ADMIN
  */
 
