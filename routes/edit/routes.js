@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Header from './components/header'
 import Footer from './components/footer'
 
-import App from './screens/App'
 import Homepage from './screens/homepage'
 import UserDashboard from './screens/userDashboard'
 import ProjectScreen from './screens/App/screens/Project'
@@ -45,10 +44,7 @@ export default () =>
       <Route exact path="/:username" component={UserDashboard} />
       <Switch>
         <Route path="/:username/:project/:mode?" component={ProjectScreen} />
-        <Route
-          path="/:username/:owner/:project/:mode?"
-          component={ProjectScreen}
-        />
+        <Route path="/:username/:owner/:project/:mode?" component={ProjectScreen} />
       </Switch>
 
       <Footer />

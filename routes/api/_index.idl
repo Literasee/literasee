@@ -1,11 +1,10 @@
-[meta title:"Page Title Yo" description:"Short description of your project" /]
+[meta title:"{PROJECT_TITLE}" description:"Short description of your project" /]
 
 [Header
-  title:"Welcome to Idyll!!!"
-  subtitle:"Open index.idl to start writing"
-  author:"Ben Clinkinbeard"
-  authorLink:"https://idyll-lang.github.io" /]
-
+  title:"{PROJECT_TITLE}"
+  subtitle:"Welcome to Literasee, powered by Idyll"
+  author:"{AUTHOR}"
+  authorLink:"{AUTHOR_LINK}" /]
 
 This is an Idyll file. Write text
 as you please in here. To add interactivity,
@@ -21,3 +20,11 @@ Here is how you can use a variable:
 You can use standard html tags if a
 component with the same name
 doesn't exist.
+
+You can also include code samples.
+
+```js
+function thisIsSoEasy() {
+  return 'Yes. Yes it is.'
+}
+```

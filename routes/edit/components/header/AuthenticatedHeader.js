@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
 import Logo from './Logo'
 
 import styles from './header.styl'
@@ -7,6 +8,8 @@ class AuthenticatedHeader extends Component {
   constructor() {
     super()
     this.state = {}
+
+    this.createProject = this.createProject.bind(this)
   }
 
   componentDidMount() {
@@ -22,13 +25,30 @@ class AuthenticatedHeader extends Component {
       })
   }
 
+  createProject() {
+    const { history, username } = this.props
+
+    fetch('/api/create', {
+      credentials: 'include',
+    })
+      .then(req => req.json(), err => console.error(err))
+      .then(res => {
+        history.push(`/${username}/${res.name}`)
+      })
+  }
+
   render() {
     const { user } = this.state
 
     return (
       <header className={styles.container + ' container-fluid'}>
         <div>
-          <button type="button" name="button" className="btn btn-primary">
+          <button
+            type="button"
+            name="button"
+            className="btn btn-primary"
+            onClick={this.createProject}
+          >
             Create a Project
           </button>
         </div>
@@ -39,11 +59,7 @@ class AuthenticatedHeader extends Component {
               <li className="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
                 {user &&
                   <a className={styles.avatarLink + ' pure-menu-link'}>
-                    <img
-                      src={`${user.avatar_url}&s=40`}
-                      width="40"
-                      height="40"
-                    />
+                    <img src={`${user.avatar_url}&s=40`} width="40" height="40" />
                     {user.name}
                   </a>}
                 <ul className="pure-menu-children">
@@ -60,4 +76,4 @@ class AuthenticatedHeader extends Component {
   }
 }
 
-export default AuthenticatedHeader
+export default withRouter(AuthenticatedHeader)

@@ -19,6 +19,7 @@ router.use(require('body-parser').json({ limit: '10mb' }))
 // actual routes
 //
 
+router.get('/create/:repo?', require('./create-and-init-repo'))
 router.get('/featured', require('./get-featured-projects'))
 router.get('/:owner', require('./get-projects-by-owner'))
 router.get('/:owner/:project', [

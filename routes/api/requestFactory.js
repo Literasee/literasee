@@ -1,4 +1,5 @@
 const request = require('superagent')
+const randomWord = require('random-word')
 
 const ENABLE_CHARLES_PROXY = false
 
@@ -41,12 +42,59 @@ exports.getRepoInfo = function(req, etag) {
   return standardizeRequest(request.get(url), token, etag)
 }
 
+exports.createRepo = function(req) {
+  const repo = req.params.repo || [randomWord(), randomWord()].join('-')
+  console.log(repo, req.cookies)
+  const token = req.cookies.token
+  const url = `https://api.github.com/user/repos`
+
+  return standardizeRequest(request.post(url), token).send({
+    name: repo,
+    description: `https://${req.cookies.username}.github.io/${repo}/`,
+    has_issues: false,
+    has_projects: false,
+    has_wiki: false,
+  })
+}
+
+exports.createFile = function(req, url, path, content) {
+  return standardizeRequest(request.put(url + path), req.cookies.token).send({
+    path,
+    message: 'Initial commit',
+    content: new Buffer(content).toString('base64'),
+  })
+}
+
+exports.getCommits = function(req, url) {
+  return standardizeRequest(request.get(url.substr(0, url.length - 6)), req.cookies.token)
+}
+
+exports.createBranch = function(req, url, sha) {
+  return standardizeRequest(request.post(url.substr(0, url.length - 6)), req.cookies.token).send({
+    ref: 'refs/heads/gh-pages',
+    sha,
+  })
+}
+
+exports.setDefaultBranch = function(req, url, name) {
+  return standardizeRequest(request.patch(url), req.cookies.token).send({
+    name,
+    default_branch: 'gh-pages',
+  })
+}
+
+exports.deleteBranch = function(req, url) {
+  return standardizeRequest(
+    request.delete(url.substr(0, url.length - 6) + '/heads/master'),
+    req.cookies.token,
+  )
+}
+
 exports.createRepoFile = function(req) {
   const owner = req.params.owner
   const project = req.params.project
   const token = req.cookies.token
-  const url = `https://api.github.com/repos/${owner}/${project}/contents/${req
-    .body.path}`
+  const url = `https://api.github.com/repos/${owner}/${project}/contents/${req.body.path}`
 
   return standardizeRequest(request.put(url), token).send({
     path: req.body.path,
@@ -59,8 +107,7 @@ exports.getRepoFile = function(req, filename, etag) {
   const owner = req.params.owner
   const project = req.params.project
   const token = req.cookies.token
-  const url = `https://api.github.com/repos/${owner}/${project}/contents/${filename ||
-    ''}`
+  const url = `https://api.github.com/repos/${owner}/${project}/contents/${filename || ''}`
 
   return standardizeRequest(request.get(url), token, etag)
 }

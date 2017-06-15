@@ -9,7 +9,7 @@ class ProjectGrid extends Component {
 
   componentDidMount() {
     fetch(`/api/${this.props.username || 'featured'}`, {
-      withCredentials: true,
+      credentials: 'include',
     })
       .then(req => req.json(), err => console.error(err))
       .then(projects => {

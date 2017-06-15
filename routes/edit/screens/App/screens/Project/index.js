@@ -30,7 +30,7 @@ class Project extends Component {
     const { owner, username, project } = this.props.match.params
 
     fetch(`/api/${owner || username}/${project}`, {
-      withCredentials: true,
+      credentials: 'include',
     })
       .then(req => req.json(), err => console.error(err))
       .then(project => {
@@ -71,11 +71,7 @@ class Project extends Component {
 
     return (
       <div className={styles.container}>
-        <ProjectMetadata
-          save={this.saveKeywords}
-          project={project}
-          {...this.props}
-        />
+        <ProjectMetadata save={this.saveKeywords} project={project} {...this.props} />
         <ProjectEditor
           params={match.params}
           project={project}
