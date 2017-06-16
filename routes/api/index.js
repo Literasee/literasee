@@ -21,7 +21,7 @@ router.use(require('body-parser').json({ limit: '10mb' }))
 
 router.get('/create/:repo?', require('./create-and-init-repo'))
 router.get('/featured', require('./get-featured-projects'))
-router.get('/:owner', require('./get-projects-by-owner'))
+router.get('/:username', require('./get-user'))
 router.get('/:owner/:project', [
   require('./get-project-from-db'),
   require('./get-repo-from-github'),

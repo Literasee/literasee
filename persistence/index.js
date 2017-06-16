@@ -7,8 +7,15 @@ exports.getFeaturedProjects = function() {
   return Project.find()
 }
 
-exports.getProjectsByOwner = function(username) {
+exports.getUser = function(username) {
   return User.findOne({ username })
+}
+
+exports.saveUser = function(user) {
+  return User.findOneAndUpdate({ username: user.username }, user, {
+    new: true,
+    upsert: true,
+  })
 }
 
 exports.getProject = function(params) {
@@ -20,24 +27,5 @@ exports.saveProject = function(project) {
   return Project.findOneAndUpdate(conditions, project, {
     new: true,
     upsert: true,
-  })
-}
-
-exports.saveUserProjects = function(userData) {
-  return User.findOneAndUpdate({ username: userData.username }, userData, {
-    new: true,
-    upsert: true,
-  })
-}
-
-exports.setProjectsIgnoredState = function(username, projectIds, ignored) {
-  return User.findOne({ username }).then(user => {
-    if (ignored) {
-      user.ignored = _.uniq([].concat(user.ignored, projectIds))
-    } else {
-      user.ignored = _.filter(user.ignored, pId => projectIds.indexOf(pId) < 0)
-    }
-
-    return user.save()
   })
 }

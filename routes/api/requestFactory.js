@@ -18,8 +18,8 @@ function standardizeRequest(req, token, etag) {
   return req
 }
 
-exports.getUserReposRequest = function(req, etag) {
-  const owner = req.params.owner
+exports.getUserRepos = function(req, etag) {
+  const owner = req.params.username
   const username = req.cookies.username
   const token = req.cookies.token
   var url = `https://api.github.com/users/${owner}/repos`
