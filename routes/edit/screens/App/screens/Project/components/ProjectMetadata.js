@@ -6,13 +6,18 @@ import styles from './ProjectMetadata.styl'
 
 const getTitles = project => {
   const { description } = project
-  const title = description ? description.split('|')[0].trim() : project.id
-  const subTitle = description ? description.split('|')[1] : ''
+  let title = description ? description.split('|')[0].trim() : project.id
+  let subTitle = description ? description.split('|')[1] : ''
+
+  if (title.startsWith('http')) {
+    subTitle = <a href={title}>Published Site</a>
+    title = ''
+  }
 
   return { title, subTitle }
 }
 
-const ProjectMetadata = props => {
+export default props => {
   const { project } = props
   const { title, subTitle } = getTitles(project)
 
@@ -47,13 +52,7 @@ const ProjectMetadata = props => {
         <h1>{title}</h1>
         <p>{subTitle}</p>
       </div>
-      <Keywords
-        keywords={project.keywords}
-        add={addKeyword}
-        remove={removeKeyword}
-      />
+      <Keywords keywords={project.keywords} add={addKeyword} remove={removeKeyword} />
     </div>
   )
 }
-
-export default ProjectMetadata
