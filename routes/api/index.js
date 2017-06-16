@@ -21,14 +21,11 @@ router.use(require('body-parser').json({ limit: '10mb' }))
 
 router.get('/create/:repo?', require('./create-and-init-repo'))
 router.get('/featured', require('./get-featured-projects'))
+
+// updated routes
 router.get('/:username', require('./get-user'))
-router.get('/:owner/:project', [
-  require('./get-project-from-db'),
-  require('./get-repo-from-github'),
-  function(req, res) {
-    res.json(res.locals.project)
-  },
-])
+router.get('/:owner/:name', require('./get-project'))
+
 router.put('/:owner/:project/add', require('./add-repo-file'))
 router.put('/:owner/ignore', require('./ignore-projects'))
 router.put('/:owner/:project', require('./save-project-file'))

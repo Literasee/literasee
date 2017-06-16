@@ -9,8 +9,8 @@ router.get('/:owner/:project/:asset?', [
     if (req.subdomains.indexOf('edit') > -1) return next('route')
     next()
   },
-  require('../api/get-project-from-db'),
-  require('../api/get-repo-from-github'),
+  // require('../api/get-project-from-db'),
+  // require('../api/get-repo-from-github'),
   // require('./verify-or-get-short-url'),
   require('./render-idyll'),
   require('./serve-asset'),

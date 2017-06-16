@@ -60,7 +60,7 @@
     "style-loader": "^0.13.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
-    "superagent": "^1.7.1",
+    "superagent": "^3.5.2",
     "superagent-bluebird-promise": "^3.0.0",
     "superagent-proxy": "^1.0.0",
     "webpack": "^2.6.1"

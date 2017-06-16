@@ -7,9 +7,10 @@ const ProjectSchema = new Schema({
   name: String,
   description: String,
   isFeatured: Boolean,
+  css: String,
+  html: String,
+  js: String,
   source: String,
-  source_sha: String,
-  short_url: String,
   thumbnail: String,
   etag: String,
 })

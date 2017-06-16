@@ -18,12 +18,12 @@ exports.saveUser = function(user) {
   })
 }
 
-exports.getProject = function(params) {
-  return Project.findOne({ owner: params.owner, project: params.project })
+exports.getProject = function(owner, name) {
+  return Project.findOne({ owner, name })
 }
 
 exports.saveProject = function(project) {
-  const conditions = { owner: project.owner, project: project.project }
+  const conditions = { owner: project.owner, name: project.name }
   return Project.findOneAndUpdate(conditions, project, {
     new: true,
     upsert: true,

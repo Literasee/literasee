@@ -35,9 +35,9 @@ exports.getUserRepos = function(req, etag) {
 
 exports.getRepoInfo = function(req, etag) {
   const owner = req.params.owner
-  const project = req.params.project
+  const name = req.params.name
   const token = req.cookies.token
-  const url = `https://api.github.com/repos/${owner}/${project}`
+  const url = `https://api.github.com/repos/${owner}/${name}`
 
   return standardizeRequest(request.get(url), token, etag)
 }
@@ -103,13 +103,12 @@ exports.createRepoFile = function(req) {
   })
 }
 
-exports.getRepoFile = function(req, filename, etag) {
-  const owner = req.params.owner
-  const project = req.params.project
+exports.getRepoFile = function(req, filename) {
+  const { owner, name } = req.params
   const token = req.cookies.token
-  const url = `https://api.github.com/repos/${owner}/${project}/contents/${filename || ''}`
+  const url = `https://api.github.com/repos/${owner}/${name}/contents/${filename}`
 
-  return standardizeRequest(request.get(url), token, etag)
+  return standardizeRequest(request.get(url), token)
 }
 
 exports.saveRepoFile = function(req, filename) {
