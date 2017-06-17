@@ -30,8 +30,8 @@ class ProjectGrid extends Component {
               const image = project.thumbnail || '/public/img/thumb.svg'
 
               let [title, subTitle] = (project.description || '').split('|')
-              if (!title) title = project.project
-              let linkDest = `/${project.owner}/${project.project}`
+              if (!title) title = project.name
+              let linkDest = `/${project.owner}/${project.name}`
               if (username && username !== project.owner) {
                 linkDest = `/${username}${linkDest}`
               }

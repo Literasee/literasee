@@ -9,8 +9,12 @@ const mergeUserProjects = user => {
   // db.getProjectsByOwner() will return any repo the user has opened in the app
   // regardless of topics
   return db.getProjectsByOwner(user.username).then(projects => {
-    // TODO: return description, thumbnail, etc.
-    return projects.concat(taggedRepos).map(p => p.name)
+    // TODO: return thumbnail, etc.
+    return projects.concat(taggedRepos).map(p => ({
+      owner: typeof p.owner === 'string' ? p.owner : p.owner.login,
+      name: p.name,
+      description: p.description,
+    }))
   })
 }
 
