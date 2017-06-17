@@ -24,7 +24,7 @@ router.get('/featured', require('./get-featured-projects'))
 
 // updated routes
 router.get('/:username', require('./get-user-projects'))
-router.get('/:owner/:name', require('./get-project'))
+router.get('/:owner/:name', [require('./get-project'), (req, res) => res.json(res.locals.project)])
 
 router.put('/:owner/:project/add', require('./add-repo-file'))
 router.put('/:owner/ignore', require('./ignore-projects'))

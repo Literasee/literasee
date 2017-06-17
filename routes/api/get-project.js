@@ -3,7 +3,7 @@ const Promise = require('bluebird')
 const db = require('../../persistence')
 const requests = require('./requestFactory')
 
-module.exports = (req, res) => {
+module.exports = (req, res, next) => {
   const { owner, name } = req.params
 
   // check for the project in the db
@@ -37,14 +37,21 @@ module.exports = (req, res) => {
                 etag: result.headers.etag,
               }),
             )
-            .then(project => res.json(project))
+            .then(project => {
+              res.locals.project = project
+              next()
+            })
         })
       },
       err => {
         // 304 means the project hasn't changed
-        if (err.status === 304) return res.json(dbProject)
-        // unknown error, whoops
-        res.status(500).json(err)
+        if (err.status === 304) {
+          res.locals.project = dbProject
+          next()
+        } else {
+          // unknown error, whoops
+          res.status(500).json(err)
+        }
       },
     )
   })

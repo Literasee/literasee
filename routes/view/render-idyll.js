@@ -4,12 +4,7 @@ const idyll = require('idyll')
 
 module.exports = function(req, res, next) {
   const project = res.locals.project
-  const projectDir = join(
-    __dirname,
-    '../../tmp',
-    project.owner,
-    project.project,
-  )
+  const projectDir = join(__dirname, '../../tmp', project.owner, project.name)
   project.dir = projectDir
 
   if (
