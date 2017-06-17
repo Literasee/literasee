@@ -39,8 +39,9 @@ class Project extends Component {
   }
 
   onCodeChanged(newCode) {
-    // this.props.codeChanged(newCode || ' ')
-    this.state.project.source = newCode
+    this.setState({
+      project: Object.assign({}, this.state.project, { source: newCode }),
+    })
   }
 
   onCancelChanges() {

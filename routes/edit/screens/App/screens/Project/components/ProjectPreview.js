@@ -14,11 +14,7 @@ export default ({ project, params, mode }) => {
       }}
     >
       <div className={styles.previewWrapper}>
-        <iframe
-          src={`${getProjectViewUrl(params)}?source=${encodeURI(
-            project.source,
-          )}`}
-        />
+        <iframe src={`${getProjectViewUrl(params)}?source=${encodeURI(project.source)}`} />
       </div>
     </div>
   )
