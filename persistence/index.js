@@ -22,6 +22,10 @@ exports.getProject = function(owner, name) {
   return Project.findOne({ owner, name })
 }
 
+exports.getProjectsByOwner = function(owner) {
+  return Project.find({ owner })
+}
+
 exports.saveProject = function(project) {
   const conditions = { owner: project.owner, name: project.name }
   return Project.findOneAndUpdate(conditions, project, {

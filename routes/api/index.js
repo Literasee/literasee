@@ -23,7 +23,7 @@ router.get('/create/:repo?', require('./create-and-init-repo'))
 router.get('/featured', require('./get-featured-projects'))
 
 // updated routes
-router.get('/:username', require('./get-user'))
+router.get('/:username', require('./get-user-projects'))
 router.get('/:owner/:name', require('./get-project'))
 
 router.put('/:owner/:project/add', require('./add-repo-file'))
