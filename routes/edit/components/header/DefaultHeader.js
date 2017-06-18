@@ -10,7 +10,7 @@ export default function({ oauthUrl }) {
       <div><a href="/"><Logo scale="0.6" /></a></div>
       <div>
         <a href={oauthUrl} className="btn">
-          Log in with Github
+          Log in with GitHub
         </a>
       </div>
     </header>
