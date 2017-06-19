@@ -1,40 +1,35 @@
-const { join } = require('path');
-const webpack = require('webpack');
+const { join } = require('path')
+const webpack = require('webpack')
 
 module.exports = {
   devtool: 'eval',
-  entry: [
-    'webpack-hot-middleware/client',
-    join(__dirname, 'routes', 'edit', 'app')
-  ],
+  entry: [join(__dirname, 'routes', 'edit', 'app')],
   output: {
     path: join(__dirname, 'public'),
     filename: 'bundle.js',
-    publicPath: '/public/'
+    publicPath: '/public/',
   },
   resolve: {
     modules: [
       join(__dirname, 'routes', 'edit'),
       join(__dirname, 'routes', 'edit', 'screens', 'App', 'shared'),
-      'node_modules'
-    ]
+      'node_modules',
+    ],
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
-      GH_CLIENT_ID: JSON.stringify(process.env.GH_CLIENT_ID)
-    })
+      GH_CLIENT_ID: JSON.stringify(process.env.GH_CLIENT_ID),
+    }),
   ],
-  node: {fs:'empty'},
+  node: { fs: 'empty' },
   module: {
     rules: [
       {
         test: /\.js$/,
-        use: [
-          'babel-loader'
-        ],
-        include: join(__dirname, 'routes', 'edit')
+        use: ['babel-loader'],
+        include: join(__dirname, 'routes', 'edit'),
       },
       {
         test: /\.styl$/,
@@ -45,17 +40,17 @@ module.exports = {
             options: {
               modules: true,
               importLoaders: 1,
-              localIdentName: '[name]_[local]__[hash:base64:5]'
-            }
+              localIdentName: '[name]_[local]__[hash:base64:5]',
+            },
           },
-          'stylus-loader'
+          'stylus-loader',
         ],
-        include: join(__dirname, 'routes', 'edit')
+        include: join(__dirname, 'routes', 'edit'),
       },
       {
         test: /\.idl$/,
-        use: 'raw-loader'
-      }
-    ]
-  }
-};
+        use: 'raw-loader',
+      },
+    ],
+  },
+}

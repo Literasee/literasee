@@ -29,8 +29,6 @@ if (!process.env.PORT) {
       publicPath: config.output.publicPath,
     }),
   )
-
-  app.use(require('webpack-hot-middleware')(compiler))
 }
 
 app.use('/public', express.static('public'))
