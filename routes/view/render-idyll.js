@@ -18,6 +18,7 @@ module.exports = function(req, res, next) {
     output: projectDir,
     temp: join(projectDir, 'temp'),
     minify: false,
+    ssr: false,
     debug: true,
     compilerOptions: { spellcheck: false },
   })

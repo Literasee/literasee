@@ -45,7 +45,7 @@
     "express": "^4.13.3",
     "express-subdomain": "^1.0.4",
     "handlebars": "^4.0.5",
-    "idyll": "^1.8.2",
+    "idyll": "^1.9.0",
     "image-size-stream": "^1.1.0",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.0.0",
