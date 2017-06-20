@@ -26,21 +26,25 @@ module.exports = (req, res, next) => {
             output[key] = new Buffer(contents[key].body.content, 'base64').toString()
           })
 
-          db
-            .saveProject(
-              Object.assign(output, {
-                avatar_url: repoInfo.owner.avatar_url,
-                owner,
-                name,
-                description: repoInfo.description,
-                isFeatured: false,
-                etag: result.headers.etag,
-              }),
-            )
-            .then(project => {
-              res.locals.project = project
-              next()
-            })
+          requests.getCommits(req, repoInfo.commits_url).then(commits => {
+            output.lastCommit = commits.body[0]
+
+            db
+              .saveProject(
+                Object.assign(output, {
+                  avatar_url: repoInfo.owner.avatar_url,
+                  owner,
+                  name,
+                  description: repoInfo.description,
+                  isFeatured: false,
+                  etag: result.headers.etag,
+                }),
+              )
+              .then(project => {
+                res.locals.project = project
+                next()
+              })
+          })
         })
       },
       err => {

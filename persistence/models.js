@@ -13,6 +13,7 @@ const ProjectSchema = new Schema({
   source: String,
   thumbnail: String,
   etag: String,
+  lastCommit: Schema.Types.Mixed,
 })
 
 exports.Project = mongoose.model('Project', ProjectSchema)

@@ -1,7 +1,6 @@
 const fs = require('fs')
 const { join } = require('path')
 const requests = require('./requestFactory')
-const doIdyll = require('./do-idyll')
 
 const template = name => {
   return fs.readFileSync(join(__dirname, 'templates', name), 'utf8')

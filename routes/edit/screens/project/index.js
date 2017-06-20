@@ -6,12 +6,6 @@ import debounce from 'lodash/debounce'
 
 import styles from './Project.styl'
 
-// :username/:owner/:project/:mode
-// fetchProject,
-// codeChanged,
-// saveFile,
-// updateProjectDescription
-
 class Project extends Component {
   constructor() {
     super()
@@ -26,16 +20,34 @@ class Project extends Component {
     this.onCodeChanged = debounce(this.onCodeChanged, 250)
   }
 
-  componentDidMount() {
-    const { owner, username, project } = this.props.match.params
+  fetchProject(params) {
+    const { owner, username, project } = params
 
-    fetch(`/api/${owner || username}/${project}`, {
+    return fetch(`/api/${owner || username}/${project}`, {
       credentials: 'include',
+    }).then(req => req.json(), err => console.error(err))
+  }
+
+  componentDidMount() {
+    this.fetchProject(this.props.match.params).then(project => {
+      this.setState({ project })
+    })
+  }
+
+  onSaveChanges() {
+    const { project } = this.state
+    const { owner, name } = project
+
+    return fetch(`/api/save/${owner}/${name}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      credentials: 'include',
+      body: JSON.stringify({ project }),
     })
       .then(req => req.json(), err => console.error(err))
-      .then(project => {
-        this.setState({ project })
-      })
+      .then(res => console.log(res))
   }
 
   onCodeChanged(newCode) {
@@ -46,16 +58,6 @@ class Project extends Component {
 
   onCancelChanges() {
     if (this.state.originalCode) this.onCodeChanged(this.state.originalCode)
-  }
-
-  onSaveChanges(open) {
-    const { params, project, saveFile } = this.props
-
-    saveFile(params, project).then(result => {
-      if (open === true) {
-        window.open(getProjectViewUrl(params))
-      }
-    })
   }
 
   saveKeywords() {

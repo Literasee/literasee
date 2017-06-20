@@ -34,8 +34,7 @@ exports.getUserRepos = function(req, etag) {
 }
 
 exports.getRepoInfo = function(req, etag) {
-  const owner = req.params.owner
-  const name = req.params.name
+  const { owner, name } = req.params
   const token = req.cookies.token
   const url = `https://api.github.com/repos/${owner}/${name}`
 
@@ -65,8 +64,9 @@ exports.createFile = function(req, url, path, content) {
   })
 }
 
-exports.getCommits = function(req, url) {
-  return standardizeRequest(request.get(url.substr(0, url.length - 6)), req.cookies.token)
+exports.getCommits = function(req, commits_url) {
+  const url = commits_url.substr(0, commits_url.indexOf('{/sha}'))
+  return standardizeRequest(request.get(url), req.cookies.token)
 }
 
 exports.createBranch = function(req, url, sha) {
@@ -136,5 +136,63 @@ exports.updateRepoDescription = function(req, description) {
   return standardizeRequest(request.patch(url), token).send({
     name: project,
     description,
+  })
+}
+
+exports.createTree = (req, project) => {
+  const { token } = req.cookies
+  const { owner, name } = project
+  const url = `https://api.github.com/repos/${owner}/${name}/git/trees`
+
+  return standardizeRequest(request.post(url), token).send({
+    base_tree: project.lastCommit.commit.tree.sha,
+    tree: [
+      {
+        path: 'index.idl',
+        content: project.source,
+        type: 'blob',
+        mode: '100644',
+      },
+      {
+        path: 'index.html',
+        content: project.html,
+        type: 'blob',
+        mode: '100644',
+      },
+      {
+        path: 'index.js',
+        content: project.js,
+        type: 'blob',
+        mode: '100644',
+      },
+      {
+        path: 'styles.css',
+        content: project.css,
+        type: 'blob',
+        mode: '100644',
+      },
+    ],
+  })
+}
+
+exports.createCommit = (req, project, tree) => {
+  const { token } = req.cookies
+  const { owner, name } = project
+  const url = `https://api.github.com/repos/${owner}/${name}/git/commits`
+
+  return standardizeRequest(request.post(url), token).send({
+    message: 'Saving changes',
+    tree: tree.sha,
+    parents: [project.lastCommit.sha],
+  })
+}
+
+exports.updateRef = (req, project, commit) => {
+  const { token } = req.cookies
+  const { owner, name } = project
+  const url = `https://api.github.com/repos/${owner}/${name}/git/refs/heads/gh-pages`
+
+  return standardizeRequest(request.patch(url), token).send({
+    sha: commit.sha,
   })
 }
