@@ -6,7 +6,7 @@ import Footer from './components/footer'
 
 import Homepage from './screens/homepage'
 import UserDashboard from './screens/userDashboard'
-import ProjectScreen from './screens/App/screens/Project'
+import ProjectScreen from './screens/project'
 
 const verifyToken = (nextState, replace) => {
   const { hostname, pathname } = document.location

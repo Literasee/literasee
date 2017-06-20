@@ -10,11 +10,7 @@ module.exports = {
     publicPath: '/public/',
   },
   resolve: {
-    modules: [
-      join(__dirname, 'routes', 'edit'),
-      join(__dirname, 'routes', 'edit', 'screens', 'App', 'shared'),
-      'node_modules',
-    ],
+    modules: [join(__dirname, 'routes', 'edit'), 'node_modules'],
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
