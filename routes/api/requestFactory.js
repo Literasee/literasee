@@ -90,41 +90,12 @@ exports.deleteBranch = function(req, url) {
   )
 }
 
-exports.createRepoFile = function(req) {
-  const owner = req.params.owner
-  const project = req.params.project
-  const token = req.cookies.token
-  const url = `https://api.github.com/repos/${owner}/${project}/contents/${req.body.path}`
-
-  return standardizeRequest(request.put(url), token).send({
-    path: req.body.path,
-    message: 'Updating ' + req.body.path,
-    content: new Buffer(req.body.content).toString('base64'),
-  })
-}
-
 exports.getRepoFile = function(req, filename) {
   const { owner, name } = req.params
   const token = req.cookies.token
   const url = `https://raw.githubusercontent.com/${owner}/${name}/gh-pages/${filename}`
 
   return standardizeRequest(request.get(url), token)
-}
-
-exports.saveRepoFile = function(req, filename) {
-  const owner = req.params.owner
-  const project = req.params.project
-  const token = req.cookies.token
-  const url = `https://api.github.com/repos/${owner}/${project}/contents/${filename}`
-
-  var content = req.body.project.source
-
-  return standardizeRequest(request.put(url), token).send({
-    path: filename,
-    message: 'Updating ' + filename,
-    content: new Buffer(content).toString('base64'),
-    sha: req.body.project.source_sha,
-  })
 }
 
 exports.updateRepoDescription = function(req, description) {

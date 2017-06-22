@@ -27,9 +27,6 @@ router.get('/:username', require('./get-user-projects'))
 router.get('/:owner/:name', [require('./get-project'), (req, res) => res.json(res.locals.project)])
 router.post('/save/:owner/:name', require('./save-project'))
 
-router.put('/:owner/:project/add', require('./add-repo-file'))
-router.put('/:owner/ignore', require('./ignore-projects'))
-router.put('/:owner/:project', require('./save-project-file'))
 router.patch('/:owner/:project', require('./update-project-description'))
 
 module.exports = router
