@@ -29,6 +29,7 @@ module.exports = (req, res, next) => {
             // the get commits endpoint returns a different structure
             // than the create commit endpoint
             output.lastCommit.tree = output.lastCommit.commit.tree
+            delete output.lastCommit.commit
 
             db
               .saveProject(
