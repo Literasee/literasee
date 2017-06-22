@@ -8,13 +8,7 @@ import styles from './ProjectEditor.styl'
 
 class ProjectEditor extends Component {
   render() {
-    const {
-      params,
-      project,
-      onCodeChanged,
-      onCancelChanges,
-      onSaveChanges,
-    } = this.props
+    const { params, project, code, onCodeChanged, onCancelChanges, onSaveChanges } = this.props
 
     const mode = params.mode || 'edit'
 
@@ -22,20 +16,10 @@ class ProjectEditor extends Component {
       <div className={styles.container}>
         <nav role="navigation" className={styles.nav}>
           <div className={styles.buttonContainer}>
-            <button
-              onClick={onSaveChanges.bind(null, true)}
-              type="button"
-              name="button"
-              className="btn"
-            >
-              Save &amp; Open
+            <button onClick={onCancelChanges} type="button" name="button" className="btn">
+              Cancel
             </button>
-            <button
-              onClick={onSaveChanges}
-              type="button"
-              name="button"
-              className="btn btn-primary"
-            >
+            <button onClick={onSaveChanges} type="button" name="button" className="btn btn-primary">
               Save
             </button>
           </div>
@@ -52,9 +36,9 @@ class ProjectEditor extends Component {
             onCodeChanged={onCodeChanged}
             onCancel={onCancelChanges}
             onSave={onSaveChanges}
-            code={project.source}
+            code={code}
           />
-          <ProjectPreview mode={mode} project={project} params={params} />
+          <ProjectPreview etag={project.etag} mode={mode} params={params} />
         </div>
       </div>
     )

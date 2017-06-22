@@ -13,11 +13,12 @@ class Project extends Component {
 
     this.saveKeywords = this.saveKeywords.bind(this)
     this.onCodeChanged = this.onCodeChanged.bind(this)
+    this.applyCodeChanges = this.applyCodeChanges.bind(this)
     this.onCancelChanges = this.onCancelChanges.bind(this)
     this.onSaveChanges = this.onSaveChanges.bind(this)
 
     // don't react to every keystroke
-    this.onCodeChanged = debounce(this.onCodeChanged, 250)
+    this.applyCodeChanges = debounce(this.applyCodeChanges, 500)
   }
 
   fetchProject(params) {
@@ -30,12 +31,12 @@ class Project extends Component {
 
   componentDidMount() {
     this.fetchProject(this.props.match.params).then(project => {
-      this.setState({ project })
+      this.setState({ project, code: project.source })
     })
   }
 
   onSaveChanges() {
-    const { project } = this.state
+    const { project, code } = this.state
     const { owner, name } = project
 
     return fetch(`/api/save/${owner}/${name}`, {
@@ -44,20 +45,57 @@ class Project extends Component {
       },
       method: 'POST',
       credentials: 'include',
-      body: JSON.stringify({ project }),
+      body: JSON.stringify(Object.assign({}, project, { source: code })),
     })
       .then(req => req.json(), err => console.error(err))
-      .then(res => console.log(res))
+      .then(res => {
+        this.setState({
+          project: res,
+        })
+      })
   }
 
-  onCodeChanged(newCode) {
-    this.setState({
-      project: Object.assign({}, this.state.project, { source: newCode }),
+  onCodeChanged(code) {
+    this.setState({ code }, () => {
+      this.applyCodeChanges(code)
     })
+  }
+
+  applyCodeChanges(newCode) {
+    const { project } = this.state
+    const { owner, name } = project
+
+    let etag = null
+
+    fetch(`/preview/${owner}/${name}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      credentials: 'include',
+      body: JSON.stringify({ source: newCode }),
+    })
+      .then(
+        res => {
+          etag = res.headers.get('etag')
+          return res.json()
+        },
+        err => console.error(err),
+      )
+      .then(res => {
+        this.setState({
+          project: Object.assign({}, this.state.project, {
+            html: res.html,
+            css: res.css,
+            js: res.js,
+            etag: etag,
+          }),
+        })
+      })
   }
 
   onCancelChanges() {
-    if (this.state.originalCode) this.onCodeChanged(this.state.originalCode)
+    this.onCodeChanged(this.state.project.source)
   }
 
   saveKeywords() {
@@ -67,7 +105,7 @@ class Project extends Component {
   }
 
   render() {
-    const { project } = this.state
+    const { project, code } = this.state
     const { match } = this.props
 
     if (!project) return <h3>Loading...</h3>
@@ -78,6 +116,7 @@ class Project extends Component {
         <ProjectEditor
           params={match.params}
           project={project}
+          code={code}
           onCodeChanged={this.onCodeChanged}
           onCancelChanges={this.onCancelChanges}
           onSaveChanges={this.onSaveChanges}

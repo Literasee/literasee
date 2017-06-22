@@ -3,9 +3,7 @@ import { getProjectViewUrl } from 'utils/urlUtil'
 
 import styles from './ProjectPreview.styl'
 
-export default ({ project, params, mode }) => {
-  if (!project || !project.source) return <div />
-
+export default ({ params, mode, etag }) => {
   return (
     <div
       className={styles.container}
@@ -14,7 +12,7 @@ export default ({ project, params, mode }) => {
       }}
     >
       <div className={styles.previewWrapper}>
-        <iframe src={`${getProjectViewUrl(params)}?source=${encodeURI(project.source)}`} />
+        <iframe src={`/preview/${params.username}/${params.project}/?etag=${etag}`} />
       </div>
     </div>
   )

@@ -145,7 +145,7 @@ exports.createTree = (req, project) => {
   const url = `https://api.github.com/repos/${owner}/${name}/git/trees`
 
   return standardizeRequest(request.post(url), token).send({
-    base_tree: project.lastCommit.commit.tree.sha,
+    base_tree: project.lastCommit.tree.sha,
     tree: [
       {
         path: 'index.idl',

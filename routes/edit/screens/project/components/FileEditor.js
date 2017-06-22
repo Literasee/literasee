@@ -3,14 +3,7 @@ import CodeEditor from './CodeEditor'
 
 import styles from './FileEditor.styl'
 
-const FileEditor = ({
-  code,
-  onCodeChanged,
-  onCancel,
-  onSave,
-  children,
-  mode,
-}) => {
+const FileEditor = ({ code, onCodeChanged, onCancel, onSave, children, mode }) => {
   return (
     <div
       className={styles.container}

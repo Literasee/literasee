@@ -18,15 +18,17 @@ module.exports = (req, res, next) => {
           html: requests.getRepoFile(req, 'index.html'),
           js: requests.getRepoFile(req, 'index.js'),
           source: requests.getRepoFile(req, 'index.idl'),
-        }).then(
-          contents => {
-            let output = {}
-            Object.keys(contents).forEach(key => {
-              output[key] = contents[key].text
-            })
+        }).then(contents => {
+          let output = {}
+          Object.keys(contents).forEach(key => {
+            output[key] = contents[key].text
+          })
 
           requests.getCommits(req, repoInfo.commits_url).then(commits => {
             output.lastCommit = commits.body[0]
+            // the get commits endpoint returns a different structure
+            // than the create commit endpoint
+            output.lastCommit.tree = output.lastCommit.commit.tree
 
             db
               .saveProject(
