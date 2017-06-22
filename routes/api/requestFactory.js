@@ -106,7 +106,7 @@ exports.createRepoFile = function(req) {
 exports.getRepoFile = function(req, filename) {
   const { owner, name } = req.params
   const token = req.cookies.token
-  const url = `https://api.github.com/repos/${owner}/${name}/contents/${filename}`
+  const url = `https://raw.githubusercontent.com/${owner}/${name}/gh-pages/${filename}`
 
   return standardizeRequest(request.get(url), token)
 }

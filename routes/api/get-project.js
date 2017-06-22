@@ -13,18 +13,17 @@ module.exports = (req, res, next) => {
       // the repo has changed, fetch all files and save to the db
       result => {
         const repoInfo = result.body
-        // better/faster to fetch repo contents and then
-        // download the files using download_url?
         Promise.props({
           css: requests.getRepoFile(req, 'styles.css'),
           html: requests.getRepoFile(req, 'index.html'),
           js: requests.getRepoFile(req, 'index.js'),
           source: requests.getRepoFile(req, 'index.idl'),
-        }).then(contents => {
-          let output = {}
-          Object.keys(contents).forEach(key => {
-            output[key] = new Buffer(contents[key].body.content, 'base64').toString()
-          })
+        }).then(
+          contents => {
+            let output = {}
+            Object.keys(contents).forEach(key => {
+              output[key] = contents[key].text
+            })
 
           requests.getCommits(req, repoInfo.commits_url).then(commits => {
             output.lastCommit = commits.body[0]
