@@ -6,16 +6,13 @@ module.exports = function(req, res) {
 
   requests.createTree(req, project).then(tree => {
     requests.createCommit(req, project, tree.body).then(commit => {
-      requests.updateRef(req, project, commit.body).then(
-        ref => {
-          project.lastCommit = commit.body
-          project.etag = ref.headers.etag
+      project.lastCommit = commit.body
+      requests.updateRef(req, project, commit.body).then(() => {
+        requests.getRepoInfo(req).then(info => {
+          project.etag = info.headers.etag
           data.saveProject(project).then(p => res.json(p))
-        },
-        err => {
-          res.json(err)
-        },
-      )
+        })
+      })
     })
   })
 }
