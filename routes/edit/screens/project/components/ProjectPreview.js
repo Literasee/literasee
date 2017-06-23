@@ -1,5 +1,4 @@
 import React from 'react'
-import { getProjectViewUrl } from 'utils/urlUtil'
 
 import styles from './ProjectPreview.styl'
 

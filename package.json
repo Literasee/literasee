@@ -43,7 +43,6 @@
     "css-loader": "^0.28.4",
     "dotenv": "^2.0.0",
     "express": "^4.13.3",
-    "express-subdomain": "^1.0.4",
     "handlebars": "^4.0.5",
     "idyll": "^1.9.0",
     "image-size-stream": "^1.1.0",

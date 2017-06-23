@@ -1,6 +1,5 @@
 const path = require('path')
 const express = require('express')
-const subdomain = require('express-subdomain')
 const engines = require('consolidate')
 const favicon = require('serve-favicon')
 const db = require('./persistence/db')
@@ -31,22 +30,11 @@ if (!process.env.PORT) {
   )
 }
 
-app.use('/preview', require('./routes/preview'))
-
 app.use('/public', express.static('public'))
 
-const apiRouter = require('./routes/api')
-app.use(subdomain('api', apiRouter))
-app.use('/api', apiRouter)
-
-const viewRouter = require('./routes/view')
-app.use(subdomain('view', viewRouter))
-app.use('/view', viewRouter)
-app.use('/', viewRouter)
-
-const editRouter = require('./routes/edit')
-app.use(subdomain('edit', editRouter))
-app.use('/edit', editRouter)
+app.use('/preview', require('./routes/preview'))
+app.use('/api', require('./routes/api'))
+app.use('/', require('./routes/edit'))
 
 // the React app is the fallback for all routes
 app.use(function(req, res) {
@@ -58,7 +46,7 @@ module.exports = function(local, port) {
 
   db.open().then(function() {
     app.listen(port, function() {
-      console.log('Server listening at http://edit.literasee.local:' + port)
+      console.log('Server listening at http://literasee.local:' + port)
     })
   })
 }
