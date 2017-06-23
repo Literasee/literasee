@@ -49,6 +49,7 @@
     "image-size-stream": "^1.1.0",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.0.0",
+    "mkdirp": "^0.5.1",
     "mongoose": "4.10.2",
     "random-word": "^2.0.0",
     "raw-loader": "^0.5.1",
@@ -61,7 +62,9 @@
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
     "superagent": "^3.5.2",
+    "superagent-binary-parser": "^1.0.1",
     "superagent-proxy": "^1.0.0",
+    "tar": "^3.1.5",
     "webpack": "^2.6.1"
   },
   "devDependencies": {

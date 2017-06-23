@@ -1,5 +1,10 @@
+const fs = require('fs')
+const { join } = require('path')
 const request = require('superagent')
 const randomWord = require('random-word')
+const mkdirp = require('mkdirp')
+const binaryParser = require('superagent-binary-parser')
+const tar = require('tar')
 
 const ENABLE_CHARLES_PROXY = false
 
@@ -39,6 +44,34 @@ exports.getRepoInfo = function(req, etag) {
   const url = `https://api.github.com/repos/${owner}/${name}`
 
   return standardizeRequest(request.get(url), token, etag)
+}
+
+exports.getRepoArchive = function(req) {
+  const { owner, name } = req.params
+  const token = req.cookies.token
+  const url = `https://api.github.com/repos/${owner}/${name}/tarball`
+
+  const destDir = join(__dirname, '..', '..', 'tmp', owner, name)
+  const archivePath = join(destDir, 'repo.tar.gz')
+
+  if (!fs.existsSync(destDir)) mkdirp.sync(destDir)
+
+  return standardizeRequest(request.get(url), token).parse(binaryParser).buffer().then(
+    res => {
+      fs.writeFileSync(archivePath, res.body)
+      return tar.x({ file: archivePath, cwd: destDir, strip: 1 }).then(() => {
+        return {
+          source: fs.readFileSync(join(destDir, 'index.idl'), 'utf8'),
+          js: fs.readFileSync(join(destDir, 'index.js'), 'utf8'),
+          html: fs.readFileSync(join(destDir, 'index.html'), 'utf8'),
+          css: fs.readFileSync(join(destDir, 'styles.css'), 'utf8'),
+        }
+      })
+    },
+    err => {
+      return err
+    },
+  )
 }
 
 exports.createRepo = function(req) {

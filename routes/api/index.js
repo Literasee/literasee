@@ -24,7 +24,7 @@ router.get('/featured', require('./get-featured-projects'))
 
 // updated routes
 router.get('/:username', require('./get-user-projects'))
-router.get('/:owner/:name', [require('./get-project'), (req, res) => res.json(res.locals.project)])
+router.get('/:owner/:name', require('./get-project'))
 router.post('/save/:owner/:name', require('./save-project'))
 
 router.patch('/:owner/:project', require('./update-project-description'))
