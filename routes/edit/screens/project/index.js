@@ -32,6 +32,7 @@ class Project extends Component {
   componentDidMount() {
     this.fetchProject(this.props.match.params).then(project => {
       this.setState({ project, code: project.source })
+      this.applyCodeChanges(project.source)
     })
   }
 
