@@ -33,7 +33,7 @@ class AuthenticatedHeader extends Component {
     })
       .then(req => req.json(), err => console.error(err))
       .then(res => {
-        history.push(`/${username}/${res.name}`)
+        if (res.name) history.push(`/${username}/${res.name}`)
       })
   }
 

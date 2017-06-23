@@ -1,44 +1,59 @@
 const fs = require('fs')
 const { join } = require('path')
 const requests = require('./requestFactory')
+const Promise = require('bluebird')
 
 const template = name => {
   return fs.readFileSync(join(__dirname, 'templates', name), 'utf8')
 }
 
+const createFile = (req, owner, name, filename, content) => {
+  return requests.createFile(req, owner, name, filename, content || template(filename))
+}
+
 // TODO: copy template files to tmp dir to avoid initial build?
 module.exports = function(req, res, next) {
-  requests.createRepo(req).end((err, result) => {
-    const refsUrl = result.body.git_refs_url
-    const { name, owner, url } = result.body
-    const idyllDir = join(__dirname, '..', '..', 'tmp', owner.login, name)
+  let login, name, refsUrl, url
+  requests
+    .createRepo(req)
+    .then(result => {
+      refsUrl = result.body.git_refs_url
+      const { owner } = result.body
+      login = owner.login
+      name = result.body.name
+      url = result.body.url
 
-    const input = template('index.idl')
-      .replace('{PROJECT_TITLE}', name)
-      .replace('{PROJECT_TITLE}', name)
-      .replace('{AUTHOR}', owner.login)
-      .replace('{AUTHOR_LINK}', owner.html_url)
+      const input = template('index.idl')
+        .replace('{PROJECT_TITLE}', name)
+        .replace('{PROJECT_TITLE}', name)
+        .replace('{AUTHOR}', login)
+        .replace('{AUTHOR_LINK}', owner.html_url)
 
-    const contentsUrl = result.body.contents_url.replace('{+path}', '')
-
-    requests.createFile(req, contentsUrl, 'index.idl', input).end((err, result) => {
-      requests.createBranch(req, refsUrl, result.body.commit.sha).end((err, result) => {
-        requests.deleteBranch(req, refsUrl).end((err, result) => {
-          requests.setDefaultBranch(req, url, name).end((err, result) => {
-            requests.createFile(req, contentsUrl, 'index.html', template('index.html')).then(() => {
-              requests
-                .createFile(req, contentsUrl, 'styles.css', template('styles.css'))
-                .then(() => {
-                  requests
-                    .createFile(req, contentsUrl, 'index.js', template('index.js'))
-                    .then(() => {
-                      res.json({ name })
-                    })
-                })
-            })
-          })
-        })
-      })
+      return createFile(req, login, name, 'index.idl', input)
     })
-  })
+    .then(() => {
+      return createFile(req, login, name, 'index.html')
+    })
+    .then(() => {
+      return createFile(req, login, name, 'styles.css')
+    })
+    .then(() => {
+      return createFile(req, login, name, 'index.js')
+    })
+    .then(result => {
+      return requests.createBranch(req, refsUrl, result.body.commit.sha)
+    })
+    .then(() => {
+      return requests.setDefaultBranch(req, url, name)
+    })
+    .then(result => {
+      return requests.deleteBranch(req, refsUrl)
+    })
+    .then(() => {
+      res.json({ name })
+    })
+    .catch(e => {
+      res.json(e)
+      throw e
+    })
 }

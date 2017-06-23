@@ -74,9 +74,8 @@ exports.getRepoArchive = function(req) {
   )
 }
 
-exports.createRepo = function(req) {
-  const repo = req.params.repo || [randomWord(), randomWord()].join('-')
-  console.log(repo, req.cookies)
+exports.createRepo = function(req, repoName) {
+  const repo = repoName || req.params.repo || [randomWord(), randomWord()].join('-')
   const token = req.cookies.token
   const url = `https://api.github.com/user/repos`
 
@@ -86,13 +85,17 @@ exports.createRepo = function(req) {
     has_issues: false,
     has_projects: false,
     has_wiki: false,
+    auto_init: false,
   })
 }
 
-exports.createFile = function(req, url, path, content) {
-  return standardizeRequest(request.put(url + path), req.cookies.token).send({
+exports.createFile = function(req, owner, name, path, content) {
+  const token = req.cookies.token
+  const url = `https://api.github.com/repos/${owner}/${name}/contents/${path}`
+
+  return standardizeRequest(request.put(url), token).send({
     path,
-    message: 'Initial commit',
+    message: `Create ${path}`,
     content: new Buffer(content).toString('base64'),
   })
 }
