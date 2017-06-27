@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import Logo from './Logo'
+import Overlay from '../overlay'
 
 import styles from './header.styl'
 
@@ -28,12 +29,14 @@ class AuthenticatedHeader extends Component {
   createProject() {
     const { history, username } = this.props
 
+    Overlay.show()
     fetch('/api/create', {
       credentials: 'include',
     })
       .then(req => req.json(), err => console.error(err))
       .then(res => {
-        if (res.name) history.push(`/${username}/${res.name}`)
+        Overlay.hide()
+        if (res.name) history.push(`/${username}/${res.name}/edit`)
       })
   }
 
