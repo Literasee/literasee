@@ -39,7 +39,7 @@ export default class extends Component {
           disabled={isSaving}
           className="btn btn-primary"
         >
-          Save
+          {isSaving ? 'Saving...' : 'Save'}
           <img
             src="/public/img/ripple.svg"
             style={{
