@@ -31,7 +31,7 @@ class ProjectGrid extends Component {
 
               let [title, subTitle] = (project.description || '').split('|')
               if (!title) title = project.name
-              let linkDest = `/${project.owner}/${project.name}`
+              let linkDest = `/${project.owner}/${project.name}/edit`
               if (username && username !== project.owner) {
                 linkDest = `/${username}${linkDest}`
               }
