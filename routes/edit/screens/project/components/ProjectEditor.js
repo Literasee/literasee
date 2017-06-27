@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { NavLink } from 'react-router-dom'
 import _ from 'lodash'
 import CodeEditor from './CodeEditor'
 import Toolbar from './Toolbar'
@@ -10,40 +9,11 @@ import styles from './ProjectEditor.styl'
 class ProjectEditor extends Component {
   render() {
     const { params, project, code, onCodeChanged, onCancelChanges, onSaveChanges } = this.props
-    const { username, owner, name } = params
-
     const mode = params.mode || 'edit'
-    const linkBase = ['', username, owner, project.name].join('/').replace('//', '/')
 
     return (
       <div className={styles.container}>
-        <nav role="navigation" className={styles.nav}>
-          <NavLink
-            to={linkBase + '/edit'}
-            className={styles.navLink}
-            activeClassName={styles.active}
-          >
-            <img src="/public/img/toolbar/edit.png" />
-            Edit
-          </NavLink>
-          <NavLink
-            to={linkBase + '/preview'}
-            className={styles.navLink}
-            activeClassName={styles.active}
-          >
-            <img src="/public/img/toolbar/preview.png" />
-            Preview
-          </NavLink>
-          <div className={styles.buttonContainer}>
-            <button onClick={onCancelChanges} type="button" name="button" className="btn">
-              Cancel
-            </button>
-            <button onClick={onSaveChanges} type="button" name="button" className="btn btn-primary">
-              Save
-            </button>
-          </div>
-        </nav>
-        <Toolbar mode={mode} />
+        <Toolbar params={params} />
         <div
           style={{
             display: 'flex',
@@ -54,12 +24,20 @@ class ProjectEditor extends Component {
             style={{
               flex: mode === 'edit' ? 1 : 0,
               backgroundColor: 'white',
-              padding: '0.5rem',
+              padding: '1rem',
             }}
           >
             <CodeEditor code={code} onCodeChange={onCodeChanged} onSave={onSaveChanges} />
           </div>
           <ProjectPreview etag={project.etag} mode={mode} params={params} />
+        </div>
+        <div className={styles.buttonContainer}>
+          <button onClick={onCancelChanges} type="button" name="button" className="btn">
+            Cancel
+          </button>
+          <button onClick={onSaveChanges} type="button" name="button" className="btn btn-primary">
+            Save
+          </button>
         </div>
       </div>
     )

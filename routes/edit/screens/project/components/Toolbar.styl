@@ -4,12 +4,59 @@
 .container {
   background: #F5F5F5;
   height: 3rem;
-  box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.12);
+  border-bottom: 1px solid lightgray;
   display: flex;
-  align-items: stretch;
   justify-content: space-between;
   padding-left: 1.2rem;
   z-index: 200;
+}
+
+.nav {
+  display: flex;
+  align-items: baseline;
+}
+
+.navLink {
+  composes: btn;
+
+  display: flex;
+  align-items: flex-start;
+  align-self: flex-end;
+  font-size: 20px;
+  font-weight: 300;
+  color: rgba(0, 0, 0, 0.5);
+  border: none;
+  padding: 10px 15px;
+
+  &:hover {
+    color: #000000;
+
+    img {
+      opacity: 1;
+    }
+  }
+
+  &.active {
+    color: #000000;
+    background: #FFFFFF;
+    border-radius: 8px 8px 0 0;
+    border: 1px solid lightgray;
+    border-bottom: none;
+    margin-bottom: -1px;
+    font-weight: 500;
+
+    img {
+      opacity: 1;
+    }
+  }
+
+  * {
+    padding: 0 0.35rem;
+  }
+
+  img {
+    opacity: 0.25;
+  }
 }
 
 .tools {
