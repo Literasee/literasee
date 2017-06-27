@@ -6,7 +6,7 @@ import markdownSyntax from 'brace/mode/markdown'
 import styles from './CodeEditor.styl'
 
 export default ({ code, isActive, onCodeChange, onSave }) => {
-  if (!code) return <div />
+  if (!isActive) return <div />
 
   const onLoad = editor => {
     editor.commands.addCommand({
