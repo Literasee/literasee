@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 import _ from 'lodash'
-import FileEditor from './FileEditor'
+import CodeEditor from './CodeEditor'
 import Toolbar from './Toolbar'
 import ProjectPreview from './ProjectPreview'
 
@@ -50,13 +50,15 @@ class ProjectEditor extends Component {
             flex: 1,
           }}
         >
-          <FileEditor
-            mode={mode}
-            onCodeChanged={onCodeChanged}
-            onCancel={onCancelChanges}
-            onSave={onSaveChanges}
-            code={code}
-          />
+          <div
+            style={{
+              flex: mode === 'edit' ? 1 : 0,
+              backgroundColor: 'white',
+              padding: '0.5rem',
+            }}
+          >
+            <CodeEditor code={code} onCodeChange={onCodeChanged} onSave={onSaveChanges} />
+          </div>
           <ProjectPreview etag={project.etag} mode={mode} params={params} />
         </div>
       </div>
