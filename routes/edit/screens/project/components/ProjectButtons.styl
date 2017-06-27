@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding-top: 0.6rem;
+
+  button {
+    font-size: 18px;
+    padding: 12px 20px;
+
+    &:disabled {
+      opacity: 0.5;
+    }
+
+    img {
+      transition: all 0.25s ease-out;
+    }
+  }
+
+  button:last-child {
+    margin-left: 0.6rem;
+  }
+}

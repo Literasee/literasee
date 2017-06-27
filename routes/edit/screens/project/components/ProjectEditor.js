@@ -1,42 +1,33 @@
-import React, { Component } from 'react'
+import React from 'react'
 import _ from 'lodash'
 import CodeEditor from './CodeEditor'
 import Toolbar from './Toolbar'
 import ProjectPreview from './ProjectPreview'
+import ProjectButtons from './ProjectButtons'
 
 import styles from './ProjectEditor.styl'
 
 export default ({ params, project, code, onCodeChanged, onCancelChanges, onSaveChanges }) => {
   const mode = params.mode || 'edit'
+  let ripple
 
   return (
     <div className={styles.container}>
       <Toolbar params={params} />
-      <div
-        style={{
-          display: 'flex',
-          flex: 1,
-        }}
-      >
-        <div
-          style={{
-            flex: mode === 'edit' ? 1 : 0,
-            backgroundColor: 'white',
-            padding: '1rem',
-          }}
-        >
-          <CodeEditor code={code} onCodeChange={onCodeChanged} onSave={onSaveChanges} />
-        </div>
-        <ProjectPreview etag={project.etag} mode={mode} params={params} />
+      <div style={{ display: 'flex', flex: 1 }}>
+        <CodeEditor
+          isActive={mode === 'edit'}
+          code={code}
+          onCodeChange={onCodeChanged}
+          onSave={onSaveChanges}
+        />
+        <ProjectPreview isActive={mode === 'preview'} etag={project.etag} params={params} />
       </div>
-      <div className={styles.buttonContainer}>
-        <button onClick={onCancelChanges} type="button" name="button" className="btn">
-          Cancel
-        </button>
-        <button onClick={onSaveChanges} type="button" name="button" className="btn btn-primary">
-          Save
-        </button>
-      </div>
+      <ProjectButtons
+        changesExist={code !== project.source}
+        onCancelChanges={onCancelChanges}
+        onSaveChanges={onSaveChanges}
+      />
     </div>
   )
 }

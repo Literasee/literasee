@@ -5,7 +5,7 @@ import markdownSyntax from 'brace/mode/markdown'
 
 import styles from './CodeEditor.styl'
 
-export default ({ code, onCodeChange, onSave }) => {
+export default ({ code, isActive, onCodeChange, onSave }) => {
   if (!code) return <div />
 
   const onLoad = editor => {
@@ -20,20 +20,22 @@ export default ({ code, onCodeChange, onSave }) => {
   }
 
   return (
-    <AceEditor
-      mode="markdown"
-      theme="github"
-      name="aceEditor"
-      value={code}
-      className={styles.aceEditor}
-      showPrintMargin={false}
-      showGutter={false}
-      editorProps={{ $blockScrolling: Infinity }}
-      setOptions={{
-        showLineNumbers: false,
-      }}
-      onLoad={onLoad}
-      onChange={onCodeChange}
-    />
+    <div className={styles.container} style={{ flex: isActive ? 1 : 0 }}>
+      <AceEditor
+        mode="markdown"
+        theme="github"
+        name="aceEditor"
+        value={code}
+        className={styles.aceEditor}
+        showPrintMargin={false}
+        showGutter={false}
+        editorProps={{ $blockScrolling: Infinity }}
+        setOptions={{
+          showLineNumbers: false,
+        }}
+        onLoad={onLoad}
+        onChange={onCodeChange}
+      />
+    </div>
   )
 }
