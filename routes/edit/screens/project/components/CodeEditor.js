@@ -27,7 +27,11 @@ export default ({ code, onCodeChange, onSave }) => {
       value={code}
       className={styles.aceEditor}
       showPrintMargin={false}
+      showGutter={false}
       editorProps={{ $blockScrolling: Infinity }}
+      setOptions={{
+        showLineNumbers: false,
+      }}
       onLoad={onLoad}
       onChange={onCodeChange}
     />
