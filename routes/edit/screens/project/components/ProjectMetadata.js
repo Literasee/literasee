@@ -11,7 +11,7 @@ const getTitles = project => {
 
   if (title.startsWith('http')) {
     subTitle = <a href={title}>Published Site</a>
-    title = ''
+    title = project.name
   }
 
   return { title, subTitle }
