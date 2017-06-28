@@ -66,14 +66,18 @@ const oauth = (req, res, next) => {
 //
 // USER REDIRECT
 //
-const redirectLoggedInUser = (req, res, next) => {
+const redirectAsNeeded = (req, res, next) => {
+  // logged in users start at their dashboard
+  // non-logged in users start at the root
   if (req.cookies.username && !req.originalUrl.includes(req.cookies.username)) {
     res.redirect(req.cookies.username)
+  } else if (!req.cookies.username && req.originalUrl !== '/') {
+    res.redirect('/')
   } else {
     next()
   }
 }
 
-router.use(oauth, redirectLoggedInUser)
+router.use(oauth, redirectAsNeeded)
 
 module.exports = router
