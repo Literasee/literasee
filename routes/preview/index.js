@@ -40,6 +40,7 @@ router.post('/:owner/:name', (req, res) => {
   idyll({
     output: dir,
     temp: dir,
+    components: join(dir, 'components'),
     minify: false,
     ssr: true,
     debug: true,
