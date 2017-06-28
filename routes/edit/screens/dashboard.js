@@ -2,8 +2,8 @@ import React from 'react'
 import Carousel from '../components/carousel'
 import ProjectGrid from '../components/projectGrid'
 
-export default () =>
+export default ({ match }) =>
   <main role="main">
-    <Carousel />
+    {!match.params.username && <Carousel />}
     <ProjectGrid />
   </main>

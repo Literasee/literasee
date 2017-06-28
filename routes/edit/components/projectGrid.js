@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import cookies from '../cookies'
 
 class ProjectGrid extends Component {
   constructor() {
@@ -8,7 +9,9 @@ class ProjectGrid extends Component {
   }
 
   componentDidMount() {
-    fetch(`/api/${this.props.username || 'featured'}`, {
+    const { username } = cookies()
+
+    fetch(`/api/${username || 'featured'}`, {
       credentials: 'include',
     })
       .then(req => req.json(), err => console.error(err))
@@ -19,7 +22,7 @@ class ProjectGrid extends Component {
 
   render() {
     const { projects = [] } = this.state
-    const { username } = this.props
+    const { username } = cookies()
 
     return (
       <div className="center-lg container-fluid">

@@ -4,8 +4,7 @@ import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-d
 import Header from './components/header'
 import Footer from './components/footer'
 
-import Homepage from './screens/homepage'
-import UserDashboard from './screens/userDashboard'
+import Dashboard from './screens/dashboard'
 import ProjectScreen from './screens/project'
 
 export default () =>
@@ -13,8 +12,8 @@ export default () =>
     <div className="wrapper">
       <Header />
 
-      <Route exact path="/" component={Homepage} />
-      <Route exact path="/:username" component={UserDashboard} />
+      <Route exact path="/" component={Dashboard} />
+      <Route exact path="/:username" component={Dashboard} />
       <Route
         exact
         path="/:username/:project"
