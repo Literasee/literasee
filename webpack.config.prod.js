@@ -21,6 +21,9 @@ module.exports = {
         NODE_ENV: JSON.stringify('production'),
       },
       GH_CLIENT_ID: JSON.stringify(process.env.GH_CLIENT_ID),
+      OAUTH_URL: JSON.stringify(
+        `https://github.com/login/oauth/authorize?client_id=${process.env.GH_CLIENT_ID}&scope=repo`,
+      ),
     }),
   ],
   node: { fs: 'empty' },

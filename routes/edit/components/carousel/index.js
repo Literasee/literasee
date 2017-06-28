@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import CarouselA from './CarouselA'
 import CarouselB from './CarouselB'
-import initialState from '../../initialState'
 
 import styles from './Carousel.styl'
 
@@ -37,7 +36,7 @@ class Carousel extends Component {
       <div style={{ position: 'relative' }}>
         <CarouselA
           swapHero={this.swapHero}
-          oauthUrl={initialState.oauthUrl}
+          oauthUrl={OAUTH_URL}
           style={{
             opacity: showA ? 1 : 0,
             pointerEvents: showA ? 'all' : 'none',
@@ -45,7 +44,7 @@ class Carousel extends Component {
         />
         <CarouselB
           swapHero={this.swapHero}
-          oauthUrl={initialState.oauthUrl}
+          oauthUrl={OAUTH_URL}
           style={{
             opacity: showA ? 0 : 1,
             pointerEvents: showA ? 'none' : 'all',

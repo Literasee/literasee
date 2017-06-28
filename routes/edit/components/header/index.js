@@ -1,10 +1,12 @@
 import React from 'react'
-import initialState from '../../initialState'
 import DefaultHeader from './DefaultHeader'
 import AuthenticatedHeader from './AuthenticatedHeader'
+import cookies from '../../cookies'
 
 export default function() {
-  if (!initialState.username) return <DefaultHeader {...initialState} />
+  const { username, token } = cookies()
 
-  return <AuthenticatedHeader {...initialState} />
+  if (username) return <AuthenticatedHeader username={username} token={token} />
+
+  return <DefaultHeader />
 }
