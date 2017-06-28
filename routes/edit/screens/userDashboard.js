@@ -1,5 +1,5 @@
 import React from 'react'
-import initialState from '../config/initialState'
+import initialState from '../initialState'
 import ProjectGrid from '../components/projectGrid'
 
 export default () =>

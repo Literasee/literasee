@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import CarouselA from './CarouselA'
 import CarouselB from './CarouselB'
-import initialState from '../../config/initialState'
+import initialState from '../../initialState'
 
 import styles from './Carousel.styl'
 
