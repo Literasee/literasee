@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
 
 import Header from './components/header'
 import Footer from './components/footer'
@@ -15,9 +15,13 @@ export default () =>
 
       <Route exact path="/" component={Homepage} />
       <Route exact path="/:username" component={UserDashboard} />
+      <Route
+        path="/:username/:project"
+        render={({ match }) => <Redirect to={`${match.url}/edit`.replace('//', '/')} />}
+      />
       <Switch>
-        <Route path="/:username/:project/:mode?" component={ProjectScreen} />
-        <Route path="/:username/:owner/:project/:mode?" component={ProjectScreen} />
+        <Route path="/:username/:project/:mode" component={ProjectScreen} />
+        <Route path="/:username/:owner/:project/:mode" component={ProjectScreen} />
       </Switch>
 
       <Footer />
