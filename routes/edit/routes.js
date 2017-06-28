@@ -16,6 +16,7 @@ export default () =>
       <Route exact path="/" component={Homepage} />
       <Route exact path="/:username" component={UserDashboard} />
       <Route
+        exact
         path="/:username/:project"
         render={({ match }) => <Redirect to={`${match.url}/edit`.replace('//', '/')} />}
       />
