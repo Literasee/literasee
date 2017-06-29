@@ -12,6 +12,8 @@ class Project extends Component {
 
     this.saveKeywords = this.saveKeywords.bind(this)
     this.onCodeChanged = this.onCodeChanged.bind(this)
+    this.onLayoutChanged = this.onLayoutChanged.bind(this)
+    this.onThemeChanged = this.onThemeChanged.bind(this)
     this.applyCodeChanges = this.applyCodeChanges.bind(this)
     this.onCancelChanges = this.onCancelChanges.bind(this)
     this.onSaveChanges = this.onSaveChanges.bind(this)
@@ -30,13 +32,18 @@ class Project extends Component {
 
   componentDidMount() {
     this.fetchProject(this.props.match.params).then(project => {
-      this.setState({ project, code: project.source })
+      this.setState({
+        project,
+        code: project.source,
+        layout: project.layout,
+        theme: project.theme,
+      })
       this.applyCodeChanges(project.source)
     })
   }
 
   onSaveChanges() {
-    const { project, code } = this.state
+    const { project, code, layout, theme } = this.state
     const { owner, name } = project
 
     return fetch(`/api/save/${owner}/${name}`, {
@@ -45,7 +52,13 @@ class Project extends Component {
       },
       method: 'POST',
       credentials: 'include',
-      body: JSON.stringify(Object.assign({}, project, { source: code })),
+      body: JSON.stringify(
+        Object.assign({}, project, {
+          source: code,
+          layout,
+          theme,
+        }),
+      ),
     })
       .then(req => req.json(), err => console.error(err))
       .then(res => {
@@ -61,8 +74,16 @@ class Project extends Component {
     })
   }
 
+  onLayoutChanged(e) {
+    this.setState({ layout: e.target.value }, this.applyCodeChanges)
+  }
+
+  onThemeChanged(e) {
+    this.setState({ theme: e.target.value }, this.applyCodeChanges)
+  }
+
   applyCodeChanges(newCode) {
-    const { project } = this.state
+    const { project, layout, theme } = this.state
     const { owner, name } = project
 
     let etag = null
@@ -73,7 +94,11 @@ class Project extends Component {
       },
       method: 'POST',
       credentials: 'include',
-      body: JSON.stringify({ source: newCode }),
+      body: JSON.stringify({
+        source: newCode || project.source,
+        layout: layout || project.layout,
+        theme: theme || project.theme,
+      }),
     })
       .then(
         res => {
@@ -84,10 +109,7 @@ class Project extends Component {
       )
       .then(res => {
         this.setState({
-          project: Object.assign({}, this.state.project, {
-            html: res.html,
-            css: res.css,
-            js: res.js,
+          project: Object.assign({}, this.state.project, res, {
             etag: etag,
           }),
         })
@@ -95,7 +117,16 @@ class Project extends Component {
   }
 
   onCancelChanges() {
-    this.onCodeChanged(this.state.project.source)
+    const { project, layout, theme } = this.state
+
+    this.setState(
+      {
+        code: project.source,
+        layout: project.layout,
+        theme: project.theme,
+      },
+      this.applyCodeChanges,
+    )
   }
 
   saveKeywords() {
@@ -105,7 +136,7 @@ class Project extends Component {
   }
 
   render() {
-    const { project, code } = this.state
+    const { project, code, layout, theme } = this.state
     const { match } = this.props
 
     if (!project) return <h3>Loading...</h3>
@@ -117,7 +148,11 @@ class Project extends Component {
           params={match.params}
           project={project}
           code={code}
+          layout={layout}
+          theme={theme}
           onCodeChanged={this.onCodeChanged}
+          onLayoutChanged={this.onLayoutChanged}
+          onThemeChanged={this.onThemeChanged}
           onCancelChanges={this.onCancelChanges}
           onSaveChanges={this.onSaveChanges}
         />

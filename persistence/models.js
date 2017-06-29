@@ -11,6 +11,8 @@ const ProjectSchema = new Schema({
   html: String,
   js: String,
   source: String,
+  layout: { type: String, default: 'blog' },
+  theme: { type: String, default: 'idyll' },
   thumbnail: String,
   etag: String,
   lastCommit: Schema.Types.Mixed,

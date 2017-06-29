@@ -1,0 +1,33 @@
+.tools {
+  display: flex;
+  align-items: center;
+  margin-right: 0.5rem;
+}
+
+.buttonGroup {
+  display: flex;
+  padding-right: 0.5rem;
+
+  button {
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border: none;
+    border-right: 1px solid rgba(151, 151, 151, 0.4);
+    padding: 0.2rem 0.8rem;
+
+    &:last-child {
+      border-right: none;
+    }
+
+    img {
+      opacity: 0.4;
+    }
+
+    &:hover {
+      img {
+        opacity: 1;
+      }
+    }
+  }
+}

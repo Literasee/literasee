@@ -29,6 +29,7 @@ const idyll = require('idyll')
 router.post('/:owner/:name', (req, res) => {
   const { owner, name } = req.params
   const { username } = req.cookies
+  const { source, layout = 'blog', theme = 'github' } = req.body
 
   // TODO: add support for orgs
   if (owner !== username) {
@@ -41,15 +42,21 @@ router.post('/:owner/:name', (req, res) => {
     output: dir,
     temp: dir,
     components: join(dir, 'components'),
+    layout,
+    theme,
     minify: false,
     ssr: true,
     debug: true,
     compilerOptions: { spellcheck: false },
   })
-    .once('update', output => {
-      res.json(output)
+    .once('update', ({ html, css, js }) => {
+      res.json({
+        html,
+        css,
+        js,
+      })
     })
-    .build(req.body.source)
+    .build(source)
 })
 
 module.exports = router

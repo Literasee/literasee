@@ -1,19 +1,38 @@
 import React from 'react'
 import _ from 'lodash'
 import CodeEditor from './CodeEditor'
-import Toolbar from './Toolbar'
+import Toolbar from './toolbar'
 import ProjectPreview from './ProjectPreview'
 import ProjectButtons from './ProjectButtons'
 
 import styles from './ProjectEditor.styl'
 
-export default ({ params, project, code, onCodeChanged, onCancelChanges, onSaveChanges }) => {
+export default ({
+  params,
+  project,
+  code,
+  layout,
+  theme,
+  onCodeChanged,
+  onLayoutChanged,
+  onThemeChanged,
+  onCancelChanges,
+  onSaveChanges,
+}) => {
   const mode = params.mode || 'edit'
-  let ripple
+  const changesExist =
+    code !== project.source || layout !== project.layout || theme !== project.theme
 
   return (
     <div className={styles.container}>
-      <Toolbar params={params} />
+      <Toolbar
+        params={params}
+        project={project}
+        layout={layout}
+        theme={theme}
+        onLayoutChanged={onLayoutChanged}
+        onThemeChanged={onThemeChanged}
+      />
       <div style={{ display: 'flex', flex: 1 }}>
         <CodeEditor
           isActive={mode === 'edit'}
@@ -24,7 +43,7 @@ export default ({ params, project, code, onCodeChanged, onCancelChanges, onSaveC
         <ProjectPreview isActive={mode === 'preview'} etag={project.etag} params={params} />
       </div>
       <ProjectButtons
-        changesExist={code !== project.source}
+        changesExist={changesExist}
         onCancelChanges={onCancelChanges}
         onSaveChanges={onSaveChanges}
       />
