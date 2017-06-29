@@ -7,8 +7,8 @@ const router = express.Router()
 //
 router.get('/logout', function(req, res) {
   const domain = req.hostname.substr(req.hostname.indexOf('.'))
-  res.clearCookie('token', { domain })
-  res.clearCookie('username', { domain })
+  res.clearCookie('token')
+  res.clearCookie('username')
   res.redirect('/')
 })
 
@@ -22,8 +22,6 @@ const oauth = (req, res, next) => {
   // and pass to the next handler
   if (!req.query.code) return next()
 
-  // trim subdomain so cookies are shared
-  const domain = req.hostname.substr(req.hostname.indexOf('.'))
   // 30 day expiration
   const expires = new Date(Date.now() + 1000 * 60 * 60 * 24 * 30)
 
@@ -42,7 +40,6 @@ const oauth = (req, res, next) => {
       // we store the token in a cookie for use by the app
       // and set it to expire in a month
       res.cookie('token', token, {
-        domain,
         expires,
       })
 
@@ -54,7 +51,6 @@ const oauth = (req, res, next) => {
         .end(function(err2, result) {
           // store the user's GitHub id in a cookie too
           res.cookie('username', result.body.login, {
-            domain,
             expires,
           })
           // finally, send the user to their own URL
