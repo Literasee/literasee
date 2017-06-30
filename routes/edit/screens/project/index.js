@@ -86,6 +86,7 @@ class Project extends Component {
     const { project, layout, theme } = this.state
     const { owner, name } = project
 
+    this.setState({ isPreviewCurrent: false })
     let etag = null
 
     fetch(`/preview/${owner}/${name}`, {
@@ -112,6 +113,7 @@ class Project extends Component {
           project: Object.assign({}, this.state.project, res, {
             etag: etag,
           }),
+          isPreviewCurrent: true,
         })
       })
   }
@@ -136,7 +138,7 @@ class Project extends Component {
   }
 
   render() {
-    const { project, code, layout, theme } = this.state
+    const { project, code, layout, theme, isPreviewCurrent } = this.state
     const { match } = this.props
 
     if (!project) return <h3>Loading...</h3>
@@ -150,6 +152,7 @@ class Project extends Component {
           code={code}
           layout={layout}
           theme={theme}
+          isPreviewCurrent={isPreviewCurrent}
           onCodeChanged={this.onCodeChanged}
           onLayoutChanged={this.onLayoutChanged}
           onThemeChanged={this.onThemeChanged}

@@ -7,7 +7,6 @@ import ProjectButtons from './ProjectButtons'
 import PendingChangesOverlay from './PendingChangesOverlay'
 
 import styles from './ProjectEditor.styl'
-let etagPrev
 
 export default ({
   params,
@@ -15,18 +14,13 @@ export default ({
   code,
   layout,
   theme,
+  isPreviewCurrent,
   onCodeChanged,
   onLayoutChanged,
   onThemeChanged,
   onCancelChanges,
   onSaveChanges,
 }) => {
-  // project.etag changes any time edits are applied, including previews
-  // so if the current and previous match we are re-rendering
-  // while waiting for changes to be reflected
-  const changesPending = project.etag === etagPrev
-  etagPrev = project.etag
-
   const mode = params.mode || 'edit'
   const changesExist =
     code !== project.source || layout !== project.layout || theme !== project.theme
@@ -49,7 +43,7 @@ export default ({
           onSave={onSaveChanges}
         />
         <ProjectPreview isActive={mode === 'preview'} etag={project.etag} params={params} />
-        {mode === 'preview' && <PendingChangesOverlay isVisible={changesPending} />}
+        {mode === 'preview' && <PendingChangesOverlay isVisible={!isPreviewCurrent} />}
       </div>
       <ProjectButtons
         changesExist={changesExist}
