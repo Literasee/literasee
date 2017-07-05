@@ -37,11 +37,14 @@ router.post('/:owner/:name', (req, res) => {
   }
 
   const dir = join(__dirname, '..', '..', 'tmp', owner, name)
+  const customStyles = join(dir, 'custom-styles.css')
 
   idyll({
     output: dir,
     temp: dir,
     components: join(dir, 'components'),
+    datasets: join(dir, 'data'),
+    css: fs.existsSync(customStyles) ? customStyles : undefined,
     layout,
     theme,
     minify: false,
