@@ -81,7 +81,7 @@ exports.createRepo = function(req, repoName) {
 
   return standardizeRequest(request.post(url), token).send({
     name: repo,
-    description: `https://${req.cookies.username}.github.io/${repo}/`,
+    homepage: `https://${req.cookies.username}.github.io/${repo}/`,
     has_issues: false,
     has_projects: false,
     has_wiki: false,

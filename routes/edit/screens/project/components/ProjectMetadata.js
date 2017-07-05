@@ -5,14 +5,9 @@ import Keywords from './Keywords'
 import styles from './ProjectMetadata.styl'
 
 const getTitles = project => {
-  const { description } = project
-  let title = description ? description.split('|')[0].trim() : project.id
+  const { description, homepage } = project
+  const title = description ? description.split('|')[0].trim() : project.name
   let subTitle = description ? description.split('|')[1] : ''
-
-  if (title.startsWith('http')) {
-    subTitle = <a href={title}>Published Site</a>
-    title = project.name
-  }
 
   return { title, subTitle }
 }
@@ -49,8 +44,13 @@ export default props => {
         <Link to={'/' + props.match.params.username} className={styles.backBtn}>
           <img src="/public/img/icon-back.png" /> Back
         </Link>
-        <h1>{title}</h1>
-        <p>{subTitle}</p>
+        <h1>
+          {title}
+        </h1>
+        <p>
+          {subTitle}
+        </p>
+        {project.homepage && <a href={project.homepage}>Published Site</a>}
       </div>
       <Keywords keywords={project.keywords} add={addKeyword} remove={removeKeyword} />
     </div>

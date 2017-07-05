@@ -21,6 +21,7 @@ const mergeUserProjects = user => {
         owner: typeof p.owner === 'string' ? p.owner : p.owner.login,
         name: p.name,
         description: p.description,
+        homepage: p.homepage,
       }))
     })
 }

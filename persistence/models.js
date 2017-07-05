@@ -6,6 +6,7 @@ const ProjectSchema = new Schema({
   owner: String,
   name: String,
   description: String,
+  homepage: String,
   isFeatured: Boolean,
   css: String,
   html: String,

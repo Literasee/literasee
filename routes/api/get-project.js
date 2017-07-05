@@ -53,6 +53,7 @@ module.exports = (req, res, next) => {
         owner: ghRepoInfo.owner.login,
         name: ghRepoInfo.name,
         description: ghRepoInfo.description,
+        homepage: ghRepoInfo.homepage,
         isFeatured: false,
         css: contents.css,
         html: contents.html,
