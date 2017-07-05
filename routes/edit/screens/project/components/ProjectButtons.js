@@ -36,7 +36,7 @@ export default class extends Component {
           }}
           type="button"
           name="button"
-          disabled={isSaving}
+          disabled={isSaving || !changesExist}
           className="btn btn-primary"
         >
           {isSaving ? 'Saving...' : 'Save'}
