@@ -5,17 +5,24 @@ const requests = require('./requestFactory')
 const mergeUserProjects = user => {
   // any repos the user has access to that have 'literasee' as a topic
   const taggedRepos = JSON.parse(user.repos).filter(repo => repo.topics.includes('literasee'))
+  const repoNames = taggedRepos.map(tr => tr.name)
 
   // db.getProjectsByOwner() will return any repo the user has opened in the app
   // regardless of topics
-  return db.getProjectsByOwner(user.username).then(projects => {
-    // TODO: return thumbnail, etc.
-    return projects.concat(taggedRepos).map(p => ({
-      owner: typeof p.owner === 'string' ? p.owner : p.owner.login,
-      name: p.name,
-      description: p.description,
-    }))
-  })
+  return db
+    .getProjectsByOwner(user.username)
+    .then(dbProjects => {
+      // prevent duplicates when a project was already loaded from GitHub
+      return dbProjects.filter(p => !repoNames.includes(p.name))
+    })
+    .then(projects => {
+      // TODO: return thumbnail, etc.
+      return projects.concat(taggedRepos).map(p => ({
+        owner: typeof p.owner === 'string' ? p.owner : p.owner.login,
+        name: p.name,
+        description: p.description,
+      }))
+    })
 }
 
 module.exports = (req, res) => {
