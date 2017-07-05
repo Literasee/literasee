@@ -52,6 +52,10 @@ router.post('/:owner/:name', (req, res) => {
     debug: true,
     compilerOptions: { spellcheck: false },
   })
+    .once('error', e => {
+      console.log(e)
+      res.json(e)
+    })
     .once('update', ({ html, css, js }) => {
       res.json({
         html,

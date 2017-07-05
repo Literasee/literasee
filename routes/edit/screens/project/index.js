@@ -109,6 +109,7 @@ class Project extends Component {
         err => console.error(err),
       )
       .then(res => {
+        if (!res.html) throw res
         this.setState({
           project: Object.assign({}, this.state.project, res, {
             etag: etag,
@@ -116,6 +117,7 @@ class Project extends Component {
           isPreviewCurrent: true,
         })
       })
+      .catch(e => console.log('error:', e))
   }
 
   onCancelChanges() {
