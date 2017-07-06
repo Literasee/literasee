@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
+import CreateProject from '../CreateProject'
 import Logo from './Logo'
 import Overlay from '../overlay'
 
@@ -26,11 +27,11 @@ class AuthenticatedHeader extends Component {
       })
   }
 
-  createProject() {
+  createProject(repoName) {
     const { history, username } = this.props
 
     Overlay.show()
-    fetch('/api/create', {
+    fetch(`/api/create/${repoName}`, {
       credentials: 'include',
     })
       .then(req => req.json(), err => console.error(err))
@@ -45,17 +46,12 @@ class AuthenticatedHeader extends Component {
 
     return (
       <header className={styles.container + ' container-fluid'}>
+        <CreateProject onConfirmCreate={this.createProject} />
         <div>
-          <button
-            type="button"
-            name="button"
-            className="btn btn-primary"
-            onClick={this.createProject}
-          >
-            Create a Project
-          </button>
+          <a href="/">
+            <Logo scale="0.6" />
+          </a>
         </div>
-        <div><a href="/"><Logo scale="0.6" /></a></div>
         <div>
           <nav role="navigation" className="pure-menu pure-menu-horizontal">
             <ul className="list-inline list-unstyled cf fl-right">
@@ -67,7 +63,9 @@ class AuthenticatedHeader extends Component {
                   </a>}
                 <ul className="pure-menu-children">
                   <li className="pure-menu-item">
-                    <a href="/logout" className="pure-menu-link">Log out</a>
+                    <a href="/logout" className="pure-menu-link">
+                      Log out
+                    </a>
                   </li>
                 </ul>
               </li>
