@@ -7,6 +7,7 @@ export default ({ href, layout, theme, onLayoutChanged, onThemeChanged }) =>
     <div>
       Layout:
       <select value={layout} onChange={onLayoutChanged}>
+        <option value="none">None</option>
         <option value="blog">Blog</option>
         <option value="centered">Centered</option>
       </select>
@@ -14,6 +15,7 @@ export default ({ href, layout, theme, onLayoutChanged, onThemeChanged }) =>
     <div>
       Theme:
       <select value={theme} onChange={onThemeChanged}>
+        <option value="none">None</option>
         <option value="idyll">Idyll</option>
         <option value="github">GitHub</option>
       </select>
