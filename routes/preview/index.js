@@ -31,10 +31,10 @@ router.post('/:owner/:name', (req, res) => {
   const { username } = req.cookies
   const { source, layout = 'blog', theme = 'github' } = req.body
 
-  // TODO: add support for orgs
-  if (owner !== username) {
-    return res.status(404).send('You do not have permission to update this project preview.')
-  }
+  // TODO: verify user has permissions to owner org
+  // if (owner !== username) {
+  //   return res.status(404).send('You do not have permission to update this project preview.')
+  // }
 
   const dir = join(__dirname, '..', '..', 'tmp', owner, name)
   const customStyles = join(dir, 'custom-styles.css')

@@ -20,8 +20,8 @@ export default () =>
         render={({ match }) => <Redirect to={`${match.url}/edit`.replace('//', '/')} />}
       />
       <Switch>
-        <Route path="/:username/:project/:mode" component={ProjectScreen} />
         <Route path="/:username/:owner/:project/:mode" component={ProjectScreen} />
+        <Route path="/:username/:project/:mode" component={ProjectScreen} />
       </Switch>
 
       <Footer />
