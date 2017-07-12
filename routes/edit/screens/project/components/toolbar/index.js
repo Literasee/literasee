@@ -28,7 +28,7 @@ export default ({ params, project, layout, theme, onLayoutChanged, onThemeChange
       {mode === 'edit' && <EditTools />}
       {mode === 'preview' &&
         <PreviewTools
-          href={`/preview/${owner || username}/${projectName}`}
+          href={`/preview/${username}/${projectName}`}
           layout={layout}
           theme={theme}
           onLayoutChanged={onLayoutChanged}
