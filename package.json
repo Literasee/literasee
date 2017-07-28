@@ -4,8 +4,8 @@
   "description": "Literasee platform viewer and editor",
   "main": "index.js",
   "engines": {
-    "node": "8.1.4",
-    "npm": "5.0.3"
+    "node": ">=8.1.4",
+    "npm": ">=5.0.3"
   },
   "scripts": {
     "build": "webpack --config webpack.config.prod.js",
@@ -44,7 +44,7 @@
     "dotenv": "^2.0.0",
     "express": "^4.13.3",
     "handlebars": "^4.0.5",
-    "idyll": "^1.10.3",
+    "idyll": "^1.12.0",
     "image-size-stream": "^1.1.0",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.0.0",
