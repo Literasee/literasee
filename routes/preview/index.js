@@ -6,6 +6,12 @@ const router = express.Router()
 router.use(require('cookie-parser')())
 router.use(require('body-parser').json({ limit: '10mb' }))
 
+router.get('/:owner/:name/:dir/:asset', (req, res) => {
+  const { owner, name, dir, asset } = req.params
+  res.setHeader('Cache-Control', 'no-cache')
+  res.sendFile(join(__dirname, '..', '..', 'tmp', owner, name, dir, asset))
+})
+
 router.get('/:owner/:name/:asset?', (req, res) => {
   const { owner, name, asset } = req.params
   const dir = join(__dirname, '..', '..', 'tmp', owner, name)
