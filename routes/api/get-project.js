@@ -7,7 +7,11 @@ const getProjectFromDB = (owner, name) => {
 }
 
 const getRepoInfo = (req, dbProject) => {
-  return requests.getRepoInfo(req, dbProject && dbProject.etag)
+  // return requests.getRepoInfo(req, dbProject && dbProject.etag)
+  // turning off conditional requests for now
+  // relying on etag doesn't account for scenarios where we
+  // don't have a primed cache, like after an app deploy
+  return requests.getRepoInfo(req)
 }
 
 const getLastCommit = (req, repo) => {
