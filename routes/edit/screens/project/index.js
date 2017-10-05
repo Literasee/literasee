@@ -14,12 +14,8 @@ class Project extends Component {
     this.onCodeChanged = this.onCodeChanged.bind(this)
     this.onLayoutChanged = this.onLayoutChanged.bind(this)
     this.onThemeChanged = this.onThemeChanged.bind(this)
-    this.applyCodeChanges = this.applyCodeChanges.bind(this)
     this.onCancelChanges = this.onCancelChanges.bind(this)
     this.onSaveChanges = this.onSaveChanges.bind(this)
-
-    // don't react to every keystroke
-    this.applyCodeChanges = debounce(this.applyCodeChanges, 500)
   }
 
   fetchProject(params) {
@@ -38,7 +34,6 @@ class Project extends Component {
         layout: project.layout,
         theme: project.theme,
       })
-      this.applyCodeChanges(project.source)
     })
   }
 
@@ -69,68 +64,25 @@ class Project extends Component {
   }
 
   onCodeChanged(code) {
-    this.setState({ code }, () => {
-      this.applyCodeChanges(code)
-    })
+    this.setState({ code })
   }
 
   onLayoutChanged(e) {
-    this.setState({ layout: e.target.value }, this.applyCodeChanges)
+    this.setState({ layout: e.target.value })
   }
 
   onThemeChanged(e) {
-    this.setState({ theme: e.target.value }, this.applyCodeChanges)
-  }
-
-  applyCodeChanges(newCode) {
-    const { project, layout, theme } = this.state
-    const { owner, name } = project
-
-    this.setState({ isPreviewCurrent: false })
-    let etag = null
-
-    fetch(`/preview/${owner}/${name}`, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-      credentials: 'include',
-      body: JSON.stringify({
-        source: newCode || project.source,
-        layout: layout || project.layout,
-        theme: theme || project.theme,
-      }),
-    })
-      .then(
-        res => {
-          etag = res.headers.get('etag')
-          return res.json()
-        },
-        err => console.error(err),
-      )
-      .then(res => {
-        if (!res.html) throw res
-        this.setState({
-          project: Object.assign({}, this.state.project, res, {
-            etag: etag,
-          }),
-          isPreviewCurrent: true,
-        })
-      })
-      .catch(e => console.log('error:', e))
+    this.setState({ theme: e.target.value })
   }
 
   onCancelChanges() {
     const { project, layout, theme } = this.state
 
-    this.setState(
-      {
-        code: project.source,
-        layout: project.layout,
-        theme: project.theme,
-      },
-      this.applyCodeChanges,
-    )
+    this.setState({
+      code: project.source,
+      layout: project.layout,
+      theme: project.theme,
+    })
   }
 
   saveKeywords() {
@@ -147,7 +99,11 @@ class Project extends Component {
 
     return (
       <div className={styles.container}>
-        <ProjectMetadata save={this.saveKeywords} project={project} {...this.props} />
+        <ProjectMetadata
+          save={this.saveKeywords}
+          project={project}
+          {...this.props}
+        />
         <ProjectEditor
           params={match.params}
           project={project}

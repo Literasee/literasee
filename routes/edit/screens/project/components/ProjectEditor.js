@@ -4,7 +4,6 @@ import CodeEditor from './CodeEditor'
 import Toolbar from './toolbar'
 import ProjectPreview from './ProjectPreview'
 import ProjectButtons from './ProjectButtons'
-import PendingChangesOverlay from './PendingChangesOverlay'
 
 import styles from './ProjectEditor.styl'
 
@@ -23,7 +22,9 @@ export default ({
 }) => {
   const mode = params.mode || 'edit'
   const changesExist =
-    code !== project.source || layout !== project.layout || theme !== project.theme
+    code !== project.source ||
+    layout !== project.layout ||
+    theme !== project.theme
 
   return (
     <div className={styles.container}>
@@ -42,8 +43,11 @@ export default ({
           onCodeChange={onCodeChanged}
           onSave={onSaveChanges}
         />
-        <ProjectPreview isActive={mode === 'preview'} etag={project.etag} params={params} />
-        {mode === 'preview' && <PendingChangesOverlay isVisible={!isPreviewCurrent} />}
+        <ProjectPreview
+          code={code}
+          isActive={mode === 'preview'}
+          params={params}
+        />
       </div>
       <ProjectButtons
         changesExist={changesExist}
