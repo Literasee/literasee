@@ -14,7 +14,7 @@ Here is how you can use a variable:
 [var name:"exampleVar" value: 5 /]
 
 [Range min:0 max:10 value:exampleVar /]
-[DisplayVar var:exampleVar /]
+[Display var:exampleVar /]
 
 You can use standard html tags if a
 component with the same name
