@@ -1,8 +1,10 @@
 const { join } = require('path')
 const webpack = require('webpack')
 
+const oauthBase = 'https://github.com/login/oauth/authorize?client_id='
+
 module.exports = {
-  devtool: 'eval',
+  devtool: 'cheap-module-eval-source-map',
   entry: [join(__dirname, 'routes', 'edit', 'app')],
   output: {
     path: join(__dirname, 'public'),
@@ -18,7 +20,7 @@ module.exports = {
     new webpack.DefinePlugin({
       GH_CLIENT_ID: JSON.stringify(process.env.GH_CLIENT_ID),
       OAUTH_URL: JSON.stringify(
-        `https://github.com/login/oauth/authorize?client_id=${process.env.GH_CLIENT_ID}&scope=repo`,
+        `${oauthBase}${process.env.GH_CLIENT_ID}&scope=repo`,
       ),
     }),
   ],
