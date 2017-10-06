@@ -6,7 +6,7 @@ const oauthBase = 'https://github.com/login/oauth/authorize?client_id='
 const { GH_CLIENT_ID } = process.env
 
 module.exports = merge(common, {
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'cheap-module-source-map',
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
