@@ -2,7 +2,7 @@ import React from 'react'
 
 import styles from './PreviewTools.styl'
 
-export default ({ href, layout, theme, onLayoutChanged, onThemeChanged }) =>
+export default ({ href, layout, theme, onLayoutChanged, onThemeChanged }) => (
   <div className={styles.container}>
     <div>
       Layout:
@@ -20,7 +20,10 @@ export default ({ href, layout, theme, onLayoutChanged, onThemeChanged }) =>
         <option value="github">GitHub</option>
       </select>
     </div>
+    {/*
     <a href={href} target="_blank">
       Open in New Window
     </a>
+    */}
   </div>
+)
