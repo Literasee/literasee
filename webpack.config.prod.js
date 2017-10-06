@@ -15,6 +15,9 @@ module.exports = {
     modules: [join(__dirname, 'routes', 'edit'), 'node_modules'],
   },
   plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
+    }),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production'),

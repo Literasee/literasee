@@ -2458,9 +2458,9 @@ icss-utils@^2.1.0:
   dependencies:
     postcss "^6.0.1"
 
-idyll-compiler@^2.0.0-beta.0:
-  version "2.0.0-beta.0"
-  resolved "https://registry.yarnpkg.com/idyll-compiler/-/idyll-compiler-2.0.0-beta.0.tgz#b97f8a780b9052ea39bde7e81dcdaf88391d188f"
+idyll-compiler@^2.0.0-beta.2:
+  version "2.0.0-beta.2"
+  resolved "https://registry.yarnpkg.com/idyll-compiler/-/idyll-compiler-2.0.0-beta.2.tgz#7d82e9e796100decc40860e78210821ca70ddb0a"
   dependencies:
     lex "^1.7.9"
     nearley "^2.7.12"
@@ -2482,9 +2482,9 @@ idyll-components@^2.0.0-beta.1:
     react-table "^6.6.0"
     victory "^0.23.0"
 
-idyll-document@^2.0.0-beta.1:
-  version "2.0.0-beta.1"
-  resolved "https://registry.yarnpkg.com/idyll-document/-/idyll-document-2.0.0-beta.1.tgz#10d5ef126a15d9ca668826d6969566dac2724657"
+idyll-document@^2.0.0-beta.2:
+  version "2.0.0-beta.2"
+  resolved "https://registry.yarnpkg.com/idyll-document/-/idyll-document-2.0.0-beta.2.tgz#90ce4e72685ee4a530f3f7aba53cd05b99896f03"
   dependencies:
     change-case "^3.0.1"
     cross-env "^5.0.5"
