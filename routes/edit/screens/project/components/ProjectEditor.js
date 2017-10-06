@@ -2,7 +2,7 @@ import React from 'react'
 import _ from 'lodash'
 import CodeEditor from './CodeEditor'
 import Toolbar from './toolbar'
-import ProjectPreview from './ProjectPreview'
+import DocWrapper from './DocWrapper'
 import ProjectButtons from './ProjectButtons'
 
 import styles from './ProjectEditor.styl'
@@ -37,17 +37,24 @@ export default ({
         onThemeChanged={onThemeChanged}
       />
       <div style={{ display: 'flex', flex: 1, position: 'relative' }}>
-        <CodeEditor
-          isActive={mode === 'edit'}
-          code={code}
-          onCodeChange={onCodeChanged}
-          onSave={onSaveChanges}
-        />
-        <ProjectPreview
-          code={code}
-          isActive={mode === 'preview'}
-          params={params}
-        />
+        {mode === 'edit' && (
+          <CodeEditor
+            style={{
+              flex: mode === 'edit' ? 1 : 0,
+            }}
+            code={code}
+            onCodeChange={onCodeChanged}
+            onSave={onSaveChanges}
+          />
+        )}
+        {mode === 'preview' && (
+          <DocWrapper
+            style={{
+              flex: mode === 'preview' ? 1 : 0,
+            }}
+            code={code}
+          />
+        )}
       </div>
       <ProjectButtons
         changesExist={changesExist}

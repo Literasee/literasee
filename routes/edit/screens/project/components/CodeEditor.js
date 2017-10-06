@@ -5,9 +5,7 @@ import markdownSyntax from 'brace/mode/markdown'
 
 import styles from './CodeEditor.styl'
 
-export default ({ code, isActive, onCodeChange, onSave }) => {
-  if (!isActive) return <div />
-
+export default ({ code, onCodeChange, onSave, style }) => {
   const onLoad = editor => {
     editor.commands.addCommand({
       name: 'saveChanges',
@@ -20,7 +18,7 @@ export default ({ code, isActive, onCodeChange, onSave }) => {
   }
 
   return (
-    <div className={styles.container} style={{ flex: isActive ? 1 : 0 }}>
+    <div className={styles.container} style={style}>
       <AceEditor
         mode="markdown"
         theme="github"
