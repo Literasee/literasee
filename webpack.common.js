@@ -1,36 +1,25 @@
 const { join } = require('path')
 const webpack = require('webpack')
 
-const oauthBase = 'https://github.com/login/oauth/authorize?client_id='
+const editRoute = join(__dirname, 'routes', 'edit')
 
 module.exports = {
-  devtool: 'cheap-module-eval-source-map',
-  entry: [join(__dirname, 'routes', 'edit', 'app')],
+  entry: join(editRoute, 'app'),
   output: {
     path: join(__dirname, 'public'),
     filename: 'bundle.js',
     publicPath: '/public/',
   },
   resolve: {
-    modules: [join(__dirname, 'routes', 'edit'), 'node_modules'],
+    modules: [editRoute, 'node_modules'],
   },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.DefinePlugin({
-      GH_CLIENT_ID: JSON.stringify(process.env.GH_CLIENT_ID),
-      OAUTH_URL: JSON.stringify(
-        `${oauthBase}${process.env.GH_CLIENT_ID}&scope=repo`,
-      ),
-    }),
-  ],
   node: { fs: 'empty' },
   module: {
     rules: [
       {
         test: /\.js$/,
         use: ['babel-loader'],
-        include: join(__dirname, 'routes', 'edit'),
+        include: editRoute,
       },
       {
         test: /\.styl$/,
@@ -46,7 +35,7 @@ module.exports = {
           },
           'stylus-loader',
         ],
-        include: join(__dirname, 'routes', 'edit'),
+        include: editRoute,
       },
       {
         test: /\.idl$/,

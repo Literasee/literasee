@@ -19,7 +19,7 @@ app.set('json spaces', 2)
 
 // local dev only
 if (!process.env.PORT) {
-  var config = require('./webpack.config.dev')
+  var config = require('./webpack.dev')
   var compiler = require('webpack')(config)
 
   app.use(
