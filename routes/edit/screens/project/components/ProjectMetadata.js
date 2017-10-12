@@ -44,15 +44,17 @@ export default props => {
         <Link to={'/' + props.match.params.username} className={styles.backBtn}>
           <img src="/public/img/icon-back.png" /> Back
         </Link>
-        <h1>
-          {title}
-        </h1>
-        <p>
-          {subTitle}
-        </p>
-        {project.homepage && <a href={project.homepage}>Published Site</a>}
+        <h1>{title}</h1>
+        <p>{subTitle}</p>
+        {project.homepage && (
+          <a href={project.homepage.replace(/ /g, '-')}>Published Site</a>
+        )}
       </div>
-      <Keywords keywords={project.keywords} add={addKeyword} remove={removeKeyword} />
+      <Keywords
+        keywords={project.keywords}
+        add={addKeyword}
+        remove={removeKeyword}
+      />
     </div>
   )
 }
