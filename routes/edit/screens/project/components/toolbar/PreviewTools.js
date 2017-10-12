@@ -21,10 +21,8 @@ export default ({ href, layout, theme, onLayoutChanged, onThemeChanged }) => (
         <option value="tufte">Tufte</option>
       </select>
     </div>
-    {/*
-    <a href={href} target="_blank">
+    <a href={`/preview/${layout}/${theme}/${href}`} target="_blank">
       Open in New Window
     </a>
-    */}
   </div>
 )
