@@ -4,6 +4,19 @@ import ProjectEditor from './components/ProjectEditor'
 import debounce from 'lodash/debounce'
 
 import styles from './Project.styl'
+import { layouts, themes } from './IdyllStyles'
+
+const applyStylesheet = (styleTagID, css) => {
+  const sheetToBeRemoved = document.getElementById(styleTagID)
+  if (sheetToBeRemoved) {
+    sheetToBeRemoved.parentNode.removeChild(sheetToBeRemoved)
+  }
+
+  const sheet = document.createElement('style')
+  sheet.id = styleTagID
+  sheet.innerHTML = css
+  document.body.appendChild(sheet)
+}
 
 class Project extends Component {
   constructor() {
@@ -28,12 +41,18 @@ class Project extends Component {
 
   componentDidMount() {
     this.fetchProject(this.props.match.params).then(project => {
-      this.setState({
-        project,
-        code: project.source,
-        layout: project.layout,
-        theme: project.theme,
-      })
+      this.setState(
+        {
+          project,
+          code: project.source,
+          layout: project.layout,
+          theme: project.theme,
+        },
+        () => {
+          applyStylesheet('layoutStyles', layouts[project.layout])
+          applyStylesheet('themeStyles', themes[project.theme])
+        },
+      )
     })
   }
 
@@ -68,11 +87,17 @@ class Project extends Component {
   }
 
   onLayoutChanged(e) {
-    this.setState({ layout: e.target.value })
+    this.setState(
+      { layout: e.target.value },
+      applyStylesheet('layoutStyles', layouts[e.target.value]),
+    )
   }
 
   onThemeChanged(e) {
-    this.setState({ theme: e.target.value })
+    this.setState(
+      { theme: e.target.value },
+      applyStylesheet('themeStyles', themes[e.target.value]),
+    )
   }
 
   onCancelChanges() {

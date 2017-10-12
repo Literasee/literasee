@@ -18,6 +18,7 @@ export default ({ href, layout, theme, onLayoutChanged, onThemeChanged }) => (
         <option value="none">None</option>
         <option value="idyll">Idyll</option>
         <option value="github">GitHub</option>
+        <option value="tufte">Tufte</option>
       </select>
     </div>
     {/*

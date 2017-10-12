@@ -38,7 +38,7 @@ module.exports = {
         include: editRoute,
       },
       {
-        test: /\.idl$/,
+        test: /(\.idl$|\.css$)/,
         use: 'raw-loader',
       },
     ],

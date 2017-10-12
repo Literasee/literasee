@@ -1,0 +1,58 @@
+.idyll-root body {
+  margin: 0;
+}
+
+.idyll-root {
+  box-sizing: border-box;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 60px 0;
+  margin-bottom: 60px;
+  width: calc(100vw - 2 * 250px);
+}
+
+.idyll-root .article-header {
+  margin-bottom: 45px;
+}
+
+.idyll-root .inset {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.idyll-root input {
+  cursor: pointer;
+}
+
+.idyll-root .relative {
+  position: relative;
+}
+.idyll-root .aside {
+  position: absolute;
+  width: 200px;
+  right: -225px;
+}
+
+@media all and (max-width: 1000px) {
+
+  .idyll-root {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 60px 20px;
+    margin-bottom: 60px;
+    width: 100%;
+  }
+
+  .idyll-root .desktop {
+    display: none;
+  }
+  .idyll-root .relative {
+    position: static;
+  }
+  .idyll-root .aside {
+    position: static;
+    width: 100%;
+    right: 0;
+  }
+
+}
