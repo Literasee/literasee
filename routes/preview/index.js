@@ -1,4 +1,4 @@
-const fs = require('fs')
+const { existsSync, readFileSync: rfs } = require('fs')
 const { join } = require('path')
 const express = require('express')
 const router = express.Router()
@@ -19,7 +19,7 @@ router.get('/:layout/:theme/:owner/:name/:asset?', (req, res) => {
   const { layout, theme, owner, name, asset } = req.params
   const dir = join(tmpDir, owner, name)
 
-  if (!fs.existsSync(dir)) {
+  if (!existsSync(dir)) {
     return res.status(404).send('Project does not exist.')
   }
 
@@ -30,14 +30,16 @@ router.get('/:layout/:theme/:owner/:name/:asset?', (req, res) => {
   }
 
   res.setHeader('Cache-Control', 'no-cache')
+  // dynamically construct and send CSS based on URL
   if (asset === 'styles.css') {
-    const layoutCSS = fs.readFileSync(
-      join(templatesDir, 'layouts', `${layout}.css`),
-    )
-    const themeCSS = fs.readFileSync(
-      join(templatesDir, 'themes', `${theme}.css`),
-    )
-    res.type('css').send([layoutCSS, themeCSS].join('\n'))
+    res
+      .type('css')
+      .send(
+        [
+          rfs(join(templatesDir, 'layouts', `${layout}.css`)),
+          rfs(join(templatesDir, 'themes', `${theme}.css`)),
+        ].join('\n'),
+      )
   } else {
     res.sendFile(join(dir, asset || 'index.html'))
   }
