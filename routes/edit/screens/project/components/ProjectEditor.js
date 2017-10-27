@@ -14,7 +14,9 @@ export default ({
   layout,
   theme,
   isPreviewCurrent,
+  onEditorInit,
   onCodeChanged,
+  onToolbarButtonClick,
   onLayoutChanged,
   onThemeChanged,
   onCancelChanges,
@@ -33,6 +35,7 @@ export default ({
         project={project}
         layout={layout}
         theme={theme}
+        onButtonClick={onToolbarButtonClick}
         onLayoutChanged={onLayoutChanged}
         onThemeChanged={onThemeChanged}
       />
@@ -43,6 +46,7 @@ export default ({
               flex: mode === 'edit' ? 1 : 0,
             }}
             code={code}
+            onEditorInit={onEditorInit}
             onCodeChange={onCodeChanged}
             onSave={onSaveChanges}
           />

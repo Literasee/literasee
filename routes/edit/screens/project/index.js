@@ -24,11 +24,13 @@ class Project extends Component {
     this.state = { originalCode: null }
 
     this.saveKeywords = this.saveKeywords.bind(this)
+    this.onEditorInit = this.onEditorInit.bind(this)
     this.onCodeChanged = this.onCodeChanged.bind(this)
     this.onLayoutChanged = this.onLayoutChanged.bind(this)
     this.onThemeChanged = this.onThemeChanged.bind(this)
     this.onCancelChanges = this.onCancelChanges.bind(this)
     this.onSaveChanges = this.onSaveChanges.bind(this)
+    this.onToolbarButtonClick = this.onToolbarButtonClick.bind(this)
   }
 
   fetchProject(params) {
@@ -86,6 +88,62 @@ class Project extends Component {
     this.setState({ code })
   }
 
+  onEditorInit(el) {
+    this.aceEditor = el
+  }
+
+  onToolbarButtonClick(buttonID) {
+    const wrapper = {
+      b: { front: '**', back: '**' },
+      i: { front: '_', back: '_' },
+      c: { front: '`', back: '`' },
+      q: { front: '> ', back: '' },
+      u: { front: '- ', back: '' },
+      o: { front: '1. ', back: '' },
+      k: { front: '[', back: ']()', cursor: -1 },
+    }[buttonID]
+
+    const { editor } = this.aceEditor
+    const { session } = editor
+    const selection = session.getSelection()
+    const { start, end } = selection.getRange()
+
+    // wrap the selection and stick it between
+    // the code before and after the selection
+    const code = [
+      this.state.code.substr(0, session.doc.positionToIndex(start)),
+      wrapper.front,
+      editor.getSelectedText(),
+      wrapper.back,
+      this.state.code.substr(session.doc.positionToIndex(end)),
+    ].join('')
+
+    // now update the state with new code
+    // and update the selection/cursor
+    this.setState(
+      {
+        code,
+      },
+      () => {
+        // selection is positional so it must be moved
+        // to maintain the same selected characters
+        selection.shiftSelection(wrapper.front.length)
+        // ensure the cursor is at the end of selected text
+        selection.moveCursorToPosition(selection.getRange().end)
+        // if operation was not a simple wrap we unselect
+        if (wrapper.back === '') selection.clearSelection()
+        // custom cursor position is assumed to be
+        // a negative number/distance from the end of the wrapper's back
+        if (wrapper.cursor) {
+          selection.moveCursorBy(0, wrapper.back.length + wrapper.cursor)
+          selection.clearSelection()
+        }
+        // restore focus since clicking the button removes it
+        editor.focus()
+      },
+    )
+  }
+
   onLayoutChanged(e) {
     this.setState(
       { layout: e.target.value },
@@ -136,7 +194,9 @@ class Project extends Component {
           layout={layout}
           theme={theme}
           isPreviewCurrent={isPreviewCurrent}
+          onEditorInit={this.onEditorInit}
           onCodeChanged={this.onCodeChanged}
+          onToolbarButtonClick={this.onToolbarButtonClick}
           onLayoutChanged={this.onLayoutChanged}
           onThemeChanged={this.onThemeChanged}
           onCancelChanges={this.onCancelChanges}

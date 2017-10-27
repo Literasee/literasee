@@ -10,6 +10,7 @@ export default ({
   project,
   layout,
   theme,
+  onButtonClick,
   onLayoutChanged,
   onThemeChanged,
 }) => {
@@ -38,7 +39,7 @@ export default ({
           Preview
         </NavLink>
       </nav>
-      {mode === 'edit' && <EditTools />}
+      {mode === 'edit' && <EditTools onButtonClick={onButtonClick} />}
       {mode === 'preview' && (
         <PreviewTools
           href={`${owner || username}/${projectName}`}

@@ -5,7 +5,7 @@ import markdownSyntax from 'brace/mode/markdown'
 
 import styles from './CodeEditor.styl'
 
-export default ({ code, onCodeChange, onSave, style }) => {
+export default ({ code, onEditorInit, onCodeChange, onSave, style }) => {
   const onLoad = editor => {
     editor.commands.addCommand({
       name: 'saveChanges',
@@ -23,6 +23,7 @@ export default ({ code, onCodeChange, onSave, style }) => {
         mode="markdown"
         theme="github"
         name="aceEditor"
+        ref={onEditorInit}
         value={code}
         className={styles.aceEditor}
         showPrintMargin={false}
