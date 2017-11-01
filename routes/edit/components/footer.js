@@ -10,7 +10,9 @@ export default () => {
         paddingLeft: '2rem',
       }}
     >
-      <p className="dimmed mt1">&copy; {year} Literasee</p>
+      <p className="dimmed" style={{ margin: '0.7rem 0' }}>
+        &copy; {year} Literasee
+      </p>
     </footer>
   )
 }
