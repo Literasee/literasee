@@ -1,10 +1,12 @@
-.idyll-root * {
+.doc-wrapper * {
   box-sizing: border-box;
 }
 
-.idyll-root html {
+.doc-wrapper {
   margin: 0;
   padding: 0;
+  color: black;
+  font-family: serif;
 }
 
 .idyll-root img {
@@ -12,19 +14,15 @@
   width: 100%;
 }
 
-.idyll-root body {
-  margin: 0;
-  padding: 0;
-}
-
-.idyll-root h1,.idyll-root h2,.idyll-root h3,.idyll-root h4,.idyll-root h5,.idyll-root h6{
+.idyll-root h1,
+.idyll-root h2,
+.idyll-root h3,
+.idyll-root h4,
+.idyll-root h5,
+.idyll-root h6 {
+  color: #111;
   margin: 40px 0 20px 0;
   font-weight: bold;
-}
-
-
-.idyll-root body {
-  color: black;
 }
 
 .idyll-root p, .idyll-root .article-body {
@@ -95,13 +93,12 @@
   text-align: initial;
   font-style: normal;
 }
+
 .idyll-root code {
   background: #F2F3F2;
   color: black;
   padding: 1px 5px;
 }
-
-
 
 .idyll-root span.action {
   border-color: #5601FF;
@@ -113,4 +110,3 @@
   margin: 0 5px;
   cursor: pointer;
 }
-
