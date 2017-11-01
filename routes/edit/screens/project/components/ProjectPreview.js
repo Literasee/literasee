@@ -6,7 +6,7 @@ import styles from './ProjectPreview.styl'
 
 export default ({ code }) => (
   <div className={styles.container}>
-    <div className={styles.previewWrapper}>
+    <div className={styles.previewWrapper + ' doc-wrapper'}>
       <IdyllDocument key={code} ast={compile(code)} components={components} />
     </div>
   </div>
