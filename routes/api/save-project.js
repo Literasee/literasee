@@ -48,7 +48,7 @@ module.exports = function(req, res) {
   build(req, (err, artifacts) => {
     if (err) return res.status(500).json(err)
 
-    const project = { ...req.body, ...artifacts }
+    const project = Object.assign({}, req.body, artifacts)
 
     requests
       .createTree(req, project)
