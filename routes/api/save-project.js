@@ -46,7 +46,7 @@ const build = (req, cb) => {
 
 module.exports = function(req, res) {
   build(req, (err, artifacts) => {
-    if (err) return res.status(500).json(e)
+    if (err) return res.status(500).json(err)
 
     const project = { ...req.body, ...artifacts }
 
