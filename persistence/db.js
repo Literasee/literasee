@@ -7,16 +7,16 @@ const uri = process.env.MONGOLAB_URI || 'mongodb://localhost/literasee'
 
 function open(callback) {
   const _open = (resolve, reject) => {
-    mongoose
-      .connect(uri)
-      .connection.on('error', function(err) {
-        console.error.bind(console, 'connection error:')
-        reject(err)
-      })
-      .once('open', function() {
+    mongoose.connect(uri, { useMongoClient: true }).then(
+      () => {
         console.log('Connected to database at %s', uri)
         resolve(mongoose.connection)
-      })
+      },
+      err => {
+        console.error.bind(console, 'connection error:')
+        reject(err)
+      },
+    )
   }
 
   return new Promise(_open).nodeify(callback)
