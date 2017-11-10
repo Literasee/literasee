@@ -5,7 +5,10 @@ class LiteraseeLogo extends Component {
     return (
       <div className="logo-lockup">
         <a href="https://literasee.io/">
-          <img className="logo" src="leaf.svg" />
+          <img
+            className="logo"
+            src="https://literasee.io/public/img/literasee-logo.svg"
+          />
           <small>Made with Literasee</small>
         </a>
       </div>
