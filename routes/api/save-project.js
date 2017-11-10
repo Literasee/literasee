@@ -20,7 +20,7 @@ const build = (req, cb) => {
   idyll({
     output: dir,
     temp: dir,
-    components: join(dir, 'components'),
+    components: join(__dirname, '..', '..', 'components-cjs'),
     datasets: join(dir, 'data'),
     css: fs.existsSync(customStyles) ? customStyles : undefined,
     layout,

@@ -38,3 +38,4 @@ cache
 .idea
 public/bundle.*
 tmp
+components-cjs
