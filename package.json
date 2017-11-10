@@ -8,8 +8,9 @@
     "npm": "5.0.3"
   },
   "scripts": {
-    "build": "webpack --config webpack.prod.js",
-    "dev": "nodemon -w persistence -w routes/api -w routes/preview -w routes/edit/index.js index.js",
+    "build-components": "babel routes/edit/screens/project/components/literasee-components -d components-cjs",
+    "build": "yarn run build-components && webpack --config webpack.prod.js",
+    "dev": "yarn run build-components && nodemon -w persistence -w routes/api -w routes/preview -w routes/edit/index.js index.js",
     "start": "node index.js",
     "postinstall": "npm run build"
   },
@@ -25,6 +26,7 @@
   "homepage": "https://github.com/Literasee/literasee#readme",
   "dependencies": {
     "async": "^2.6.0",
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
