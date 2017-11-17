@@ -3365,9 +3365,9 @@ idyll-document@^2.0.4:
     scrollmonitor "^1.2.3"
     scrollparent "^2.0.1"
 
-idyll@^2.0.5:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/idyll/-/idyll-2.0.5.tgz#9655263b6358ae195b6f8323a7aa5a4a24b35d70"
+idyll@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/idyll/-/idyll-2.0.6.tgz#8d70fdf606f4eb06527128971ce58427398b2616"
   dependencies:
     babel-preset-env "^1.6.0"
     babel-preset-react "^6.22.0"
