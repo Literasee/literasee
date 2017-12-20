@@ -40,6 +40,8 @@ router.get('/:layout/:theme/:owner/:name/:asset?', (req, res) => {
           rfs(join(templatesDir, 'themes', `${theme}.css`)),
         ].join('\n'),
       )
+  } else if (asset === 'scrolly.css') {
+    res.type('css').send(rfs(join(templatesDir, 'themes', `scrolly.css`)))
   } else {
     res.sendFile(join(dir, asset || 'index.html'))
   }

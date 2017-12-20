@@ -28,6 +28,7 @@ const build = (req, cb) => {
     minify: false,
     ssr: true,
     debug: true,
+    template: join(__dirname, '..', 'edit', 'tpl.html'),
     compilerOptions: { spellcheck: false },
   })
     .once('error', e => {
