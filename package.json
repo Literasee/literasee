@@ -4,8 +4,8 @@
   "description": "Literasee platform viewer and editor",
   "main": "index.js",
   "engines": {
-    "node": "8.1.4",
-    "npm": "5.0.3"
+    "node": "8.9.3",
+    "npm": "5.5.1"
   },
   "scripts": {
     "build-components": "babel routes/edit/screens/project/components/literasee-components -d components-cjs",
@@ -45,10 +45,10 @@
     "dotenv": "^2.0.0",
     "express": "^4.16.2",
     "handlebars": "^4.0.11",
-    "idyll": "^2.0.6",
-    "idyll-compiler": "^2.0.5",
+    "idyll": "^2.1.0",
+    "idyll-compiler": "^2.0.10",
     "idyll-components": "^2.0.0",
-    "idyll-document": "^2.0.4",
+    "idyll-document": "^2.1.0",
     "image-size-stream": "^1.1.0",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.4",

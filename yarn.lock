@@ -3328,9 +3328,9 @@ icss-utils@^2.1.0:
   dependencies:
     postcss "^6.0.1"
 
-idyll-compiler@^2.0.5:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/idyll-compiler/-/idyll-compiler-2.0.5.tgz#527835e6bc8375dbc95087860f2e66fd25d044db"
+idyll-compiler@^2.0.10:
+  version "2.0.10"
+  resolved "https://registry.yarnpkg.com/idyll-compiler/-/idyll-compiler-2.0.10.tgz#faaf245db5038d2f3c90525e56d981b368de39e6"
   dependencies:
     lex "^1.7.9"
     nearley "^2.7.12"
@@ -3352,9 +3352,9 @@ idyll-components@^2.0.0:
     react-table "^6.6.0"
     victory "^0.23.0"
 
-idyll-document@^2.0.4:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/idyll-document/-/idyll-document-2.0.4.tgz#32930cdd87f6fcb9f546206357cb4359e365882e"
+idyll-document@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/idyll-document/-/idyll-document-2.1.0.tgz#c16ca49017f6124416af69e318da35731db747f6"
   dependencies:
     change-case "^3.0.1"
     cross-env "^5.0.5"
@@ -3365,9 +3365,9 @@ idyll-document@^2.0.4:
     scrollmonitor "^1.2.3"
     scrollparent "^2.0.1"
 
-idyll@^2.0.6:
-  version "2.0.6"
-  resolved "https://registry.yarnpkg.com/idyll/-/idyll-2.0.6.tgz#8d70fdf606f4eb06527128971ce58427398b2616"
+idyll@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/idyll/-/idyll-2.1.0.tgz#1a03e9a0160db30f81f04e8944d500b59fcea8d7"
   dependencies:
     babel-preset-env "^1.6.0"
     babel-preset-react "^6.22.0"
@@ -3383,9 +3383,9 @@ idyll@^2.0.6:
     dev-null "^0.1.1"
     findup-sync "^1.0.0"
     html-tags "^1.1.1"
-    idyll-compiler "^2.0.5"
+    idyll-compiler "^2.0.10"
     idyll-components "^2.0.0"
-    idyll-document "^2.0.4"
+    idyll-document "^2.1.0"
     insert-css "^2.0.0"
     mkdirp "^0.5.1"
     mustache "^2.3.0"
